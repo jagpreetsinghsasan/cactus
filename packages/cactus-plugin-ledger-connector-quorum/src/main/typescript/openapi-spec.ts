@@ -37,18 +37,13 @@ export const CACTUS_OPEN_API_JSON: OpenAPIV3.Document = {
         required: ["type"],
         discriminator: {
           propertyName: "type",
+          mapping: {
+            "CACTUS_KEYCHAIN_REF": "#/components/schemas/Web3SigningCredentialCactusKeychainRef",
+            "GETH_KEYCHAIN_PASSWORD": "#/components/schemas/Web3SigningCredentialGethKeychainPassword",
+            "PRIVATE_KEY_HEX": "#/components/schemas/Web3SigningCredentialPrivateKeyHex",
+            "NONE": "#/components/schemas/Web3SigningCredentialNone"
+          }
         },
-        oneOf: [
-          {
-            $ref:
-              "#/components/schemas/Web3SigningCredentialGethKeychainPassword",
-          },
-          {
-            $ref: "#/components/schemas/Web3SigningCredentialCactusKeychainRef",
-          },
-          { $ref: "#/components/schemas/Web3SigningCredentialPrivateKeyHex" },
-          { $ref: "#/components/schemas/Web3SigningCredentialNone" },
-        ],
         properties: {
           type: {
             $ref: "#/components/schemas/Web3SigningCredentialType",
