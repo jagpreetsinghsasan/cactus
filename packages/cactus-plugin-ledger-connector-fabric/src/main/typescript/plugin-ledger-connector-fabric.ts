@@ -40,6 +40,11 @@ import {
 } from "./run-transaction/run-transaction-endpoint-v1";
 
 import {
+  IGetPrometheusExporterMetricsV1Options,
+  GetPrometheusExporterMetricsV1,
+} from "./get-prometheus-exporter-metrics/get-prometheus-exporter-metrics-v1";
+
+import {
   ConnectionProfile,
   GatewayDiscoveryOptions,
   GatewayEventHandlerOptions,
@@ -48,6 +53,8 @@ import {
   FabricContractInvocationType,
   RunTransactionRequest,
   RunTransactionResponse,
+  PrometheusExporterMetricsRequest,
+  PrometheusExporterMetricsResponse,
 } from "./generated/openapi/typescript-axios/index";
 
 import {
@@ -55,12 +62,15 @@ import {
   IDeployContractGoSourceEndpointV1Options,
 } from "./deploy-contract-go-source/deploy-contract-go-source-endpoint-v1";
 
+import { PrometheusExporter } from "./prometheus-exporter/prometheus-exporter";
+
 export interface IPluginLedgerConnectorFabricOptions
   extends ICactusPluginOptions {
   logLevel?: LogLevelDesc;
   pluginRegistry: PluginRegistry;
   sshConfig: SshConfig;
   connectionProfile: ConnectionProfile;
+  prometheusExporter?: PrometheusExporter;
   discoveryOptions?: GatewayDiscoveryOptions;
   eventHandlerOptions?: GatewayEventHandlerOptions;
 }
@@ -78,6 +88,7 @@ export class PluginLedgerConnectorFabric
   public static readonly CLASS_NAME = "PluginLedgerConnectorFabric";
   private readonly instanceId: string;
   private readonly log: Logger;
+  public prometheusExporter: PrometheusExporter;
 
   public get className(): string {
     return PluginLedgerConnectorFabric.CLASS_NAME;
@@ -89,16 +100,39 @@ export class PluginLedgerConnectorFabric
     Checks.truthy(opts.instanceId, `${fnTag} options.instanceId`);
     Checks.truthy(opts.pluginRegistry, `${fnTag} options.pluginRegistry`);
     Checks.truthy(opts.connectionProfile, `${fnTag} options.connectionProfile`);
+    this.prometheusExporter =
+      opts.prometheusExporter ||
+      new PrometheusExporter({ pollingIntervalInMin: 1 });
+    Checks.truthy(
+      this.prometheusExporter,
+      `${fnTag} options.prometheusExporter`,
+    );
 
     const level = this.opts.logLevel || "INFO";
     const label = this.className;
     this.log = LoggerProvider.getOrCreate({ level, label });
-
     this.instanceId = opts.instanceId;
   }
 
   public shutdown(): Promise<void> {
     throw new Error("Method not implemented.");
+  }
+
+  public getPrometheusExporter(): PrometheusExporter {
+    return this.prometheusExporter;
+  }
+
+  public startPrometheusExporterMetricsCollection(): NodeJS.Timeout {
+    return this.prometheusExporter.startMetricsCollection();
+  }
+
+  public async getPrometheusExporterMetrics(
+    req: PrometheusExporterMetricsRequest,
+  ): Promise<PrometheusExporterMetricsResponse> {
+    const { promExporter } = req;
+    const res: PrometheusExporterMetricsResponse = await (promExporter as PrometheusExporter).getPrometheusMetrics();
+    this.log.debug(`getPrometheusExporterMetrics() response: %o`, res);
+    return res;
   }
 
   public getInstanceId(): string {
@@ -165,6 +199,16 @@ export class PluginLedgerConnectorFabric
       endpoints.push(endpoint);
     }
 
+    {
+      const opts: IGetPrometheusExporterMetricsV1Options = {
+        connector: this,
+        logLevel: this.opts.logLevel,
+      };
+      const endpoint = new GetPrometheusExporterMetricsV1(opts);
+      endpoint.registerExpress(expressApp);
+      endpoints.push(endpoint);
+    }
+
     const pkg = this.getPackageName();
     log.info(`Installed web services for plugin ${pkg} OK`, { endpoints });
 
@@ -175,6 +219,8 @@ export class PluginLedgerConnectorFabric
     req: RunTransactionRequest,
   ): Promise<RunTransactionResponse> {
     const fnTag = `${this.className}#transact()`;
+
+    const startTransactionTime = new Date();
 
     const { connectionProfile } = this.opts;
     const {
@@ -243,6 +289,12 @@ export class PluginLedgerConnectorFabric
         functionOutput: outUtf8,
       };
       this.log.debug(`transact() response: %o`, res);
+      const endTransactionTime = new Date();
+      this.prometheusExporter.addCurrentTransaction(
+        startTransactionTime,
+        endTransactionTime,
+      );
+
       return res;
     } catch (ex) {
       this.log.error(`transact() crashed: `, ex);

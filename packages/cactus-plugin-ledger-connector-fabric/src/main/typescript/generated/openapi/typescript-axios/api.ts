@@ -246,6 +246,51 @@ export interface InlineResponse501 {
 /**
  * 
  * @export
+ * @interface PrometheusExporter
+ */
+export interface PrometheusExporter {
+    /**
+     * The polling interval for the prometheus exporter (in minutes)
+     * @type {number}
+     * @memberof PrometheusExporter
+     */
+    metricsPollingIntervalInMin: number;
+    /**
+     * 
+     * @type {Array<Transaction>}
+     * @memberof PrometheusExporter
+     */
+    transactions?: Array<Transaction>;
+}
+/**
+ * 
+ * @export
+ * @interface PrometheusExporterMetricsRequest
+ */
+export interface PrometheusExporterMetricsRequest {
+    /**
+     * 
+     * @type {PrometheusExporter}
+     * @memberof PrometheusExporterMetricsRequest
+     */
+    promExporter: PrometheusExporter;
+}
+/**
+ * 
+ * @export
+ * @interface PrometheusExporterMetricsResponse
+ */
+export interface PrometheusExporterMetricsResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof PrometheusExporterMetricsResponse
+     */
+    result: string;
+}
+/**
+ * 
+ * @export
  * @interface RunTransactionRequest
  */
 export interface RunTransactionRequest {
@@ -305,6 +350,25 @@ export interface RunTransactionResponse {
      */
     functionOutput: string;
 }
+/**
+ * 
+ * @export
+ * @interface Transaction
+ */
+export interface Transaction {
+    /**
+     * 
+     * @type {Date}
+     * @memberof Transaction
+     */
+    startTime: Date;
+    /**
+     * 
+     * @type {Date}
+     * @memberof Transaction
+     */
+    endTime: Date;
+}
 
 /**
  * DefaultApi - axios parameter creator
@@ -347,6 +411,47 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             const needsSerialization = (typeof deployContractGoSourceV1Request !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data =  needsSerialization ? JSON.stringify(deployContractGoSourceV1Request !== undefined ? deployContractGoSourceV1Request : {}) : (deployContractGoSourceV1Request || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get the Prometheus Metrics
+         * @param {PrometheusExporterMetricsRequest} [prometheusExporterMetricsRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPrometheusExporterMetricsV1: async (prometheusExporterMetricsRequest?: PrometheusExporterMetricsRequest, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-fabric/get-prometheus-exporter-metrics`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.query) {
+                query.set(key, options.query[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof prometheusExporterMetricsRequest !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(prometheusExporterMetricsRequest !== undefined ? prometheusExporterMetricsRequest : {}) : (prometheusExporterMetricsRequest || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -423,6 +528,20 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Get the Prometheus Metrics
+         * @param {PrometheusExporterMetricsRequest} [prometheusExporterMetricsRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getPrometheusExporterMetricsV1(prometheusExporterMetricsRequest?: PrometheusExporterMetricsRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PrometheusExporterMetricsResponse>> {
+            const localVarAxiosArgs = await DefaultApiAxiosParamCreator(configuration).getPrometheusExporterMetricsV1(prometheusExporterMetricsRequest, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
          * @summary Runs a transaction on a Fabric ledger.
          * @param {RunTransactionRequest} runTransactionRequest 
          * @param {*} [options] Override http request option.
@@ -456,6 +575,16 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
+         * @summary Get the Prometheus Metrics
+         * @param {PrometheusExporterMetricsRequest} [prometheusExporterMetricsRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPrometheusExporterMetricsV1(prometheusExporterMetricsRequest?: PrometheusExporterMetricsRequest, options?: any): AxiosPromise<PrometheusExporterMetricsResponse> {
+            return DefaultApiFp(configuration).getPrometheusExporterMetricsV1(prometheusExporterMetricsRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Runs a transaction on a Fabric ledger.
          * @param {RunTransactionRequest} runTransactionRequest 
          * @param {*} [options] Override http request option.
@@ -484,6 +613,18 @@ export class DefaultApi extends BaseAPI {
      */
     public deployContractGoSourceV1(deployContractGoSourceV1Request?: DeployContractGoSourceV1Request, options?: any) {
         return DefaultApiFp(this.configuration).deployContractGoSourceV1(deployContractGoSourceV1Request, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get the Prometheus Metrics
+     * @param {PrometheusExporterMetricsRequest} [prometheusExporterMetricsRequest] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public getPrometheusExporterMetricsV1(prometheusExporterMetricsRequest?: PrometheusExporterMetricsRequest, options?: any) {
+        return DefaultApiFp(this.configuration).getPrometheusExporterMetricsV1(prometheusExporterMetricsRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

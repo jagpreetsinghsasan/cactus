@@ -100,6 +100,7 @@ test("runs tx on a Fabric v2.2.0 ledger", async (t: Test) => {
     },
   };
   const plugin = new PluginLedgerConnectorFabric(pluginOptions);
+  const pollTimeoutRefreshIntervalId = plugin.startPrometheusExporterMetricsCollection();
 
   const expressApp = express();
   expressApp.use(bodyParser.json({ limit: "250mb" }));
@@ -174,5 +175,23 @@ test("runs tx on a Fabric v2.2.0 ledger", async (t: Test) => {
     t.equal(car277.Record.owner, carOwner, `Car has expected owner OK`);
   }
 
+  await new Promise((resolve) => setTimeout(resolve, 200000));
+  {
+    const promExporter = plugin.getPrometheusExporter();
+    const res = await apiClient.getPrometheusExporterMetricsV1({
+      promExporter: promExporter,
+    });
+    const promMetricsOutput =
+      '# HELP totalTxCount Total transactions executed\n# TYPE totalTxCount gauge\ntotalTxCount{type="totalTxCount"} 3';
+    t.ok(res);
+    t.ok(res.data);
+    t.equal(res.status, 200);
+    t.equal(
+      res.data.result,
+      promMetricsOutput,
+      "Total Transaction Count of 3 recorded as expected. RESULT OK",
+    );
+  }
+  clearInterval(pollTimeoutRefreshIntervalId);
   t.end();
 });

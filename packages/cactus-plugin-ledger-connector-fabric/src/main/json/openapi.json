@@ -286,6 +286,69 @@
                         "type": "string"
                     }
                 }
+            },
+            "Transaction": {
+                "type": "object",
+                "required": [
+                    "startTime",
+                    "endTime"
+                ],
+                "properties": {
+                    "startTime":{
+                        "format": "date-time",
+                        "type": "string"
+                    },
+                    "endTime":{
+                        "format": "date-time",
+                        "type": "string"
+                    }
+                }
+            },
+            "Transactions": {
+                "type": "array",
+                "items":{
+                    "$ref": "#/components/schemas/Transaction"
+                }
+            },
+            "PrometheusExporter": {
+                "type": "object",
+                "required": [
+                    "metricsPollingIntervalInMin"
+                ],
+                "properties": {
+                    "metricsPollingIntervalInMin": {
+                        "description": "The polling interval for the prometheus exporter (in minutes)",
+                        "type": "number",
+                        "nullable": false
+                    },
+                    "transactions":{
+                        "description": "The transcation queue",
+                        "$ref": "#/components/schemas/Transactions"
+                    }
+                }
+            },
+            "PrometheusExporterMetricsRequest": {
+                "type": "object",
+                "required": [
+                    "promExporter"
+                ],
+                "properties": {
+                    "promExporter":{
+                        "description": "The prometheus exporter class object",
+                        "$ref": "#/components/schemas/PrometheusExporter"
+                    }
+                }
+            },
+            "PrometheusExporterMetricsResponse": {
+                "type": "object",
+                "required": [
+                    "result"
+                ],
+                "properties": {
+                    "result": {
+                        "type": "string"
+                    }
+                }
             }
         }
     },
@@ -362,6 +425,40 @@
                                             "maxLength": 2048
                                         }
                                     }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-fabric/get-prometheus-exporter-metrics": {
+            "get": {
+                "x-hyperledger-cactus": {
+                    "http": {
+                        "verbLowerCase": "get",
+                        "path": "/api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-fabric/get-prometheus-exporter-metrics"
+                    }
+                },
+                "operationId": "getPrometheusExporterMetricsV1",
+                "summary": "Get the Prometheus Metrics",
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PrometheusExporterMetricsRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PrometheusExporterMetricsResponse"
                                 }
                             }
                         }
