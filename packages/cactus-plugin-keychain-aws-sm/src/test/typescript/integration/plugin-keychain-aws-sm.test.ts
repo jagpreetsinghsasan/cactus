@@ -65,7 +65,7 @@ test("get,set,has,delete alters state as expected", async (t: Test) => {
     })();
 
     /**
-     * Creating the IPluginKeychainAwsSmOptions var to be passed to the 
+     * Creating the IPluginKeychainAwsSmOptions var to be passed to the
      * AWS Secret Manager plugin
      */
     const options1: IPluginKeychainAwsSmOptions = {
