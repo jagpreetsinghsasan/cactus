@@ -24,6 +24,10 @@ import os from "os";
 const logLevel: LogLevelDesc = "TRACE";
 
 test("get,set,has,delete alters state as expected", async (t: Test) => {
+  /**
+   * LocalStack container is started as it is used to emulate the AWS Secret Manager
+   * for testing purpose.
+   */
   const localStackContainer = new LocalStackContainer({
     logLevel: logLevel,
   });
@@ -43,6 +47,11 @@ test("get,set,has,delete alters state as expected", async (t: Test) => {
   });
 
   // Using awsCredentialType: AwsCredentialType.FromAwsCredentialFile
+  /**
+   * This first test is when the AWS credentials are fetched from a file, which defaults to
+   * ~/.aws/credentials.
+   * For the sake of testing, we are creating a temporary directory and storing the credentials file there.
+   */
   {
     // Create aws credential file in a local directory
     let tmpDirPath = "tmpDirPath";
@@ -55,6 +64,10 @@ test("get,set,has,delete alters state as expected", async (t: Test) => {
       );
     })();
 
+    /**
+     * Creating the IPluginKeychainAwsSmOptions var to be passed to the 
+     * AWS Secret Manager plugin
+     */
     const options1: IPluginKeychainAwsSmOptions = {
       instanceId: uuidv4(),
       keychainId: uuidv4(),
@@ -73,6 +86,10 @@ test("get,set,has,delete alters state as expected", async (t: Test) => {
     const key1 = uuidv4();
     const value1 = uuidv4();
 
+    /**
+     * Oncer the plugin is instantiated, various keychain plugin methods are called,
+     * such as get(), set(), has()...
+     */
     const hasPrior1 = await plugin1.has(key1);
 
     t.false(hasPrior1, "hasPrior1 === false OK");
@@ -100,6 +117,9 @@ test("get,set,has,delete alters state as expected", async (t: Test) => {
     })();
   }
 
+  /**
+   * For the second test, we are directly passing the credentials to the plugin options (not recommended)
+   */
   // Using awsCredentialType: AwsCredentialType.FromCodeVariable
   // Test for AWS access credentials cannot be performed over Localstack, as the opensourced version of it
   // doesn't support AWS IAM authentication.
