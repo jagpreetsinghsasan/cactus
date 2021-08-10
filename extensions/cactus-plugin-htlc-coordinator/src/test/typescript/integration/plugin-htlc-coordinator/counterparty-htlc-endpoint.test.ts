@@ -218,7 +218,8 @@ test(testCase, async (t: Test) => {
     methodName: "allowance",
     params: [firstHighNetWorthAccount, contractAddress],
   });
-  t.equal(allowanceOutput.data.callOutput, "10", "callOutput() is 10 OK");
+  t.equal(allowanceOutput.status, 200, "allowance status is 200 OK");
+  t.equal(allowanceOutput.data.callOutput, "10", "allowance amount is 10 OK");
 
   t.comment("Create and initialize own HTLC");
   const ownHTLCRequest: OwnHTLCRequest = {
