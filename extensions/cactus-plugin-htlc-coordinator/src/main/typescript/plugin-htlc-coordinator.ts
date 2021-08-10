@@ -21,8 +21,7 @@ import {
 import {
   InitializeRequest as InitializeRequestBesuERC20,
   NewContractRequest as NewContractRequestBesuERC20,
-  IPluginHtlcEthBesuErc20Options,
-  PluginFactoryHtlcEthBesuErc20,
+  PluginHtlcEthBesuErc20,
   WithdrawRequest as WithdrawRequestBesuERC20,
 } from "@hyperledger/cactus-plugin-htlc-eth-besu-erc20";
 import {
@@ -151,14 +150,11 @@ export class PluginHTLCCoordinator implements ICactusPlugin, IPluginWebService {
 
     switch (ownHTLCRequest.htlcPackage) {
       case HtlcPackage.BesuErc20: {
-        const pluginOptions: IPluginHtlcEthBesuErc20Options = {
-          instanceId: uuidv4(),
-          pluginRegistry,
-        };
-        const factoryHTLC = new PluginFactoryHtlcEthBesuErc20({
-          pluginImportType: PluginImportType.Local,
-        });
-        const pluginHtlc = await factoryHTLC.create(pluginOptions);
+        const pluginHtlc = this.pluginRegistry.plugins.find(
+          (plugin) => {
+            return ( (plugin.getPackageName() == "@hyperledger/cactus-plugin-htlc-eth-besu-erc20") && (((plugin as unknown) as PluginHtlcEthBesuErc20)).getKeychainId() == ownHTLCRequest.keychainId)
+          }
+        ) as unknown as PluginHtlcEthBesuErc20
         const request: InitializeRequestBesuERC20 = {
           connectorId: connector.getInstanceId(),
           keychainId: ownHTLCRequest.keychainId,
@@ -243,24 +239,15 @@ export class PluginHTLCCoordinator implements ICactusPlugin, IPluginWebService {
     counterpartyHTLCRequest: CounterpartyHTLCRequest,
   ): Promise<InvokeContractV1Response> {
     const fnTag = `${this.className}#counterpartyHTLC()`;
-    // const connector = this.pluginRegistry.plugins.find(
-    //   (plugin) =>
-    //     plugin.getInstanceId() == counterpartyHTLCRequest.connectorInstanceId,
-    // ) as PluginLedgerConnectorBesu;
     const pluginRegistry = this.options.pluginRegistry;
-    // pluginRegistry.add(connector);
 
     switch (counterpartyHTLCRequest.htlcPackage) {
       case HtlcPackage.BesuErc20: {
-        const pluginOptions: IPluginHtlcEthBesuErc20Options = {
-          instanceId: uuidv4(),
-          pluginRegistry,
-        };
-
-        const factoryHTLC = new PluginFactoryHtlcEthBesuErc20({
-          pluginImportType: PluginImportType.Local,
-        });
-        const pluginHtlc = await factoryHTLC.create(pluginOptions);
+        const pluginHtlc = this.pluginRegistry.plugins.find(
+          (plugin) => {
+            return ( (plugin.getPackageName() == "@hyperledger/cactus-plugin-htlc-eth-besu-erc20") && (((plugin as unknown) as PluginHtlcEthBesuErc20)).getKeychainId() == counterpartyHTLCRequest.keychainId)
+          }
+        ) as unknown as PluginHtlcEthBesuErc20
 
         const res = await pluginHtlc.getSingleStatus(
           counterpartyHTLCRequest.htlcId,
@@ -310,15 +297,11 @@ export class PluginHTLCCoordinator implements ICactusPlugin, IPluginWebService {
 
     switch (withdrawCounterpartyRequest.htlcPackage) {
       case HtlcPackage.BesuErc20: {
-        const pluginOptions: IPluginHtlcEthBesuErc20Options = {
-          instanceId: uuidv4(),
-          pluginRegistry,
-        };
-
-        const factoryHTLC = new PluginFactoryHtlcEthBesuErc20({
-          pluginImportType: PluginImportType.Local,
-        });
-        const pluginHtlc = await factoryHTLC.create(pluginOptions);
+        const pluginHtlc = this.pluginRegistry.plugins.find(
+          (plugin) => {
+            return ( (plugin.getPackageName() == "@hyperledger/cactus-plugin-htlc-eth-besu-erc20") && (((plugin as unknown) as PluginHtlcEthBesuErc20)).getKeychainId() == withdrawCounterpartyRequest.keychainId)
+          }
+        ) as unknown as PluginHtlcEthBesuErc20;
         const withdrawRequest: WithdrawRequestBesuERC20 = {
           id: withdrawCounterpartyRequest.htlcId,
           secret: withdrawCounterpartyRequest.secret,

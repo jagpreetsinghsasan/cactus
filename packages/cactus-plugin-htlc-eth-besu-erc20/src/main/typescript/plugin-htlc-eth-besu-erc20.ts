@@ -34,6 +34,7 @@ import {
 } from "./generated/openapi/typescript-axios";
 
 export interface IPluginHtlcEthBesuErc20Options extends ICactusPluginOptions {
+  keychainId?: string;
   instanceId: string;
   logLevel?: LogLevelDesc;
   pluginRegistry: PluginRegistry;
@@ -42,6 +43,7 @@ export class PluginHtlcEthBesuErc20
   implements ICactusPlugin, IPluginWebService {
   public static readonly CLASS_NAME = "PluginHtlcEthBesuErc20";
   private readonly instanceId: string;
+  private readonly keychainId: string;
   private readonly pluginRegistry: PluginRegistry;
   private readonly estimatedGas = 6721975;
   private endpoints: IWebServiceEndpoint[] | undefined;
@@ -53,6 +55,7 @@ export class PluginHtlcEthBesuErc20
     Checks.truthy(opts.pluginRegistry, `${fnTag} opts.pluginRegistry`);
     Checks.nonBlankString(opts.instanceId, `${fnTag} opts.instanceId`);
     this.instanceId = opts.instanceId;
+    this.keychainId = opts.keychainId || " ";
     this.pluginRegistry = opts.pluginRegistry;
   }
 
@@ -80,6 +83,10 @@ export class PluginHtlcEthBesuErc20
 
   public getInstanceId(): string {
     return this.instanceId;
+  }
+
+  public getKeychainId(): string {
+    return this.keychainId;
   }
 
   public getPackageName(): string {

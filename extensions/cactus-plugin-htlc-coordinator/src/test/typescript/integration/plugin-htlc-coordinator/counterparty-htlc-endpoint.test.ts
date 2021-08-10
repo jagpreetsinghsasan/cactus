@@ -15,6 +15,10 @@ import {
   Configuration,
 } from "../../../../main/typescript/public-api";
 import {
+  IPluginHtlcEthBesuErc20Options,
+  PluginFactoryHtlcEthBesuErc20,
+} from "@hyperledger/cactus-plugin-htlc-eth-besu-erc20";
+import {
   DefaultApi as BesuApi,
   EthContractInvocationType,
   PluginFactoryLedgerConnector,
@@ -102,12 +106,23 @@ test(testCase, async (t: Test) => {
   });
 
   pluginRegistry.add(connector);
+
+  const iPluginHtlcEthBesuErc20Options: IPluginHtlcEthBesuErc20Options = {
+    instanceId: uuidv4(),
+    keychainId: keychainId,
+    pluginRegistry,
+  };
+  const pluginFactoryHtlcEthBesuErc20 = new PluginFactoryHtlcEthBesuErc20({
+    pluginImportType: PluginImportType.Local,
+  });
+  const pluginHtlcEthBesuErc20 = await pluginFactoryHtlcEthBesuErc20.create(iPluginHtlcEthBesuErc20Options);
+  pluginRegistry.add(pluginHtlcEthBesuErc20)
+
   const pluginOptions: IPluginHTLCCoordinatorOptions = {
     instanceId: uuidv4(),
     logLevel,
     pluginRegistry,
   };
-
   const factoryHTLC = new PluginFactoryHTLCCoordinator({
     pluginImportType: PluginImportType.Local,
   });

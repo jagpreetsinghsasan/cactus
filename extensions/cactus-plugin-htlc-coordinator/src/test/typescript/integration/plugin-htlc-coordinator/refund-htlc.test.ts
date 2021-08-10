@@ -24,6 +24,10 @@ import {
   Web3SigningCredential,
 } from "@hyperledger/cactus-plugin-ledger-connector-besu";
 import {
+  IPluginHtlcEthBesuErc20Options,
+  PluginFactoryHtlcEthBesuErc20,
+} from "@hyperledger/cactus-plugin-htlc-eth-besu-erc20";
+import {
   LogLevelDesc,
   IListenOptions,
   Servers,
@@ -104,14 +108,24 @@ test(testCase, async (t: Test) => {
     instanceId: connectorInstanceId,
     pluginRegistry: new PluginRegistry({ plugins: [keychainPlugin] }),
   });
-
   pluginRegistry.add(connector);
+
+  const iPluginHtlcEthBesuErc20Options: IPluginHtlcEthBesuErc20Options = {
+    instanceId: uuidv4(),
+    keychainId: keychainId,
+    pluginRegistry,
+  };
+  const pluginFactoryHtlcEthBesuErc20 = new PluginFactoryHtlcEthBesuErc20({
+    pluginImportType: PluginImportType.Local,
+  });
+  const pluginHtlcEthBesuErc20 = await pluginFactoryHtlcEthBesuErc20.create(iPluginHtlcEthBesuErc20Options);
+  pluginRegistry.add(pluginHtlcEthBesuErc20)
+
   const pluginOptions: IPluginHTLCCoordinatorOptions = {
     instanceId: uuidv4(),
     logLevel,
     pluginRegistry,
   };
-
   const factoryHTLC = new PluginFactoryHTLCCoordinator({
     pluginImportType: PluginImportType.Local,
   });
