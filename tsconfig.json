@@ -67,6 +67,13 @@
     {
       "path": "./packages/cactus-test-plugin-htlc-eth-besu/tsconfig.json"
     },
+    { "path": "./examples/cactus-example-supply-chain-backend/tsconfig.json" },
+    { "path": "./extensions/cactus-plugin-htlc-coordinator/tsconfig.json" },
+
+
+    { "path": "./packages/cactus-test-api-client/tsconfig.json" },
+    { "path": "./packages/cactus-test-cmd-api-server/tsconfig.json" },
+    { "path": "./packages/cactus-test-plugin-consortium-manual/tsconfig.json" },
     {
       "path": "./packages/cactus-test-plugin-htlc-eth-besu-erc20/tsconfig.json"
     },

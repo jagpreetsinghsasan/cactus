@@ -2,7 +2,8 @@
   "packages": [
     "packages/cactus-*",
     "examples/cactus-*",
-    "extensions/cactus-*"
+    "extensions/cactus-*",
+    "examples/carbon-accounting/pkg/cactus-*"
   ],
   "version": "0.7.0",
   "npmClient": "yarn",

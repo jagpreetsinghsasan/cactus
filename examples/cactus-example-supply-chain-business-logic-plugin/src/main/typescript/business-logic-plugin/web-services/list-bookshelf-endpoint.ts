@@ -109,7 +109,7 @@ export class ListBookshelfEndpoint implements IWebServiceEndpoint {
       const { callOutput } = data;
 
       const rows = BookshelfConverter.ofSolidityStructList(callOutput);
-      this.log.debug(`apiV1BesuInvokeContract() => %o`, data);
+      this.log.debug(`invokeContractV1() => %o`, data);
 
       const body = { data: rows };
       res.status(200);
