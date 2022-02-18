@@ -130,7 +130,8 @@
         "uuidv",
         "vscc",
         "wasm",
-        "Xdai"
+        "Xdai",
+        "cenm"
     ],
     "dictionaries": [
         "typescript,node,npm,go,rust"

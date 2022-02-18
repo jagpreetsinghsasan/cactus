@@ -38,12 +38,12 @@ export interface ICordaTestLedgerConstructorOptions {
  * Provides default options for Corda container
  */
 const DEFAULTS = Object.freeze({
-  imageVersion: "2021-03-01-7e07b5b",
-  imageName: "petermetz/cactus-corda-4-6-all-in-one-obligation",
-  rpcPortNotary: 10003,
-  rpcPortA: 10008,
-  rpcPortB: 10011,
-  rpcPortC: 10014,
+  imageVersion: "1.2",
+  imageName: "cenm",
+  rpcPortNotary: 30001,
+  rpcPortA: 31001,
+  rpcPortB: 32001,
+  rpcPortC: 33001,
   envVars: [
     "PARTY_A_NODE_ENABLED=true",
     "PARTY_B_NODE_ENABLED=true",
@@ -56,7 +56,7 @@ export const CORDA_TEST_LEDGER_DEFAULT_OPTIONS = DEFAULTS;
  * Provides validations for the Corda container's options
  */
 export const JOI_SCHEMA: Joi.Schema = Joi.object().keys({
-  imageVersion: Joi.string().min(5).required(),
+  imageVersion: Joi.string().min(1).required(),
   imageName: Joi.string().min(1).required(),
   rpcPortNotary: Joi.number().min(1).max(65535).required(),
   rpcPortA: Joi.number().min(1).max(65535).required(),
