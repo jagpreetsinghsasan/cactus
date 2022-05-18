@@ -41,6 +41,8 @@
     "codegen": "run-p 'codegen:*'",
     "codegen:openapi": "npm run generate-sdk",
     "generate-sdk": "openapi-generator-cli generate -i ./src/main/json/openapi.json -g typescript-axios -o ./src/main/typescript/generated/openapi/typescript-axios/ --reserved-words-mappings protected=protected",
+    "generate-client": "run-p 'generate-client:*'",
+    "generate-client:java": "openapi-generator-cli generate -i ./src/main/json/openapi.json -g java -o ./src/main/java/generated/openapi/java-client/ --reserved-words-mappings protected=protected",
     "pretsc": "npm run generate-sdk",
     "tsc": "tsc --project ./tsconfig.json",
     "watch": "npm-watch"
