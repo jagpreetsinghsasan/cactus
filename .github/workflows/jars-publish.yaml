@@ -1,0 +1,50 @@
+name: Build kotlin artifacts and publish to github packages
+
+on:
+  push:
+    branches: [main, dev]
+
+  pull_request:
+    branches: [main, dev]
+
+jobs:
+  publish:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Get the latest release version
+      run: |
+        export GITVERSION=$(git describe --tags | awk -F'.' '{print $$1}')
+        echo "GITVERSION=$GITVERSION" >> $GITHUB_ENV
+
+    - uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: '8'
+
+    - name: Set up NodeJS v16.9.1
+      uses: actions/setup-node@v2.1.2
+      with:
+        node-version: v16.9.1
+
+    - run: yarn configure
+
+    - run: yarn generate-client
+
+    - name: Build the package
+      run: |
+        WDIR=`pwd`
+        cd ${WDIR}/packages/cactus-plugin-ledger-connector-corda/src/main/kotlin/generated/openapi/kotlin-client
+        chmod +x gradlew
+        ./gradlew clean
+        ./gradlew build
+
+    - name: Upload the generated kotlin artifact to github packages
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: cactus-plugin-ledger-connector-corda-client-kotlin-${{ env.GITVERSION }}.jar
+        path: packages/cactus-plugin-ledger-connector-corda/src/main/kotlin/generated/openapi/kotlin-client/build/libs/kotlin-client-1.0.0.jar
