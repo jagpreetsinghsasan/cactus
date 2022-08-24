@@ -18,7 +18,7 @@
     "reset:git": "git clean -f -X",
     "reset:yarn-lock": "yarn install --update-checksums --force",
     "reset": "run-s reset:git reset:node-modules reset:yarn-lock configure",
-    "configure": "yarn install --frozen-lockfile --non-interactive && yarn run build:dev:backend",
+    "configure": "yarn install --non-interactive && yarn run build:dev:backend",
     "install-yarn": "npm install --global yarn@1.22.17",
     "custom-checks": "TS_NODE_PROJECT=./tools/tsconfig.json node --trace-deprecation --experimental-modules --abort-on-uncaught-exception --loader ts-node/esm --experimental-specifier-resolution=node ./tools/custom-checks/run-custom-checks.ts",
     "tools:validate-bundle-names": "TS_NODE_PROJECT=./tools/tsconfig.json node --trace-deprecation --experimental-modules --abort-on-uncaught-exception --loader ts-node/esm --experimental-specifier-resolution=node ./tools/validate-bundle-names.js",
@@ -73,7 +73,7 @@
   "devDependencies": {
     "@commitlint/cli": "13.1.0",
     "@commitlint/config-conventional": "13.1.0",
-    "@openapitools/openapi-generator-cli": "2.4.14",
+    "@openapitools/openapi-generator-cli": "2.5.1",
     "@lerna-lite/cli": "1.4.0",
     "@lerna-lite/exec": "1.4.0",
     "@lerna-lite/list": "1.4.0",

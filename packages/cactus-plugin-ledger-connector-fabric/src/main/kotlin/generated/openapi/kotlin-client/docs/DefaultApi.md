@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**deployContractGoSourceV1**](DefaultApi.md#deployContractGoSourceV1) | **POST** /api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-fabric/deploy-contract-go-source | Deploys a chaincode contract in the form of a go sources.
 [**deployContractV1**](DefaultApi.md#deployContractV1) | **POST** /api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-fabric/deploy-contract | Deploys a chaincode contract from a set of source files. Note: This endpoint only supports Fabric 2.x. The &#39;v1&#39; suffix in the method name refers to the Cactus API version, not the supported Fabric ledger version.
+[**getBlockV1**](DefaultApi.md#getBlockV1) | **POST** /api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-fabric/get-block | Get block from the channel using one of selectors from the input. Works only on Fabric 2.x.
 [**getPrometheusMetricsV1**](DefaultApi.md#getPrometheusMetricsV1) | **GET** /api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-fabric/get-prometheus-exporter-metrics | Get the Prometheus Metrics
 [**getTransactionReceiptByTxIDV1**](DefaultApi.md#getTransactionReceiptByTxIDV1) | **POST** /api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-fabric/get-transaction-receipt-by-txid | get a transaction receipt by tx id on a Fabric ledger.
 [**runTransactionV1**](DefaultApi.md#runTransactionV1) | **POST** /api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-fabric/run-transaction | Runs a transaction on a Fabric ledger.
@@ -100,6 +101,51 @@ No authorization required
 
  - **Content-Type**: application/json
  - **Accept**: application/json, text/plain
+
+<a name="getBlockV1"></a>
+# **getBlockV1**
+> GetBlockResponseV1 getBlockV1(getBlockRequestV1)
+
+Get block from the channel using one of selectors from the input. Works only on Fabric 2.x.
+
+### Example
+```kotlin
+// Import classes:
+//import org.openapitools.client.infrastructure.*
+//import org.openapitools.client.models.*
+
+val apiInstance = DefaultApi()
+val getBlockRequestV1 : GetBlockRequestV1 =  // GetBlockRequestV1 | 
+try {
+    val result : GetBlockResponseV1 = apiInstance.getBlockV1(getBlockRequestV1)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling DefaultApi#getBlockV1")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling DefaultApi#getBlockV1")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **getBlockRequestV1** | [**GetBlockRequestV1**](GetBlockRequestV1.md)|  | [optional]
+
+### Return type
+
+[**GetBlockResponseV1**](GetBlockResponseV1.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
 <a name="getPrometheusMetricsV1"></a>
 # **getPrometheusMetricsV1**

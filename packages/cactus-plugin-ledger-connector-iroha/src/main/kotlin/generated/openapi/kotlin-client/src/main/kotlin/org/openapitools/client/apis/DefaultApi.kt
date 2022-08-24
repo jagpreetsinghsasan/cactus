@@ -11,10 +11,12 @@
 */
 package org.openapitools.client.apis
 
-import org.openapitools.client.models.InlineResponse501
-import org.openapitools.client.models.InvokeContractV1Request
-import org.openapitools.client.models.RunTransactionRequestV1
+import org.openapitools.client.models.ErrorExceptionJsonResponseV1
+import org.openapitools.client.models.ErrorExceptionResponseV1
+import org.openapitools.client.models.GenerateTransactionRequestV1
+import org.openapitools.client.models.OneOfLessThanRunTransactionRequestV1CommaRunTransactionSignedRequestV1GreaterThan
 import org.openapitools.client.models.RunTransactionResponse
+import org.openapitools.client.models.UNKNOWN_BASE_TYPE
 
 import org.openapitools.client.infrastructure.ApiClient
 import org.openapitools.client.infrastructure.ClientException
@@ -34,6 +36,59 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val defaultBasePath: String by lazy {
             System.getProperties().getProperty("org.openapitools.client.baseUrl", "http://localhost")
         }
+    }
+
+    /**
+    * Generate transaction that can be signed locally.
+    * 
+    * @param generateTransactionRequestV1  (optional)
+    * @return java.io.File
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun generateTransactionV1(generateTransactionRequestV1: GenerateTransactionRequestV1?) : java.io.File {
+        val localVariableConfig = generateTransactionV1RequestConfig(generateTransactionRequestV1 = generateTransactionRequestV1)
+
+        val localVarResponse = request<GenerateTransactionRequestV1, java.io.File>(
+            localVariableConfig
+        )
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as java.io.File
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * To obtain the request config of the operation generateTransactionV1
+    *
+    * @param generateTransactionRequestV1  (optional)
+    * @return RequestConfig
+    */
+    fun generateTransactionV1RequestConfig(generateTransactionRequestV1: GenerateTransactionRequestV1?) : RequestConfig<GenerateTransactionRequestV1> {
+        val localVariableBody = generateTransactionRequestV1
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-iroha/generate-transaction",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
     }
 
     /**
@@ -88,61 +143,9 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
-    * Invokes a contract on a Iroha ledger
-    * 
-    * @param invokeContractV1Request  (optional)
-    * @return void
-    * @throws UnsupportedOperationException If the API returns an informational or redirection response
-    * @throws ClientException If the API returns a client error response
-    * @throws ServerException If the API returns a server error response
-    */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun invokeContractV1(invokeContractV1Request: InvokeContractV1Request?) : Unit {
-        val localVariableConfig = invokeContractV1RequestConfig(invokeContractV1Request = invokeContractV1Request)
-
-        val localVarResponse = request<InvokeContractV1Request, Unit>(
-            localVariableConfig
-        )
-
-        return when (localVarResponse.responseType) {
-            ResponseType.Success -> Unit
-            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
-            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
-            ResponseType.ClientError -> {
-                val localVarError = localVarResponse as ClientError<*>
-                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
-            }
-            ResponseType.ServerError -> {
-                val localVarError = localVarResponse as ServerError<*>
-                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
-            }
-        }
-    }
-
-    /**
-    * To obtain the request config of the operation invokeContractV1
-    *
-    * @param invokeContractV1Request  (optional)
-    * @return RequestConfig
-    */
-    fun invokeContractV1RequestConfig(invokeContractV1Request: InvokeContractV1Request?) : RequestConfig<InvokeContractV1Request> {
-        val localVariableBody = invokeContractV1Request
-        val localVariableQuery: MultiValueMap = mutableMapOf()
-        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-
-        return RequestConfig(
-            method = RequestMethod.POST,
-            path = "/api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-iroha/invoke-contract",
-            query = localVariableQuery,
-            headers = localVariableHeaders,
-            body = localVariableBody
-        )
-    }
-
-    /**
     * Executes a transaction on a Iroha ledger
     * 
-    * @param runTransactionRequestV1  (optional)
+    * @param UNKNOWN_BASE_TYPE  (optional)
     * @return RunTransactionResponse
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
@@ -150,10 +153,10 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun runTransactionV1(runTransactionRequestV1: RunTransactionRequestV1?) : RunTransactionResponse {
-        val localVariableConfig = runTransactionV1RequestConfig(runTransactionRequestV1 = runTransactionRequestV1)
+    fun runTransactionV1(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE?) : RunTransactionResponse {
+        val localVariableConfig = runTransactionV1RequestConfig(UNKNOWN_BASE_TYPE = UNKNOWN_BASE_TYPE)
 
-        val localVarResponse = request<RunTransactionRequestV1, RunTransactionResponse>(
+        val localVarResponse = request<UNKNOWN_BASE_TYPE, RunTransactionResponse>(
             localVariableConfig
         )
 
@@ -175,11 +178,11 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     /**
     * To obtain the request config of the operation runTransactionV1
     *
-    * @param runTransactionRequestV1  (optional)
+    * @param UNKNOWN_BASE_TYPE  (optional)
     * @return RequestConfig
     */
-    fun runTransactionV1RequestConfig(runTransactionRequestV1: RunTransactionRequestV1?) : RequestConfig<RunTransactionRequestV1> {
-        val localVariableBody = runTransactionRequestV1
+    fun runTransactionV1RequestConfig(UNKNOWN_BASE_TYPE: UNKNOWN_BASE_TYPE?) : RequestConfig<UNKNOWN_BASE_TYPE> {
+        val localVariableBody = UNKNOWN_BASE_TYPE
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
 
