@@ -74,6 +74,7 @@ export interface ISupplyChainAppOptions {
   disableSignalHandlers?: true;
   logLevel?: LogLevelDesc;
   keychain?: IPluginKeychain;
+  proxyEnvVars?: Map<string, string>;
 }
 
 export type ShutdownHook = () => Promise<void>;
@@ -141,6 +142,7 @@ export class SupplyChainApp {
     this.ledgers = new SupplyChainAppDummyInfrastructure({
       logLevel,
       keychain: this.keychain,
+      proxyEnvVars: this.options.proxyEnvVars,
     });
     this.shutdownHooks = [];
   }

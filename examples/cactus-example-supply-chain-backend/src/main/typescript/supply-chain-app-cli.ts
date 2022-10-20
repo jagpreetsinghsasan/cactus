@@ -13,9 +13,25 @@ export async function launchApp(
   const serverOptions = config.getProperties();
   LoggerProvider.setLogLevel(serverOptions.logLevel);
 
+  const proxyEnvVars = new Map();
+  process.env.HTTP_PROXY
+    ? proxyEnvVars.set("HTTP_PROXY", process.env.HTTP_PROXY)
+    : null;
+  process.env.HTTPS_PROXY
+    ? proxyEnvVars.set("HTTPS_PROXY", process.env.HTTPS_PROXY)
+    : null;
+  process.env.FTP_PROXY
+    ? proxyEnvVars.set("FTP_PROXY", process.env.FTP_PROXY)
+    : null;
+  process.env.NO_PROXY
+    ? proxyEnvVars.set("NO_PROXY", process.env.NO_PROXY)
+    : null;
+
   const appOptions: ISupplyChainAppOptions = {
     logLevel: serverOptions.logLevel,
   };
+  proxyEnvVars.size > 0 ? (appOptions.proxyEnvVars = proxyEnvVars) : null;
+
   const supplyChainApp = new SupplyChainApp(appOptions);
   try {
     await supplyChainApp.start();

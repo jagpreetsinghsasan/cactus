@@ -24,7 +24,7 @@ export interface IQuorumTestLedgerConstructorOptions {
   rpcApiHttpPort?: number;
   logLevel?: LogLevelDesc;
   emitContainerLogs?: boolean;
-  readonly envVars?: string[];
+  envVars?: string[];
 }
 
 export const QUORUM_TEST_LEDGER_DEFAULT_OPTIONS = Object.freeze({

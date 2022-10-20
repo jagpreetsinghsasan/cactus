@@ -15,8 +15,12 @@ import {
 } from "@hyperledger/cactus-plugin-ledger-connector-quorum";
 import {
   BesuTestLedger,
+  IBesuTestLedgerConstructorOptions,
   FabricTestLedgerV1,
+  IFabricTestLedgerV1ConstructorOptions,
   QuorumTestLedger,
+  IQuorumTestLedgerConstructorOptions,
+  envMapToDocker,
 } from "@hyperledger/cactus-test-tooling";
 
 import BambooHarvestRepositoryJSON from "../../json/generated/BambooHarvestRepository.json";
@@ -49,6 +53,7 @@ export const org1Env = {
 export interface ISupplyChainAppDummyInfrastructureOptions {
   logLevel?: LogLevelDesc;
   keychain?: IPluginKeychain;
+  proxyEnvVars?: Map<string, string>;
 }
 
 /**
@@ -103,20 +108,40 @@ export class SupplyChainAppDummyInfrastructure {
     const label = this.className;
     this.log = LoggerProvider.getOrCreate({ level, label });
 
-    this.besu = new BesuTestLedger({
+    const besuTestLedgerConstructorOptions: IBesuTestLedgerConstructorOptions = {
       logLevel: level,
       emitContainerLogs: true,
-    });
-    this.quorum = new QuorumTestLedger({
+    };
+    this.options.proxyEnvVars
+      ? (besuTestLedgerConstructorOptions.envVars = envMapToDocker(
+          this.options.proxyEnvVars,
+        ))
+      : null;
+    this.besu = new BesuTestLedger(besuTestLedgerConstructorOptions);
+
+    const quorumTestLedgerConstructorOptions: IQuorumTestLedgerConstructorOptions = {
       logLevel: level,
       emitContainerLogs: true,
-    });
-    this.fabric = new FabricTestLedgerV1({
+    };
+    this.options.proxyEnvVars
+      ? (quorumTestLedgerConstructorOptions.envVars = envMapToDocker(
+          this.options.proxyEnvVars,
+        ))
+      : null;
+    this.quorum = new QuorumTestLedger(quorumTestLedgerConstructorOptions);
+
+    const fabricTestLedgerConstructorOptions: IFabricTestLedgerV1ConstructorOptions = {
       publishAllPorts: true,
       imageName: "ghcr.io/hyperledger/cactus-fabric-all-in-one",
       logLevel: level,
       emitContainerLogs: true,
-    });
+    };
+    if (this.options.proxyEnvVars) {
+      fabricTestLedgerConstructorOptions.envVars = this.options.proxyEnvVars;
+      fabricTestLedgerConstructorOptions.envVars.set("FABRIC_VERSION", "1.4.8");
+    }
+
+    this.fabric = new FabricTestLedgerV1(fabricTestLedgerConstructorOptions);
 
     if (this.options.keychain) {
       this.keychain = this.options.keychain;

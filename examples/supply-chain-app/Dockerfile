@@ -15,6 +15,9 @@ RUN apt-get -y install --no-install-recommends file
 RUN apt-get -y install --no-install-recommends ca-certificates
 RUN apt-get -y install --no-install-recommends tzdata
 
+RUN apt-get -y install --no-install-recommends make
+RUN apt-get -y install --no-install-recommends g++
+
 ARG APP=/usr/src/app/
 
 ENV TZ=Etc/UTC
@@ -35,10 +38,13 @@ SHELL ["/bin/bash", "--login", "-i", "-c"]
 # Installing Node Version Manager (nvm)
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 ARG NPM_PKG_VERSION=latest
+
+COPY --chown=${APP_USER}:${APP_USER} ./examples/cactus-example-supply-chain-backend /home/appuser/cactus-example-supply-chain-backend
+
 RUN source ~/.bashrc && \
-    nvm install 16.15.1 && \
+    nvm install 16.14.2 && \
     npm install -g yarn && \
-    yarn add @hyperledger/cactus-example-supply-chain-backend@${NPM_PKG_VERSION} --ignore-engines --production
+    yarn add file:/home/appuser/cactus-example-supply-chain-backend --ignore-engines --production
 
 SHELL ["/bin/bash", "--login", "-c"]
 
