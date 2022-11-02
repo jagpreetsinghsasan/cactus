@@ -11,25 +11,21 @@
 */
 package org.openapitools.client.models
 
-import org.openapitools.client.models.AnyType
 import org.openapitools.client.models.IrohaBaseConfig
 
 import com.squareup.moshi.Json
 
 /**
  * 
- * @param commandName 
+ * @param signedTransaction Signed transaction binary data received from generate-transaction endpoint.
  * @param baseConfig 
- * @param params The list of arguments to pass in to the transaction request.
  */
 
-data class RunTransactionRequestV1 (
-    @Json(name = "commandName")
-    val commandName: kotlin.String,
+data class RunTransactionSignedRequestV1 (
+    /* Signed transaction binary data received from generate-transaction endpoint. */
+    @Json(name = "signedTransaction")
+    val signedTransaction: java.io.File,
     @Json(name = "baseConfig")
-    val baseConfig: IrohaBaseConfig,
-    /* The list of arguments to pass in to the transaction request. */
-    @Json(name = "params")
-    val params: kotlin.collections.List<AnyType>
+    val baseConfig: IrohaBaseConfig? = null
 )
 

@@ -35,22 +35,24 @@ All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*DefaultApi* | [**generateTransactionV1**](docs/DefaultApi.md#generatetransactionv1) | **POST** /api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-iroha/generate-transaction | Generate transaction that can be signed locally.
 *DefaultApi* | [**getPrometheusMetricsV1**](docs/DefaultApi.md#getprometheusmetricsv1) | **GET** /api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-iroha/get-prometheus-exporter-metrics | Get the Prometheus Metrics
-*DefaultApi* | [**invokeContractV1**](docs/DefaultApi.md#invokecontractv1) | **POST** /api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-iroha/invoke-contract | Invokes a contract on a Iroha ledger
 *DefaultApi* | [**runTransactionV1**](docs/DefaultApi.md#runtransactionv1) | **POST** /api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-iroha/run-transaction | Executes a transaction on a Iroha ledger
 
 
 <a name="documentation-for-models"></a>
 ## Documentation for Models
 
- - [org.openapitools.client.models.InlineResponse501](docs/InlineResponse501.md)
- - [org.openapitools.client.models.InvokeContractV1Request](docs/InvokeContractV1Request.md)
+ - [org.openapitools.client.models.ErrorExceptionJsonResponseV1](docs/ErrorExceptionJsonResponseV1.md)
+ - [org.openapitools.client.models.ErrorExceptionResponseV1](docs/ErrorExceptionResponseV1.md)
+ - [org.openapitools.client.models.GenerateTransactionRequestV1](docs/GenerateTransactionRequestV1.md)
  - [org.openapitools.client.models.IrohaBaseConfig](docs/IrohaBaseConfig.md)
  - [org.openapitools.client.models.IrohaCommand](docs/IrohaCommand.md)
  - [org.openapitools.client.models.IrohaQuery](docs/IrohaQuery.md)
  - [org.openapitools.client.models.KeyPair](docs/KeyPair.md)
  - [org.openapitools.client.models.RunTransactionRequestV1](docs/RunTransactionRequestV1.md)
  - [org.openapitools.client.models.RunTransactionResponse](docs/RunTransactionResponse.md)
+ - [org.openapitools.client.models.RunTransactionSignedRequestV1](docs/RunTransactionSignedRequestV1.md)
 
 
 <a name="documentation-for-authorization"></a>

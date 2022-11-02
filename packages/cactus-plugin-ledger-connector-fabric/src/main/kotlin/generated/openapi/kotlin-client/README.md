@@ -37,6 +37,7 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**deployContractGoSourceV1**](docs/DefaultApi.md#deploycontractgosourcev1) | **POST** /api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-fabric/deploy-contract-go-source | Deploys a chaincode contract in the form of a go sources.
 *DefaultApi* | [**deployContractV1**](docs/DefaultApi.md#deploycontractv1) | **POST** /api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-fabric/deploy-contract | Deploys a chaincode contract from a set of source files. Note: This endpoint only supports Fabric 2.x. The 'v1' suffix in the method name refers to the Cactus API version, not the supported Fabric ledger version.
+*DefaultApi* | [**getBlockV1**](docs/DefaultApi.md#getblockv1) | **POST** /api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-fabric/get-block | Get block from the channel using one of selectors from the input. Works only on Fabric 2.x.
 *DefaultApi* | [**getPrometheusMetricsV1**](docs/DefaultApi.md#getprometheusmetricsv1) | **GET** /api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-fabric/get-prometheus-exporter-metrics | Get the Prometheus Metrics
 *DefaultApi* | [**getTransactionReceiptByTxIDV1**](docs/DefaultApi.md#gettransactionreceiptbytxidv1) | **POST** /api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-fabric/get-transaction-receipt-by-txid | get a transaction receipt by tx id on a Fabric ledger.
 *DefaultApi* | [**runTransactionV1**](docs/DefaultApi.md#runtransactionv1) | **POST** /api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-fabric/run-transaction | Runs a transaction on a Fabric ledger.
@@ -58,6 +59,7 @@ Class | Method | HTTP request | Description
  - [org.openapitools.client.models.DeployContractV1Response](docs/DeployContractV1Response.md)
  - [org.openapitools.client.models.DeploymentTargetOrgFabric2x](docs/DeploymentTargetOrgFabric2x.md)
  - [org.openapitools.client.models.DeploymentTargetOrganization](docs/DeploymentTargetOrganization.md)
+ - [org.openapitools.client.models.ErrorExceptionResponseV1](docs/ErrorExceptionResponseV1.md)
  - [org.openapitools.client.models.FabricContractInvocationType](docs/FabricContractInvocationType.md)
  - [org.openapitools.client.models.FabricSigningCredential](docs/FabricSigningCredential.md)
  - [org.openapitools.client.models.FabricSigningCredentialType](docs/FabricSigningCredentialType.md)
@@ -66,6 +68,12 @@ Class | Method | HTTP request | Description
  - [org.openapitools.client.models.GatewayEventHandlerOptions](docs/GatewayEventHandlerOptions.md)
  - [org.openapitools.client.models.GatewayOptions](docs/GatewayOptions.md)
  - [org.openapitools.client.models.GatewayOptionsWallet](docs/GatewayOptionsWallet.md)
+ - [org.openapitools.client.models.GetBlockRequestV1](docs/GetBlockRequestV1.md)
+ - [org.openapitools.client.models.GetBlockRequestV1Query](docs/GetBlockRequestV1Query.md)
+ - [org.openapitools.client.models.GetBlockRequestV1QueryBlockHash](docs/GetBlockRequestV1QueryBlockHash.md)
+ - [org.openapitools.client.models.GetBlockResponseDecodedV1](docs/GetBlockResponseDecodedV1.md)
+ - [org.openapitools.client.models.GetBlockResponseEncodedV1](docs/GetBlockResponseEncodedV1.md)
+ - [org.openapitools.client.models.GetBlockResponseV1](docs/GetBlockResponseV1.md)
  - [org.openapitools.client.models.GetTransactionReceiptResponse](docs/GetTransactionReceiptResponse.md)
  - [org.openapitools.client.models.InlineResponse501](docs/InlineResponse501.md)
  - [org.openapitools.client.models.RunTransactionRequest](docs/RunTransactionRequest.md)
