@@ -2,10 +2,10 @@ name: Build kotlin artifacts and publish to github packages
 
 on:
   push:
-    branches: [master, dev]
+    branches: [master, main, dev]
 
   pull_request:
-    branches: [master, dev]
+    branches: [master, main, dev]
 
 jobs:
   publish-cactus-cmd-api-server:
