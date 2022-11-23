@@ -4,11 +4,11 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**responseCode** | [**inline**](#ResponseCodeEnum) |  |  [optional]
+**responseCode** | [**inline**](#ResponseCode) |  |  [optional]
 **arguments** | [**kotlin.collections.List&lt;kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional]
 
 
-<a name="ResponseCodeEnum"></a>
+<a name="ResponseCode"></a>
 ## Enum: ResponseCode
 Name | Value
 ---- | -----

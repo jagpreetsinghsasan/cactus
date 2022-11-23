@@ -20,7 +20,6 @@
 
 package org.openapitools.client.models
 
-import org.openapitools.client.models.OneOfLessThanStringCommaNumberGreaterThan
 
 import com.squareup.moshi.Json
 
@@ -85,7 +84,7 @@ data class Web3BlockHeader (
     val gasUsed: kotlin.Int,
 
     @Json(name = "timestamp")
-    val timestamp: OneOfLessThanStringCommaNumberGreaterThan
+    val timestamp: OneOfLessThanStringCommaNumberGreaterThan?
 
 )
 

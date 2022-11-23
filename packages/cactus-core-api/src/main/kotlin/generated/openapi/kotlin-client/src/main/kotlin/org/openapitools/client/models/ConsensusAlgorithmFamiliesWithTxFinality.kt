@@ -50,12 +50,12 @@ enum class ConsensusAlgorithmFamiliesWithTxFinality(val value: kotlin.String) {
         /**
          * Converts the provided [data] to a [String] on success, null otherwise.
          */
-        fun encode(data: Any?): kotlin.String? = if (data is ConsensusAlgorithmFamiliesWithTxFinality) "$data" else null
+        fun encode(data: kotlin.Any?): kotlin.String? = if (data is ConsensusAlgorithmFamiliesWithTxFinality) "$data" else null
 
         /**
          * Returns a valid [ConsensusAlgorithmFamiliesWithTxFinality] for [data], null otherwise.
          */
-        fun decode(data: Any?): ConsensusAlgorithmFamiliesWithTxFinality? = data?.let {
+        fun decode(data: kotlin.Any?): ConsensusAlgorithmFamiliesWithTxFinality? = data?.let {
           val normalizedData = "$it".lowercase()
           values().firstOrNull { value ->
             it == value || normalizedData == "$value".lowercase()

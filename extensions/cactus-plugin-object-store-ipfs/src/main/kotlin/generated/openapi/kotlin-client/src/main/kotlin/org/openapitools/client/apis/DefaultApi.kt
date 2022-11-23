@@ -20,6 +20,8 @@
 
 package org.openapitools.client.apis
 
+import java.io.IOException
+
 import org.openapitools.client.models.GetObjectRequestV1
 import org.openapitools.client.models.GetObjectResponseV1
 import org.openapitools.client.models.HasObjectRequestV1
@@ -27,7 +29,10 @@ import org.openapitools.client.models.HasObjectResponseV1
 import org.openapitools.client.models.SetObjectRequestV1
 import org.openapitools.client.models.SetObjectResponseV1
 
+import com.squareup.moshi.Json
+
 import org.openapitools.client.infrastructure.ApiClient
+import org.openapitools.client.infrastructure.ApiResponse
 import org.openapitools.client.infrastructure.ClientException
 import org.openapitools.client.infrastructure.ClientError
 import org.openapitools.client.infrastructure.ServerException
@@ -43,7 +48,7 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     companion object {
         @JvmStatic
         val defaultBasePath: String by lazy {
-            System.getProperties().getProperty("org.openapitools.client.baseUrl", "https://www.cactus.stream")
+            System.getProperties().getProperty(ApiClient.baseUrlKey, "https://www.cactus.stream")
         }
     }
 
@@ -52,18 +57,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param getObjectRequestV1 Request body to obtain an object via its key. 
     * @return GetObjectResponseV1
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun getObjectV1(getObjectRequestV1: GetObjectRequestV1) : GetObjectResponseV1 {
-        val localVariableConfig = getObjectV1RequestConfig(getObjectRequestV1 = getObjectRequestV1)
-
-        val localVarResponse = request<GetObjectRequestV1, GetObjectResponseV1>(
-            localVariableConfig
-        )
+        val localVarResponse = getObjectV1WithHttpInfo(getObjectRequestV1 = getObjectRequestV1)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as GetObjectResponseV1
@@ -81,6 +84,24 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * Retrieves an object from the object store.
+    * 
+    * @param getObjectRequestV1 Request body to obtain an object via its key. 
+    * @return ApiResponse<GetObjectResponseV1?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getObjectV1WithHttpInfo(getObjectRequestV1: GetObjectRequestV1) : ApiResponse<GetObjectResponseV1?> {
+        val localVariableConfig = getObjectV1RequestConfig(getObjectRequestV1 = getObjectRequestV1)
+
+        return request<GetObjectRequestV1, GetObjectResponseV1>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation getObjectV1
     *
     * @param getObjectRequestV1 Request body to obtain an object via its key. 
@@ -90,6 +111,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = getObjectRequestV1
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.POST,
@@ -105,18 +128,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param hasObjectRequestV1 Request body to check presence of an object under a key. 
     * @return HasObjectResponseV1
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun hasObjectV1(hasObjectRequestV1: HasObjectRequestV1) : HasObjectResponseV1 {
-        val localVariableConfig = hasObjectV1RequestConfig(hasObjectRequestV1 = hasObjectRequestV1)
-
-        val localVarResponse = request<HasObjectRequestV1, HasObjectResponseV1>(
-            localVariableConfig
-        )
+        val localVarResponse = hasObjectV1WithHttpInfo(hasObjectRequestV1 = hasObjectRequestV1)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as HasObjectResponseV1
@@ -134,6 +155,24 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * Checks the presence of an object in the object store.
+    * 
+    * @param hasObjectRequestV1 Request body to check presence of an object under a key. 
+    * @return ApiResponse<HasObjectResponseV1?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun hasObjectV1WithHttpInfo(hasObjectRequestV1: HasObjectRequestV1) : ApiResponse<HasObjectResponseV1?> {
+        val localVariableConfig = hasObjectV1RequestConfig(hasObjectRequestV1 = hasObjectRequestV1)
+
+        return request<HasObjectRequestV1, HasObjectResponseV1>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation hasObjectV1
     *
     * @param hasObjectRequestV1 Request body to check presence of an object under a key. 
@@ -143,6 +182,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = hasObjectRequestV1
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.POST,
@@ -158,18 +199,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param setObjectRequestV1 Request body to set an object under a key. 
     * @return SetObjectResponseV1
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun setObjectV1(setObjectRequestV1: SetObjectRequestV1) : SetObjectResponseV1 {
-        val localVariableConfig = setObjectV1RequestConfig(setObjectRequestV1 = setObjectRequestV1)
-
-        val localVarResponse = request<SetObjectRequestV1, SetObjectResponseV1>(
-            localVariableConfig
-        )
+        val localVarResponse = setObjectV1WithHttpInfo(setObjectRequestV1 = setObjectRequestV1)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as SetObjectResponseV1
@@ -187,6 +226,24 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * Sets an object in the object store under the specified key.
+    * 
+    * @param setObjectRequestV1 Request body to set an object under a key. 
+    * @return ApiResponse<SetObjectResponseV1?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun setObjectV1WithHttpInfo(setObjectRequestV1: SetObjectRequestV1) : ApiResponse<SetObjectResponseV1?> {
+        val localVariableConfig = setObjectV1RequestConfig(setObjectRequestV1 = setObjectRequestV1)
+
+        return request<SetObjectRequestV1, SetObjectResponseV1>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation setObjectV1
     *
     * @param setObjectRequestV1 Request body to set an object under a key. 
@@ -196,6 +253,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = setObjectRequestV1
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.POST,

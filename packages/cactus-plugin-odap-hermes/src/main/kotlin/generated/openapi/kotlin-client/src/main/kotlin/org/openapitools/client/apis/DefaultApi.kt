@@ -20,6 +20,8 @@
 
 package org.openapitools.client.apis
 
+import java.io.IOException
+
 import org.openapitools.client.models.ClientV1Request
 import org.openapitools.client.models.CommitFinalV1Request
 import org.openapitools.client.models.CommitFinalV1Response
@@ -39,7 +41,10 @@ import org.openapitools.client.models.TransferCompleteV1Request
 import org.openapitools.client.models.TransferInitializationV1Request
 import org.openapitools.client.models.TransferInitializationV1Response
 
+import com.squareup.moshi.Json
+
 import org.openapitools.client.infrastructure.ApiClient
+import org.openapitools.client.infrastructure.ApiResponse
 import org.openapitools.client.infrastructure.ClientException
 import org.openapitools.client.infrastructure.ClientError
 import org.openapitools.client.infrastructure.ServerException
@@ -55,7 +60,7 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     companion object {
         @JvmStatic
         val defaultBasePath: String by lazy {
-            System.getProperties().getProperty("org.openapitools.client.baseUrl", "http://localhost")
+            System.getProperties().getProperty(ApiClient.baseUrlKey, "http://localhost")
         }
     }
 
@@ -64,18 +69,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param clientV1Request  (optional)
     * @return kotlin.Any
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun clientRequestV1(clientV1Request: ClientV1Request?) : kotlin.Any {
-        val localVariableConfig = clientRequestV1RequestConfig(clientV1Request = clientV1Request)
-
-        val localVarResponse = request<ClientV1Request, kotlin.Any>(
-            localVariableConfig
-        )
+        val localVarResponse = clientRequestV1WithHttpInfo(clientV1Request = clientV1Request)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -93,6 +96,24 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * 
+    * 
+    * @param clientV1Request  (optional)
+    * @return ApiResponse<kotlin.Any?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun clientRequestV1WithHttpInfo(clientV1Request: ClientV1Request?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = clientRequestV1RequestConfig(clientV1Request = clientV1Request)
+
+        return request<ClientV1Request, kotlin.Any>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation clientRequestV1
     *
     * @param clientV1Request  (optional)
@@ -102,6 +123,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = clientV1Request
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.POST,
@@ -117,17 +140,15 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param transferInitializationV1Request  (optional)
     * @return void
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun phase1TransferInitiationRequestV1(transferInitializationV1Request: TransferInitializationV1Request?) : Unit {
-        val localVariableConfig = phase1TransferInitiationRequestV1RequestConfig(transferInitializationV1Request = transferInitializationV1Request)
-
-        val localVarResponse = request<TransferInitializationV1Request, Unit>(
-            localVariableConfig
-        )
+        val localVarResponse = phase1TransferInitiationRequestV1WithHttpInfo(transferInitializationV1Request = transferInitializationV1Request)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> Unit
@@ -145,6 +166,23 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * 
+    * 
+    * @param transferInitializationV1Request  (optional)
+    * @return ApiResponse<Unit?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Throws(IllegalStateException::class, IOException::class)
+    fun phase1TransferInitiationRequestV1WithHttpInfo(transferInitializationV1Request: TransferInitializationV1Request?) : ApiResponse<Unit?> {
+        val localVariableConfig = phase1TransferInitiationRequestV1RequestConfig(transferInitializationV1Request = transferInitializationV1Request)
+
+        return request<TransferInitializationV1Request, Unit>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation phase1TransferInitiationRequestV1
     *
     * @param transferInitializationV1Request  (optional)
@@ -154,7 +192,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = transferInitializationV1Request
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-
+        localVariableHeaders["Content-Type"] = "application/json"
+        
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/api/v1/@hyperledger/cactus-plugin-odap-hermes/phase1/transferinitiationrequest",
@@ -169,17 +208,15 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param transferInitializationV1Response  (optional)
     * @return void
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun phase1TransferInitiationResponseV1(transferInitializationV1Response: TransferInitializationV1Response?) : Unit {
-        val localVariableConfig = phase1TransferInitiationResponseV1RequestConfig(transferInitializationV1Response = transferInitializationV1Response)
-
-        val localVarResponse = request<TransferInitializationV1Response, Unit>(
-            localVariableConfig
-        )
+        val localVarResponse = phase1TransferInitiationResponseV1WithHttpInfo(transferInitializationV1Response = transferInitializationV1Response)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> Unit
@@ -197,6 +234,23 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * 
+    * 
+    * @param transferInitializationV1Response  (optional)
+    * @return ApiResponse<Unit?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Throws(IllegalStateException::class, IOException::class)
+    fun phase1TransferInitiationResponseV1WithHttpInfo(transferInitializationV1Response: TransferInitializationV1Response?) : ApiResponse<Unit?> {
+        val localVariableConfig = phase1TransferInitiationResponseV1RequestConfig(transferInitializationV1Response = transferInitializationV1Response)
+
+        return request<TransferInitializationV1Response, Unit>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation phase1TransferInitiationResponseV1
     *
     * @param transferInitializationV1Response  (optional)
@@ -206,7 +260,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = transferInitializationV1Response
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-
+        localVariableHeaders["Content-Type"] = "application/json"
+        
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/api/v1/@hyperledger/cactus-plugin-odap-hermes/phase1/transferinitiationresponse",
@@ -221,17 +276,15 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param lockEvidenceV1Request  (optional)
     * @return void
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun phase2LockEvidenceRequestV1(lockEvidenceV1Request: LockEvidenceV1Request?) : Unit {
-        val localVariableConfig = phase2LockEvidenceRequestV1RequestConfig(lockEvidenceV1Request = lockEvidenceV1Request)
-
-        val localVarResponse = request<LockEvidenceV1Request, Unit>(
-            localVariableConfig
-        )
+        val localVarResponse = phase2LockEvidenceRequestV1WithHttpInfo(lockEvidenceV1Request = lockEvidenceV1Request)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> Unit
@@ -249,6 +302,23 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * 
+    * 
+    * @param lockEvidenceV1Request  (optional)
+    * @return ApiResponse<Unit?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Throws(IllegalStateException::class, IOException::class)
+    fun phase2LockEvidenceRequestV1WithHttpInfo(lockEvidenceV1Request: LockEvidenceV1Request?) : ApiResponse<Unit?> {
+        val localVariableConfig = phase2LockEvidenceRequestV1RequestConfig(lockEvidenceV1Request = lockEvidenceV1Request)
+
+        return request<LockEvidenceV1Request, Unit>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation phase2LockEvidenceRequestV1
     *
     * @param lockEvidenceV1Request  (optional)
@@ -258,7 +328,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = lockEvidenceV1Request
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-
+        localVariableHeaders["Content-Type"] = "application/json"
+        
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/api/v1/@hyperledger/cactus-plugin-odap-hermes/phase2/lockevidencerequest",
@@ -273,17 +344,15 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param lockEvidenceV1Response  (optional)
     * @return void
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun phase2LockEvidenceResponseV1(lockEvidenceV1Response: LockEvidenceV1Response?) : Unit {
-        val localVariableConfig = phase2LockEvidenceResponseV1RequestConfig(lockEvidenceV1Response = lockEvidenceV1Response)
-
-        val localVarResponse = request<LockEvidenceV1Response, Unit>(
-            localVariableConfig
-        )
+        val localVarResponse = phase2LockEvidenceResponseV1WithHttpInfo(lockEvidenceV1Response = lockEvidenceV1Response)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> Unit
@@ -301,6 +370,23 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * 
+    * 
+    * @param lockEvidenceV1Response  (optional)
+    * @return ApiResponse<Unit?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Throws(IllegalStateException::class, IOException::class)
+    fun phase2LockEvidenceResponseV1WithHttpInfo(lockEvidenceV1Response: LockEvidenceV1Response?) : ApiResponse<Unit?> {
+        val localVariableConfig = phase2LockEvidenceResponseV1RequestConfig(lockEvidenceV1Response = lockEvidenceV1Response)
+
+        return request<LockEvidenceV1Response, Unit>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation phase2LockEvidenceResponseV1
     *
     * @param lockEvidenceV1Response  (optional)
@@ -310,7 +396,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = lockEvidenceV1Response
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-
+        localVariableHeaders["Content-Type"] = "application/json"
+        
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/api/v1/@hyperledger/cactus-plugin-odap-hermes/phase2/lockevidenceresponse",
@@ -325,17 +412,15 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param transferCommenceV1Request  (optional)
     * @return void
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun phase2TransferCommenceRequestV1(transferCommenceV1Request: TransferCommenceV1Request?) : Unit {
-        val localVariableConfig = phase2TransferCommenceRequestV1RequestConfig(transferCommenceV1Request = transferCommenceV1Request)
-
-        val localVarResponse = request<TransferCommenceV1Request, Unit>(
-            localVariableConfig
-        )
+        val localVarResponse = phase2TransferCommenceRequestV1WithHttpInfo(transferCommenceV1Request = transferCommenceV1Request)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> Unit
@@ -353,6 +438,23 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * 
+    * 
+    * @param transferCommenceV1Request  (optional)
+    * @return ApiResponse<Unit?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Throws(IllegalStateException::class, IOException::class)
+    fun phase2TransferCommenceRequestV1WithHttpInfo(transferCommenceV1Request: TransferCommenceV1Request?) : ApiResponse<Unit?> {
+        val localVariableConfig = phase2TransferCommenceRequestV1RequestConfig(transferCommenceV1Request = transferCommenceV1Request)
+
+        return request<TransferCommenceV1Request, Unit>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation phase2TransferCommenceRequestV1
     *
     * @param transferCommenceV1Request  (optional)
@@ -362,7 +464,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = transferCommenceV1Request
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-
+        localVariableHeaders["Content-Type"] = "application/json"
+        
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/api/v1/@hyperledger/cactus-plugin-odap-hermes/phase2/transfercommencerequest",
@@ -377,17 +480,15 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param transferCommenceV1Response  (optional)
     * @return void
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun phase2TransferCommenceResponseV1(transferCommenceV1Response: TransferCommenceV1Response?) : Unit {
-        val localVariableConfig = phase2TransferCommenceResponseV1RequestConfig(transferCommenceV1Response = transferCommenceV1Response)
-
-        val localVarResponse = request<TransferCommenceV1Response, Unit>(
-            localVariableConfig
-        )
+        val localVarResponse = phase2TransferCommenceResponseV1WithHttpInfo(transferCommenceV1Response = transferCommenceV1Response)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> Unit
@@ -405,6 +506,23 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * 
+    * 
+    * @param transferCommenceV1Response  (optional)
+    * @return ApiResponse<Unit?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Throws(IllegalStateException::class, IOException::class)
+    fun phase2TransferCommenceResponseV1WithHttpInfo(transferCommenceV1Response: TransferCommenceV1Response?) : ApiResponse<Unit?> {
+        val localVariableConfig = phase2TransferCommenceResponseV1RequestConfig(transferCommenceV1Response = transferCommenceV1Response)
+
+        return request<TransferCommenceV1Response, Unit>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation phase2TransferCommenceResponseV1
     *
     * @param transferCommenceV1Response  (optional)
@@ -414,7 +532,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = transferCommenceV1Response
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-
+        localVariableHeaders["Content-Type"] = "application/json"
+        
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/api/v1/@hyperledger/cactus-plugin-odap-hermes/phase2/transfercommenceresponse",
@@ -429,17 +548,15 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param commitFinalV1Request  (optional)
     * @return void
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun phase3CommitFinalRequestV1(commitFinalV1Request: CommitFinalV1Request?) : Unit {
-        val localVariableConfig = phase3CommitFinalRequestV1RequestConfig(commitFinalV1Request = commitFinalV1Request)
-
-        val localVarResponse = request<CommitFinalV1Request, Unit>(
-            localVariableConfig
-        )
+        val localVarResponse = phase3CommitFinalRequestV1WithHttpInfo(commitFinalV1Request = commitFinalV1Request)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> Unit
@@ -457,6 +574,23 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * 
+    * 
+    * @param commitFinalV1Request  (optional)
+    * @return ApiResponse<Unit?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Throws(IllegalStateException::class, IOException::class)
+    fun phase3CommitFinalRequestV1WithHttpInfo(commitFinalV1Request: CommitFinalV1Request?) : ApiResponse<Unit?> {
+        val localVariableConfig = phase3CommitFinalRequestV1RequestConfig(commitFinalV1Request = commitFinalV1Request)
+
+        return request<CommitFinalV1Request, Unit>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation phase3CommitFinalRequestV1
     *
     * @param commitFinalV1Request  (optional)
@@ -466,7 +600,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = commitFinalV1Request
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-
+        localVariableHeaders["Content-Type"] = "application/json"
+        
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/api/v1/@hyperledger/cactus-plugin-odap-hermes/phase3/commitfinalrequest",
@@ -481,17 +616,15 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param commitFinalV1Response  (optional)
     * @return void
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun phase3CommitFinalResponseV1(commitFinalV1Response: CommitFinalV1Response?) : Unit {
-        val localVariableConfig = phase3CommitFinalResponseV1RequestConfig(commitFinalV1Response = commitFinalV1Response)
-
-        val localVarResponse = request<CommitFinalV1Response, Unit>(
-            localVariableConfig
-        )
+        val localVarResponse = phase3CommitFinalResponseV1WithHttpInfo(commitFinalV1Response = commitFinalV1Response)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> Unit
@@ -509,6 +642,23 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * 
+    * 
+    * @param commitFinalV1Response  (optional)
+    * @return ApiResponse<Unit?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Throws(IllegalStateException::class, IOException::class)
+    fun phase3CommitFinalResponseV1WithHttpInfo(commitFinalV1Response: CommitFinalV1Response?) : ApiResponse<Unit?> {
+        val localVariableConfig = phase3CommitFinalResponseV1RequestConfig(commitFinalV1Response = commitFinalV1Response)
+
+        return request<CommitFinalV1Response, Unit>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation phase3CommitFinalResponseV1
     *
     * @param commitFinalV1Response  (optional)
@@ -518,7 +668,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = commitFinalV1Response
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-
+        localVariableHeaders["Content-Type"] = "application/json"
+        
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/api/v1/@hyperledger/cactus-plugin-odap-hermes/phase3/commitfinalresponse",
@@ -533,17 +684,15 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param commitPreparationV1Request  (optional)
     * @return void
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun phase3CommitPreparationRequestV1(commitPreparationV1Request: CommitPreparationV1Request?) : Unit {
-        val localVariableConfig = phase3CommitPreparationRequestV1RequestConfig(commitPreparationV1Request = commitPreparationV1Request)
-
-        val localVarResponse = request<CommitPreparationV1Request, Unit>(
-            localVariableConfig
-        )
+        val localVarResponse = phase3CommitPreparationRequestV1WithHttpInfo(commitPreparationV1Request = commitPreparationV1Request)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> Unit
@@ -561,6 +710,23 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * 
+    * 
+    * @param commitPreparationV1Request  (optional)
+    * @return ApiResponse<Unit?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Throws(IllegalStateException::class, IOException::class)
+    fun phase3CommitPreparationRequestV1WithHttpInfo(commitPreparationV1Request: CommitPreparationV1Request?) : ApiResponse<Unit?> {
+        val localVariableConfig = phase3CommitPreparationRequestV1RequestConfig(commitPreparationV1Request = commitPreparationV1Request)
+
+        return request<CommitPreparationV1Request, Unit>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation phase3CommitPreparationRequestV1
     *
     * @param commitPreparationV1Request  (optional)
@@ -570,7 +736,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = commitPreparationV1Request
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-
+        localVariableHeaders["Content-Type"] = "application/json"
+        
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/api/v1/@hyperledger/cactus-plugin-odap-hermes/phase3/commitpreparationrequest",
@@ -585,17 +752,15 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param commitPreparationV1Response  (optional)
     * @return void
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun phase3CommitPreparationResponseV1(commitPreparationV1Response: CommitPreparationV1Response?) : Unit {
-        val localVariableConfig = phase3CommitPreparationResponseV1RequestConfig(commitPreparationV1Response = commitPreparationV1Response)
-
-        val localVarResponse = request<CommitPreparationV1Response, Unit>(
-            localVariableConfig
-        )
+        val localVarResponse = phase3CommitPreparationResponseV1WithHttpInfo(commitPreparationV1Response = commitPreparationV1Response)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> Unit
@@ -613,6 +778,23 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * 
+    * 
+    * @param commitPreparationV1Response  (optional)
+    * @return ApiResponse<Unit?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Throws(IllegalStateException::class, IOException::class)
+    fun phase3CommitPreparationResponseV1WithHttpInfo(commitPreparationV1Response: CommitPreparationV1Response?) : ApiResponse<Unit?> {
+        val localVariableConfig = phase3CommitPreparationResponseV1RequestConfig(commitPreparationV1Response = commitPreparationV1Response)
+
+        return request<CommitPreparationV1Response, Unit>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation phase3CommitPreparationResponseV1
     *
     * @param commitPreparationV1Response  (optional)
@@ -622,7 +804,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = commitPreparationV1Response
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-
+        localVariableHeaders["Content-Type"] = "application/json"
+        
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/api/v1/@hyperledger/cactus-plugin-odap-hermes/phase3/commitpreparationresponse",
@@ -637,17 +820,15 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param transferCompleteV1Request  (optional)
     * @return void
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun phase3TransferCompleteRequestV1(transferCompleteV1Request: TransferCompleteV1Request?) : Unit {
-        val localVariableConfig = phase3TransferCompleteRequestV1RequestConfig(transferCompleteV1Request = transferCompleteV1Request)
-
-        val localVarResponse = request<TransferCompleteV1Request, Unit>(
-            localVariableConfig
-        )
+        val localVarResponse = phase3TransferCompleteRequestV1WithHttpInfo(transferCompleteV1Request = transferCompleteV1Request)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> Unit
@@ -665,6 +846,23 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * 
+    * 
+    * @param transferCompleteV1Request  (optional)
+    * @return ApiResponse<Unit?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Throws(IllegalStateException::class, IOException::class)
+    fun phase3TransferCompleteRequestV1WithHttpInfo(transferCompleteV1Request: TransferCompleteV1Request?) : ApiResponse<Unit?> {
+        val localVariableConfig = phase3TransferCompleteRequestV1RequestConfig(transferCompleteV1Request = transferCompleteV1Request)
+
+        return request<TransferCompleteV1Request, Unit>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation phase3TransferCompleteRequestV1
     *
     * @param transferCompleteV1Request  (optional)
@@ -674,7 +872,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = transferCompleteV1Request
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-
+        localVariableHeaders["Content-Type"] = "application/json"
+        
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/api/v1/@hyperledger/cactus-plugin-odap-hermes/phase3/transfercompleterequest",
@@ -689,17 +888,15 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param recoverUpdateAckV1Message  (optional)
     * @return void
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun recoverUpdateAckV1Message(recoverUpdateAckV1Message: RecoverUpdateAckV1Message?) : Unit {
-        val localVariableConfig = recoverUpdateAckV1MessageRequestConfig(recoverUpdateAckV1Message = recoverUpdateAckV1Message)
-
-        val localVarResponse = request<RecoverUpdateAckV1Message, Unit>(
-            localVariableConfig
-        )
+        val localVarResponse = recoverUpdateAckV1MessageWithHttpInfo(recoverUpdateAckV1Message = recoverUpdateAckV1Message)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> Unit
@@ -717,6 +914,23 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * 
+    * 
+    * @param recoverUpdateAckV1Message  (optional)
+    * @return ApiResponse<Unit?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Throws(IllegalStateException::class, IOException::class)
+    fun recoverUpdateAckV1MessageWithHttpInfo(recoverUpdateAckV1Message: RecoverUpdateAckV1Message?) : ApiResponse<Unit?> {
+        val localVariableConfig = recoverUpdateAckV1MessageRequestConfig(recoverUpdateAckV1Message = recoverUpdateAckV1Message)
+
+        return request<RecoverUpdateAckV1Message, Unit>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation recoverUpdateAckV1Message
     *
     * @param recoverUpdateAckV1Message  (optional)
@@ -726,7 +940,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = recoverUpdateAckV1Message
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-
+        localVariableHeaders["Content-Type"] = "application/json"
+        
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/api/v1/@hyperledger/cactus-plugin-odap-hermes/recoverupdateackmessage",
@@ -741,17 +956,15 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param recoverUpdateV1Message  (optional)
     * @return void
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun recoverUpdateV1Message(recoverUpdateV1Message: RecoverUpdateV1Message?) : Unit {
-        val localVariableConfig = recoverUpdateV1MessageRequestConfig(recoverUpdateV1Message = recoverUpdateV1Message)
-
-        val localVarResponse = request<RecoverUpdateV1Message, Unit>(
-            localVariableConfig
-        )
+        val localVarResponse = recoverUpdateV1MessageWithHttpInfo(recoverUpdateV1Message = recoverUpdateV1Message)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> Unit
@@ -769,6 +982,23 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * 
+    * 
+    * @param recoverUpdateV1Message  (optional)
+    * @return ApiResponse<Unit?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Throws(IllegalStateException::class, IOException::class)
+    fun recoverUpdateV1MessageWithHttpInfo(recoverUpdateV1Message: RecoverUpdateV1Message?) : ApiResponse<Unit?> {
+        val localVariableConfig = recoverUpdateV1MessageRequestConfig(recoverUpdateV1Message = recoverUpdateV1Message)
+
+        return request<RecoverUpdateV1Message, Unit>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation recoverUpdateV1Message
     *
     * @param recoverUpdateV1Message  (optional)
@@ -778,7 +1008,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = recoverUpdateV1Message
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-
+        localVariableHeaders["Content-Type"] = "application/json"
+        
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/api/v1/@hyperledger/cactus-plugin-odap-hermes/recoverupdatemessage",
@@ -793,17 +1024,15 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param recoverV1Message  (optional)
     * @return void
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun recoverV1Message(recoverV1Message: RecoverV1Message?) : Unit {
-        val localVariableConfig = recoverV1MessageRequestConfig(recoverV1Message = recoverV1Message)
-
-        val localVarResponse = request<RecoverV1Message, Unit>(
-            localVariableConfig
-        )
+        val localVarResponse = recoverV1MessageWithHttpInfo(recoverV1Message = recoverV1Message)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> Unit
@@ -821,6 +1050,23 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * 
+    * 
+    * @param recoverV1Message  (optional)
+    * @return ApiResponse<Unit?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Throws(IllegalStateException::class, IOException::class)
+    fun recoverV1MessageWithHttpInfo(recoverV1Message: RecoverV1Message?) : ApiResponse<Unit?> {
+        val localVariableConfig = recoverV1MessageRequestConfig(recoverV1Message = recoverV1Message)
+
+        return request<RecoverV1Message, Unit>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation recoverV1Message
     *
     * @param recoverV1Message  (optional)
@@ -830,7 +1076,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = recoverV1Message
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-
+        localVariableHeaders["Content-Type"] = "application/json"
+        
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/api/v1/@hyperledger/cactus-plugin-odap-hermes/recovermessage",
@@ -845,17 +1092,15 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param recoverSuccessV1Message  (optional)
     * @return void
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun recoverV1Success(recoverSuccessV1Message: RecoverSuccessV1Message?) : Unit {
-        val localVariableConfig = recoverV1SuccessRequestConfig(recoverSuccessV1Message = recoverSuccessV1Message)
-
-        val localVarResponse = request<RecoverSuccessV1Message, Unit>(
-            localVariableConfig
-        )
+        val localVarResponse = recoverV1SuccessWithHttpInfo(recoverSuccessV1Message = recoverSuccessV1Message)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> Unit
@@ -873,6 +1118,23 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * 
+    * 
+    * @param recoverSuccessV1Message  (optional)
+    * @return ApiResponse<Unit?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Throws(IllegalStateException::class, IOException::class)
+    fun recoverV1SuccessWithHttpInfo(recoverSuccessV1Message: RecoverSuccessV1Message?) : ApiResponse<Unit?> {
+        val localVariableConfig = recoverV1SuccessRequestConfig(recoverSuccessV1Message = recoverSuccessV1Message)
+
+        return request<RecoverSuccessV1Message, Unit>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation recoverV1Success
     *
     * @param recoverSuccessV1Message  (optional)
@@ -882,7 +1144,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = recoverSuccessV1Message
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-
+        localVariableHeaders["Content-Type"] = "application/json"
+        
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/api/v1/@hyperledger/cactus-plugin-odap-hermes/recoversuccessmessage",
@@ -897,17 +1160,15 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param rollbackAckV1Message  (optional)
     * @return void
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun rollbackAckV1Message(rollbackAckV1Message: RollbackAckV1Message?) : Unit {
-        val localVariableConfig = rollbackAckV1MessageRequestConfig(rollbackAckV1Message = rollbackAckV1Message)
-
-        val localVarResponse = request<RollbackAckV1Message, Unit>(
-            localVariableConfig
-        )
+        val localVarResponse = rollbackAckV1MessageWithHttpInfo(rollbackAckV1Message = rollbackAckV1Message)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> Unit
@@ -925,6 +1186,23 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * 
+    * 
+    * @param rollbackAckV1Message  (optional)
+    * @return ApiResponse<Unit?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Throws(IllegalStateException::class, IOException::class)
+    fun rollbackAckV1MessageWithHttpInfo(rollbackAckV1Message: RollbackAckV1Message?) : ApiResponse<Unit?> {
+        val localVariableConfig = rollbackAckV1MessageRequestConfig(rollbackAckV1Message = rollbackAckV1Message)
+
+        return request<RollbackAckV1Message, Unit>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation rollbackAckV1Message
     *
     * @param rollbackAckV1Message  (optional)
@@ -934,7 +1212,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = rollbackAckV1Message
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-
+        localVariableHeaders["Content-Type"] = "application/json"
+        
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/api/v1/@hyperledger/cactus-plugin-odap-hermes/rollbackackmessage",
@@ -949,17 +1228,15 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param rollbackV1Message  (optional)
     * @return void
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun rollbackV1Message(rollbackV1Message: RollbackV1Message?) : Unit {
-        val localVariableConfig = rollbackV1MessageRequestConfig(rollbackV1Message = rollbackV1Message)
-
-        val localVarResponse = request<RollbackV1Message, Unit>(
-            localVariableConfig
-        )
+        val localVarResponse = rollbackV1MessageWithHttpInfo(rollbackV1Message = rollbackV1Message)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> Unit
@@ -977,6 +1254,23 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * 
+    * 
+    * @param rollbackV1Message  (optional)
+    * @return ApiResponse<Unit?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Throws(IllegalStateException::class, IOException::class)
+    fun rollbackV1MessageWithHttpInfo(rollbackV1Message: RollbackV1Message?) : ApiResponse<Unit?> {
+        val localVariableConfig = rollbackV1MessageRequestConfig(rollbackV1Message = rollbackV1Message)
+
+        return request<RollbackV1Message, Unit>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation rollbackV1Message
     *
     * @param rollbackV1Message  (optional)
@@ -986,7 +1280,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = rollbackV1Message
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-
+        localVariableHeaders["Content-Type"] = "application/json"
+        
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/api/v1/@hyperledger/cactus-plugin-odap-hermes/rollbackmessage",

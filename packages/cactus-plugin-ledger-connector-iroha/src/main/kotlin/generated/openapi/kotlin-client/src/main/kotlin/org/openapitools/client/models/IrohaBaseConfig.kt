@@ -33,6 +33,7 @@ import com.squareup.moshi.Json
  * @param quorum 
  * @param timeoutLimit 
  * @param tls Can only be set to false for an insecure grpc connection.
+ * @param monitorMode Flag used for monitoring. It changes default beahviour of transaction wrapper so it return error to caller instead of throwing RuntimeError straight away.
  */
 
 data class IrohaBaseConfig (
@@ -47,7 +48,7 @@ data class IrohaBaseConfig (
     val creatorAccountId: kotlin.String? = null,
 
     @Json(name = "privKey")
-    val privKey: kotlin.collections.List<kotlin.Any>? = null,
+    val privKey: kotlin.collections.List<kotlin.Any>? = arrayListOf(),
 
     @Json(name = "quorum")
     val quorum: java.math.BigDecimal? = null,
@@ -57,7 +58,11 @@ data class IrohaBaseConfig (
 
     /* Can only be set to false for an insecure grpc connection. */
     @Json(name = "tls")
-    val tls: kotlin.Boolean? = null
+    val tls: kotlin.Boolean? = null,
+
+    /* Flag used for monitoring. It changes default beahviour of transaction wrapper so it return error to caller instead of throwing RuntimeError straight away. */
+    @Json(name = "monitorMode")
+    val monitorMode: kotlin.Boolean? = null
 
 ) : kotlin.collections.HashMap<String, kotlin.Any>()
 

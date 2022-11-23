@@ -56,12 +56,12 @@ enum class Web3SigningCredentialType(val value: kotlin.String) {
         /**
          * Converts the provided [data] to a [String] on success, null otherwise.
          */
-        fun encode(data: Any?): kotlin.String? = if (data is Web3SigningCredentialType) "$data" else null
+        fun encode(data: kotlin.Any?): kotlin.String? = if (data is Web3SigningCredentialType) "$data" else null
 
         /**
          * Returns a valid [Web3SigningCredentialType] for [data], null otherwise.
          */
-        fun decode(data: Any?): Web3SigningCredentialType? = data?.let {
+        fun decode(data: kotlin.Any?): Web3SigningCredentialType? = data?.let {
           val normalizedData = "$it".lowercase()
           values().firstOrNull { value ->
             it == value || normalizedData == "$value".lowercase()

@@ -64,10 +64,10 @@ Name | Type | Description | Notes
 **rollback** | **kotlin.Boolean** |  |  [optional]
 **rollbackMessageHash** | **kotlin.String** |  |  [optional]
 **rollbackProofs** | **kotlin.collections.List&lt;kotlin.String&gt;** |  |  [optional]
-**rollbackActionsPerformed** | [**inline**](#kotlin.collections.List&lt;RollbackActionsPerformedEnum&gt;) |  |  [optional]
+**rollbackActionsPerformed** | [**inline**](#kotlin.collections.List&lt;RollbackActionsPerformed&gt;) |  |  [optional]
 
 
-<a name="kotlin.collections.List<RollbackActionsPerformedEnum>"></a>
+<a name="kotlin.collections.List<RollbackActionsPerformed>"></a>
 ## Enum: rollbackActionsPerformed
 Name | Value
 ---- | -----

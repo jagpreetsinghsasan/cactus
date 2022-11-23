@@ -21,7 +21,6 @@
 package org.openapitools.client.models
 
 import org.openapitools.client.models.ContractJSON
-import org.openapitools.client.models.OneOfLessThanStringCommaNumberGreaterThan
 import org.openapitools.client.models.Web3SigningCredential
 
 import com.squareup.moshi.Json
@@ -46,7 +45,7 @@ data class DeployRequestBaseV1 (
     val web3SigningCredential: Web3SigningCredential,
 
     @Json(name = "constructorArgs")
-    val constructorArgs: kotlin.collections.List<kotlin.Any>? = null,
+    val constructorArgs: kotlin.collections.List<kotlin.Any>? = arrayListOf(),
 
     @Json(name = "gas")
     val gas: OneOfLessThanStringCommaNumberGreaterThan? = null,
@@ -56,7 +55,7 @@ data class DeployRequestBaseV1 (
 
     /* The amount of milliseconds to wait for a transaction receipt with theaddress of the contract(which indicates successful deployment) beforegiving up and crashing. */
     @Json(name = "timeoutMs")
-    val timeoutMs: java.math.BigDecimal? = null
+    val timeoutMs: java.math.BigDecimal? = 60000
 
 )
 

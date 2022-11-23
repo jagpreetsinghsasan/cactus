@@ -20,6 +20,8 @@
 
 package org.openapitools.client.apis
 
+import java.io.IOException
+
 import org.openapitools.client.models.InsertBambooHarvestRequest
 import org.openapitools.client.models.InsertBambooHarvestResponse
 import org.openapitools.client.models.InsertBookshelfRequest
@@ -30,7 +32,10 @@ import org.openapitools.client.models.ListBambooHarvestResponse
 import org.openapitools.client.models.ListBookshelfResponse
 import org.openapitools.client.models.ListShipmentResponse
 
+import com.squareup.moshi.Json
+
 import org.openapitools.client.infrastructure.ApiClient
+import org.openapitools.client.infrastructure.ApiResponse
 import org.openapitools.client.infrastructure.ClientException
 import org.openapitools.client.infrastructure.ClientError
 import org.openapitools.client.infrastructure.ServerException
@@ -46,7 +51,7 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     companion object {
         @JvmStatic
         val defaultBasePath: String by lazy {
-            System.getProperties().getProperty("org.openapitools.client.baseUrl", "http://localhost")
+            System.getProperties().getProperty(ApiClient.baseUrlKey, "http://localhost")
         }
     }
 
@@ -55,18 +60,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param insertBambooHarvestRequest  (optional)
     * @return InsertBambooHarvestResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun insertBambooHarvestV1(insertBambooHarvestRequest: InsertBambooHarvestRequest?) : InsertBambooHarvestResponse {
-        val localVariableConfig = insertBambooHarvestV1RequestConfig(insertBambooHarvestRequest = insertBambooHarvestRequest)
-
-        val localVarResponse = request<InsertBambooHarvestRequest, InsertBambooHarvestResponse>(
-            localVariableConfig
-        )
+        val localVarResponse = insertBambooHarvestV1WithHttpInfo(insertBambooHarvestRequest = insertBambooHarvestRequest)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as InsertBambooHarvestResponse
@@ -84,6 +87,24 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * Inserts the provided BambooHarvest entity to the ledger.
+    * 
+    * @param insertBambooHarvestRequest  (optional)
+    * @return ApiResponse<InsertBambooHarvestResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun insertBambooHarvestV1WithHttpInfo(insertBambooHarvestRequest: InsertBambooHarvestRequest?) : ApiResponse<InsertBambooHarvestResponse?> {
+        val localVariableConfig = insertBambooHarvestV1RequestConfig(insertBambooHarvestRequest = insertBambooHarvestRequest)
+
+        return request<InsertBambooHarvestRequest, InsertBambooHarvestResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation insertBambooHarvestV1
     *
     * @param insertBambooHarvestRequest  (optional)
@@ -93,6 +114,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = insertBambooHarvestRequest
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.POST,
@@ -108,18 +131,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param insertBookshelfRequest  (optional)
     * @return InsertBookshelfResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun insertBookshelfV1(insertBookshelfRequest: InsertBookshelfRequest?) : InsertBookshelfResponse {
-        val localVariableConfig = insertBookshelfV1RequestConfig(insertBookshelfRequest = insertBookshelfRequest)
-
-        val localVarResponse = request<InsertBookshelfRequest, InsertBookshelfResponse>(
-            localVariableConfig
-        )
+        val localVarResponse = insertBookshelfV1WithHttpInfo(insertBookshelfRequest = insertBookshelfRequest)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as InsertBookshelfResponse
@@ -137,6 +158,24 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * Inserts the provided Bookshelf entity to the ledger.
+    * 
+    * @param insertBookshelfRequest  (optional)
+    * @return ApiResponse<InsertBookshelfResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun insertBookshelfV1WithHttpInfo(insertBookshelfRequest: InsertBookshelfRequest?) : ApiResponse<InsertBookshelfResponse?> {
+        val localVariableConfig = insertBookshelfV1RequestConfig(insertBookshelfRequest = insertBookshelfRequest)
+
+        return request<InsertBookshelfRequest, InsertBookshelfResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation insertBookshelfV1
     *
     * @param insertBookshelfRequest  (optional)
@@ -146,6 +185,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = insertBookshelfRequest
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.POST,
@@ -161,18 +202,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param insertShipmentRequest  (optional)
     * @return InsertShipmentResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun insertShipmentV1(insertShipmentRequest: InsertShipmentRequest?) : InsertShipmentResponse {
-        val localVariableConfig = insertShipmentV1RequestConfig(insertShipmentRequest = insertShipmentRequest)
-
-        val localVarResponse = request<InsertShipmentRequest, InsertShipmentResponse>(
-            localVariableConfig
-        )
+        val localVarResponse = insertShipmentV1WithHttpInfo(insertShipmentRequest = insertShipmentRequest)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as InsertShipmentResponse
@@ -190,6 +229,24 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * Inserts the provided Shipment entity to the ledger.
+    * 
+    * @param insertShipmentRequest  (optional)
+    * @return ApiResponse<InsertShipmentResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun insertShipmentV1WithHttpInfo(insertShipmentRequest: InsertShipmentRequest?) : ApiResponse<InsertShipmentResponse?> {
+        val localVariableConfig = insertShipmentV1RequestConfig(insertShipmentRequest = insertShipmentRequest)
+
+        return request<InsertShipmentRequest, InsertShipmentResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation insertShipmentV1
     *
     * @param insertShipmentRequest  (optional)
@@ -199,6 +256,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = insertShipmentRequest
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.POST,
@@ -213,18 +272,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * Lists all the BambooHarvest entities stored on the ledger.
     * 
     * @return ListBambooHarvestResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun listBambooHarvestV1() : ListBambooHarvestResponse {
-        val localVariableConfig = listBambooHarvestV1RequestConfig()
-
-        val localVarResponse = request<Unit, ListBambooHarvestResponse>(
-            localVariableConfig
-        )
+        val localVarResponse = listBambooHarvestV1WithHttpInfo()
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as ListBambooHarvestResponse
@@ -242,6 +299,23 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * Lists all the BambooHarvest entities stored on the ledger.
+    * 
+    * @return ApiResponse<ListBambooHarvestResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listBambooHarvestV1WithHttpInfo() : ApiResponse<ListBambooHarvestResponse?> {
+        val localVariableConfig = listBambooHarvestV1RequestConfig()
+
+        return request<Unit, ListBambooHarvestResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation listBambooHarvestV1
     *
     * @return RequestConfig
@@ -250,6 +324,7 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.GET,
@@ -264,18 +339,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * Lists all the Bookshelf entities stored on the ledger.
     * 
     * @return ListBookshelfResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun listBookshelfV1() : ListBookshelfResponse {
-        val localVariableConfig = listBookshelfV1RequestConfig()
-
-        val localVarResponse = request<Unit, ListBookshelfResponse>(
-            localVariableConfig
-        )
+        val localVarResponse = listBookshelfV1WithHttpInfo()
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as ListBookshelfResponse
@@ -293,6 +366,23 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * Lists all the Bookshelf entities stored on the ledger.
+    * 
+    * @return ApiResponse<ListBookshelfResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listBookshelfV1WithHttpInfo() : ApiResponse<ListBookshelfResponse?> {
+        val localVariableConfig = listBookshelfV1RequestConfig()
+
+        return request<Unit, ListBookshelfResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation listBookshelfV1
     *
     * @return RequestConfig
@@ -301,6 +391,7 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.GET,
@@ -315,18 +406,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * Lists all the Shipments entities stored on the ledger.
     * 
     * @return ListShipmentResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun listShipmentV1() : ListShipmentResponse {
-        val localVariableConfig = listShipmentV1RequestConfig()
-
-        val localVarResponse = request<Unit, ListShipmentResponse>(
-            localVariableConfig
-        )
+        val localVarResponse = listShipmentV1WithHttpInfo()
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as ListShipmentResponse
@@ -344,6 +433,23 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * Lists all the Shipments entities stored on the ledger.
+    * 
+    * @return ApiResponse<ListShipmentResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listShipmentV1WithHttpInfo() : ApiResponse<ListShipmentResponse?> {
+        val localVariableConfig = listShipmentV1RequestConfig()
+
+        return request<Unit, ListShipmentResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation listShipmentV1
     *
     * @return RequestConfig
@@ -352,6 +458,7 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.GET,

@@ -20,6 +20,8 @@
 
 package org.openapitools.client.apis
 
+import java.io.IOException
+
 import org.openapitools.client.models.DeployContractSolidityBytecodeV1Request
 import org.openapitools.client.models.DeployContractSolidityBytecodeV1Response
 import org.openapitools.client.models.GetBalanceV1Request
@@ -39,7 +41,10 @@ import org.openapitools.client.models.RunTransactionResponse
 import org.openapitools.client.models.SignTransactionRequest
 import org.openapitools.client.models.SignTransactionResponse
 
+import com.squareup.moshi.Json
+
 import org.openapitools.client.infrastructure.ApiClient
+import org.openapitools.client.infrastructure.ApiResponse
 import org.openapitools.client.infrastructure.ClientException
 import org.openapitools.client.infrastructure.ClientError
 import org.openapitools.client.infrastructure.ServerException
@@ -55,7 +60,7 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     companion object {
         @JvmStatic
         val defaultBasePath: String by lazy {
-            System.getProperties().getProperty("org.openapitools.client.baseUrl", "http://localhost")
+            System.getProperties().getProperty(ApiClient.baseUrlKey, "http://localhost")
         }
     }
 
@@ -64,18 +69,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param deployContractSolidityBytecodeV1Request  (optional)
     * @return DeployContractSolidityBytecodeV1Response
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun deployContractSolBytecodeV1(deployContractSolidityBytecodeV1Request: DeployContractSolidityBytecodeV1Request?) : DeployContractSolidityBytecodeV1Response {
-        val localVariableConfig = deployContractSolBytecodeV1RequestConfig(deployContractSolidityBytecodeV1Request = deployContractSolidityBytecodeV1Request)
-
-        val localVarResponse = request<DeployContractSolidityBytecodeV1Request, DeployContractSolidityBytecodeV1Response>(
-            localVariableConfig
-        )
+        val localVarResponse = deployContractSolBytecodeV1WithHttpInfo(deployContractSolidityBytecodeV1Request = deployContractSolidityBytecodeV1Request)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as DeployContractSolidityBytecodeV1Response
@@ -93,6 +96,24 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * Deploys the bytecode of a Solidity contract.
+    * 
+    * @param deployContractSolidityBytecodeV1Request  (optional)
+    * @return ApiResponse<DeployContractSolidityBytecodeV1Response?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun deployContractSolBytecodeV1WithHttpInfo(deployContractSolidityBytecodeV1Request: DeployContractSolidityBytecodeV1Request?) : ApiResponse<DeployContractSolidityBytecodeV1Response?> {
+        val localVariableConfig = deployContractSolBytecodeV1RequestConfig(deployContractSolidityBytecodeV1Request = deployContractSolidityBytecodeV1Request)
+
+        return request<DeployContractSolidityBytecodeV1Request, DeployContractSolidityBytecodeV1Response>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation deployContractSolBytecodeV1
     *
     * @param deployContractSolidityBytecodeV1Request  (optional)
@@ -102,6 +123,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = deployContractSolidityBytecodeV1Request
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.POST,
@@ -117,18 +140,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param getBalanceV1Request  (optional)
     * @return GetBalanceV1Response
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun getBalanceV1(getBalanceV1Request: GetBalanceV1Request?) : GetBalanceV1Response {
-        val localVariableConfig = getBalanceV1RequestConfig(getBalanceV1Request = getBalanceV1Request)
-
-        val localVarResponse = request<GetBalanceV1Request, GetBalanceV1Response>(
-            localVariableConfig
-        )
+        val localVarResponse = getBalanceV1WithHttpInfo(getBalanceV1Request = getBalanceV1Request)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as GetBalanceV1Response
@@ -146,6 +167,24 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * Return balance of an address of a given block
+    * 
+    * @param getBalanceV1Request  (optional)
+    * @return ApiResponse<GetBalanceV1Response?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getBalanceV1WithHttpInfo(getBalanceV1Request: GetBalanceV1Request?) : ApiResponse<GetBalanceV1Response?> {
+        val localVariableConfig = getBalanceV1RequestConfig(getBalanceV1Request = getBalanceV1Request)
+
+        return request<GetBalanceV1Request, GetBalanceV1Response>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation getBalanceV1
     *
     * @param getBalanceV1Request  (optional)
@@ -155,6 +194,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = getBalanceV1Request
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.POST,
@@ -170,18 +211,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param getBesuRecordV1Request  (optional)
     * @return GetBesuRecordV1Response
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun getBesuRecordV1(getBesuRecordV1Request: GetBesuRecordV1Request?) : GetBesuRecordV1Response {
-        val localVariableConfig = getBesuRecordV1RequestConfig(getBesuRecordV1Request = getBesuRecordV1Request)
-
-        val localVarResponse = request<GetBesuRecordV1Request, GetBesuRecordV1Response>(
-            localVariableConfig
-        )
+        val localVarResponse = getBesuRecordV1WithHttpInfo(getBesuRecordV1Request = getBesuRecordV1Request)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as GetBesuRecordV1Response
@@ -199,6 +238,24 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * Retrieves an arbitrary record (any piece of information) from the ledger. Ledger records can be call outputs, transaction input, etc.
+    * 
+    * @param getBesuRecordV1Request  (optional)
+    * @return ApiResponse<GetBesuRecordV1Response?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getBesuRecordV1WithHttpInfo(getBesuRecordV1Request: GetBesuRecordV1Request?) : ApiResponse<GetBesuRecordV1Response?> {
+        val localVariableConfig = getBesuRecordV1RequestConfig(getBesuRecordV1Request = getBesuRecordV1Request)
+
+        return request<GetBesuRecordV1Request, GetBesuRecordV1Response>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation getBesuRecordV1
     *
     * @param getBesuRecordV1Request  (optional)
@@ -208,7 +265,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = getBesuRecordV1Request
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-
+        localVariableHeaders["Content-Type"] = "application/json"
+        
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-besu/get-besu-record",
@@ -223,18 +281,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param getBlockV1Request  (optional)
     * @return GetBlockV1Response
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun getBlockV1(getBlockV1Request: GetBlockV1Request?) : GetBlockV1Response {
-        val localVariableConfig = getBlockV1RequestConfig(getBlockV1Request = getBlockV1Request)
-
-        val localVarResponse = request<GetBlockV1Request, GetBlockV1Response>(
-            localVariableConfig
-        )
+        val localVarResponse = getBlockV1WithHttpInfo(getBlockV1Request = getBlockV1Request)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as GetBlockV1Response
@@ -252,6 +308,24 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * Returns a block matching the block
+    * 
+    * @param getBlockV1Request  (optional)
+    * @return ApiResponse<GetBlockV1Response?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getBlockV1WithHttpInfo(getBlockV1Request: GetBlockV1Request?) : ApiResponse<GetBlockV1Response?> {
+        val localVariableConfig = getBlockV1RequestConfig(getBlockV1Request = getBlockV1Request)
+
+        return request<GetBlockV1Request, GetBlockV1Response>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation getBlockV1
     *
     * @param getBlockV1Request  (optional)
@@ -261,6 +335,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = getBlockV1Request
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.POST,
@@ -276,18 +352,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param getPastLogsV1Request  (optional)
     * @return GetPastLogsV1Response
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun getPastLogsV1(getPastLogsV1Request: GetPastLogsV1Request?) : GetPastLogsV1Response {
-        val localVariableConfig = getPastLogsV1RequestConfig(getPastLogsV1Request = getPastLogsV1Request)
-
-        val localVarResponse = request<GetPastLogsV1Request, GetPastLogsV1Response>(
-            localVariableConfig
-        )
+        val localVarResponse = getPastLogsV1WithHttpInfo(getPastLogsV1Request = getPastLogsV1Request)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as GetPastLogsV1Response
@@ -305,6 +379,24 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * Gets past logs, matching the given options.
+    * 
+    * @param getPastLogsV1Request  (optional)
+    * @return ApiResponse<GetPastLogsV1Response?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getPastLogsV1WithHttpInfo(getPastLogsV1Request: GetPastLogsV1Request?) : ApiResponse<GetPastLogsV1Response?> {
+        val localVariableConfig = getPastLogsV1RequestConfig(getPastLogsV1Request = getPastLogsV1Request)
+
+        return request<GetPastLogsV1Request, GetPastLogsV1Response>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation getPastLogsV1
     *
     * @param getPastLogsV1Request  (optional)
@@ -314,6 +406,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = getPastLogsV1Request
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.POST,
@@ -328,18 +422,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * Get the Prometheus Metrics
     * 
     * @return kotlin.String
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun getPrometheusMetricsV1() : kotlin.String {
-        val localVariableConfig = getPrometheusMetricsV1RequestConfig()
-
-        val localVarResponse = request<Unit, kotlin.String>(
-            localVariableConfig
-        )
+        val localVarResponse = getPrometheusMetricsV1WithHttpInfo()
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.String
@@ -357,6 +449,23 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * Get the Prometheus Metrics
+    * 
+    * @return ApiResponse<kotlin.String?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getPrometheusMetricsV1WithHttpInfo() : ApiResponse<kotlin.String?> {
+        val localVariableConfig = getPrometheusMetricsV1RequestConfig()
+
+        return request<Unit, kotlin.String>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation getPrometheusMetricsV1
     *
     * @return RequestConfig
@@ -365,7 +474,7 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-
+        
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-besu/get-prometheus-exporter-metrics",
@@ -380,18 +489,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param getTransactionV1Request  (optional)
     * @return GetTransactionV1Response
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun getTransactionV1(getTransactionV1Request: GetTransactionV1Request?) : GetTransactionV1Response {
-        val localVariableConfig = getTransactionV1RequestConfig(getTransactionV1Request = getTransactionV1Request)
-
-        val localVarResponse = request<GetTransactionV1Request, GetTransactionV1Response>(
-            localVariableConfig
-        )
+        val localVarResponse = getTransactionV1WithHttpInfo(getTransactionV1Request = getTransactionV1Request)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as GetTransactionV1Response
@@ -409,6 +516,24 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * Executes a transaction on a besu ledger
+    * 
+    * @param getTransactionV1Request  (optional)
+    * @return ApiResponse<GetTransactionV1Response?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getTransactionV1WithHttpInfo(getTransactionV1Request: GetTransactionV1Request?) : ApiResponse<GetTransactionV1Response?> {
+        val localVariableConfig = getTransactionV1RequestConfig(getTransactionV1Request = getTransactionV1Request)
+
+        return request<GetTransactionV1Request, GetTransactionV1Response>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation getTransactionV1
     *
     * @param getTransactionV1Request  (optional)
@@ -418,6 +543,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = getTransactionV1Request
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.POST,
@@ -433,18 +560,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param invokeContractV1Request  (optional)
     * @return InvokeContractV1Response
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun invokeContractV1(invokeContractV1Request: InvokeContractV1Request?) : InvokeContractV1Response {
-        val localVariableConfig = invokeContractV1RequestConfig(invokeContractV1Request = invokeContractV1Request)
-
-        val localVarResponse = request<InvokeContractV1Request, InvokeContractV1Response>(
-            localVariableConfig
-        )
+        val localVarResponse = invokeContractV1WithHttpInfo(invokeContractV1Request = invokeContractV1Request)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as InvokeContractV1Response
@@ -462,6 +587,24 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * Invokes a contract on a besu ledger
+    * 
+    * @param invokeContractV1Request  (optional)
+    * @return ApiResponse<InvokeContractV1Response?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun invokeContractV1WithHttpInfo(invokeContractV1Request: InvokeContractV1Request?) : ApiResponse<InvokeContractV1Response?> {
+        val localVariableConfig = invokeContractV1RequestConfig(invokeContractV1Request = invokeContractV1Request)
+
+        return request<InvokeContractV1Request, InvokeContractV1Response>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation invokeContractV1
     *
     * @param invokeContractV1Request  (optional)
@@ -471,6 +614,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = invokeContractV1Request
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.POST,
@@ -486,18 +631,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param runTransactionRequest  (optional)
     * @return RunTransactionResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun runTransactionV1(runTransactionRequest: RunTransactionRequest?) : RunTransactionResponse {
-        val localVariableConfig = runTransactionV1RequestConfig(runTransactionRequest = runTransactionRequest)
-
-        val localVarResponse = request<RunTransactionRequest, RunTransactionResponse>(
-            localVariableConfig
-        )
+        val localVarResponse = runTransactionV1WithHttpInfo(runTransactionRequest = runTransactionRequest)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as RunTransactionResponse
@@ -515,6 +658,24 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * Executes a transaction on a besu ledger
+    * 
+    * @param runTransactionRequest  (optional)
+    * @return ApiResponse<RunTransactionResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun runTransactionV1WithHttpInfo(runTransactionRequest: RunTransactionRequest?) : ApiResponse<RunTransactionResponse?> {
+        val localVariableConfig = runTransactionV1RequestConfig(runTransactionRequest = runTransactionRequest)
+
+        return request<RunTransactionRequest, RunTransactionResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation runTransactionV1
     *
     * @param runTransactionRequest  (optional)
@@ -524,6 +685,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = runTransactionRequest
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.POST,
@@ -539,18 +702,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * Obtain signatures of ledger from the corresponding transaction hash.
     * @param signTransactionRequest  
     * @return SignTransactionResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun signTransactionV1(signTransactionRequest: SignTransactionRequest) : SignTransactionResponse {
-        val localVariableConfig = signTransactionV1RequestConfig(signTransactionRequest = signTransactionRequest)
-
-        val localVarResponse = request<SignTransactionRequest, SignTransactionResponse>(
-            localVariableConfig
-        )
+        val localVarResponse = signTransactionV1WithHttpInfo(signTransactionRequest = signTransactionRequest)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as SignTransactionResponse
@@ -568,6 +729,24 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * Obtain signatures of ledger from the corresponding transaction hash.
+    * Obtain signatures of ledger from the corresponding transaction hash.
+    * @param signTransactionRequest  
+    * @return ApiResponse<SignTransactionResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun signTransactionV1WithHttpInfo(signTransactionRequest: SignTransactionRequest) : ApiResponse<SignTransactionResponse?> {
+        val localVariableConfig = signTransactionV1RequestConfig(signTransactionRequest = signTransactionRequest)
+
+        return request<SignTransactionRequest, SignTransactionResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation signTransactionV1
     *
     * @param signTransactionRequest  
@@ -577,6 +756,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = signTransactionRequest
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.POST,

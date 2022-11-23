@@ -29,8 +29,12 @@ docs/GetSignatoriesRequestParameters.md
 docs/GetTransactionsRequestParameters.md
 docs/GrantPermissionRequestParameters.md
 docs/IrohaBaseConfig.md
+docs/IrohaBlockProgress.md
+docs/IrohaBlockResponse.md
+docs/IrohaBlockResponsePayload.md
 docs/IrohaCommand.md
 docs/IrohaQuery.md
+docs/IrohaSocketIOTransactV1.md
 docs/KeyPair.md
 docs/RemovePeerRequestParameters.md
 docs/RemoveSignatoryRequestParameters.md
@@ -44,6 +48,7 @@ docs/SetAccountDetailRequestParameters.md
 docs/SetAccountQuorumRequestParameters.md
 docs/SubtractAssetQuantityRequestParameters.md
 docs/TransferAssetRequestParameters.md
+docs/WatchBlocksV1.md
 gradle/wrapper/gradle-wrapper.jar
 gradle/wrapper/gradle-wrapper.properties
 gradlew
@@ -52,7 +57,7 @@ settings.gradle
 src/main/kotlin/org/openapitools/client/apis/DefaultApi.kt
 src/main/kotlin/org/openapitools/client/infrastructure/ApiAbstractions.kt
 src/main/kotlin/org/openapitools/client/infrastructure/ApiClient.kt
-src/main/kotlin/org/openapitools/client/infrastructure/ApiInfrastructureResponse.kt
+src/main/kotlin/org/openapitools/client/infrastructure/ApiResponse.kt
 src/main/kotlin/org/openapitools/client/infrastructure/BigDecimalAdapter.kt
 src/main/kotlin/org/openapitools/client/infrastructure/BigIntegerAdapter.kt
 src/main/kotlin/org/openapitools/client/infrastructure/ByteArrayAdapter.kt
@@ -94,8 +99,12 @@ src/main/kotlin/org/openapitools/client/models/GetSignatoriesRequestParameters.k
 src/main/kotlin/org/openapitools/client/models/GetTransactionsRequestParameters.kt
 src/main/kotlin/org/openapitools/client/models/GrantPermissionRequestParameters.kt
 src/main/kotlin/org/openapitools/client/models/IrohaBaseConfig.kt
+src/main/kotlin/org/openapitools/client/models/IrohaBlockProgress.kt
+src/main/kotlin/org/openapitools/client/models/IrohaBlockResponse.kt
+src/main/kotlin/org/openapitools/client/models/IrohaBlockResponsePayload.kt
 src/main/kotlin/org/openapitools/client/models/IrohaCommand.kt
 src/main/kotlin/org/openapitools/client/models/IrohaQuery.kt
+src/main/kotlin/org/openapitools/client/models/IrohaSocketIOTransactV1.kt
 src/main/kotlin/org/openapitools/client/models/KeyPair.kt
 src/main/kotlin/org/openapitools/client/models/RemovePeerRequestParameters.kt
 src/main/kotlin/org/openapitools/client/models/RemoveSignatoryRequestParameters.kt
@@ -109,3 +118,4 @@ src/main/kotlin/org/openapitools/client/models/SetAccountDetailRequestParameters
 src/main/kotlin/org/openapitools/client/models/SetAccountQuorumRequestParameters.kt
 src/main/kotlin/org/openapitools/client/models/SubtractAssetQuantityRequestParameters.kt
 src/main/kotlin/org/openapitools/client/models/TransferAssetRequestParameters.kt
+src/main/kotlin/org/openapitools/client/models/WatchBlocksV1.kt

@@ -53,12 +53,12 @@ enum class CredentialProfile(val value: kotlin.String) {
         /**
          * Converts the provided [data] to a [String] on success, null otherwise.
          */
-        fun encode(data: Any?): kotlin.String? = if (data is CredentialProfile) "$data" else null
+        fun encode(data: kotlin.Any?): kotlin.String? = if (data is CredentialProfile) "$data" else null
 
         /**
          * Returns a valid [CredentialProfile] for [data], null otherwise.
          */
-        fun decode(data: Any?): CredentialProfile? = data?.let {
+        fun decode(data: kotlin.Any?): CredentialProfile? = data?.let {
           val normalizedData = "$it".lowercase()
           values().firstOrNull { value ->
             it == value || normalizedData == "$value".lowercase()

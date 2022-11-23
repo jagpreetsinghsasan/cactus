@@ -20,11 +20,16 @@
 
 package org.openapitools.client.apis
 
+import java.io.IOException
+
 import org.openapitools.client.models.CounterpartyHTLCRequest
 import org.openapitools.client.models.OwnHTLCRequest
 import org.openapitools.client.models.WithdrawCounterpartyRequest
 
+import com.squareup.moshi.Json
+
 import org.openapitools.client.infrastructure.ApiClient
+import org.openapitools.client.infrastructure.ApiResponse
 import org.openapitools.client.infrastructure.ClientException
 import org.openapitools.client.infrastructure.ClientError
 import org.openapitools.client.infrastructure.ServerException
@@ -40,7 +45,7 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     companion object {
         @JvmStatic
         val defaultBasePath: String by lazy {
-            System.getProperties().getProperty("org.openapitools.client.baseUrl", "https://www.cactus.stream")
+            System.getProperties().getProperty(ApiClient.baseUrlKey, "https://www.cactus.stream")
         }
     }
 
@@ -49,18 +54,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param counterpartyHTLCRequest  (optional)
     * @return kotlin.Any
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun counterpartyHtlcV1(counterpartyHTLCRequest: CounterpartyHTLCRequest?) : kotlin.Any {
-        val localVariableConfig = counterpartyHtlcV1RequestConfig(counterpartyHTLCRequest = counterpartyHTLCRequest)
-
-        val localVarResponse = request<CounterpartyHTLCRequest, kotlin.Any>(
-            localVariableConfig
-        )
+        val localVarResponse = counterpartyHtlcV1WithHttpInfo(counterpartyHTLCRequest = counterpartyHTLCRequest)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -78,6 +81,24 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * Create an instance to interact with the counterparty HTLC
+    * 
+    * @param counterpartyHTLCRequest  (optional)
+    * @return ApiResponse<kotlin.Any?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun counterpartyHtlcV1WithHttpInfo(counterpartyHTLCRequest: CounterpartyHTLCRequest?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = counterpartyHtlcV1RequestConfig(counterpartyHTLCRequest = counterpartyHTLCRequest)
+
+        return request<CounterpartyHTLCRequest, kotlin.Any>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation counterpartyHtlcV1
     *
     * @param counterpartyHTLCRequest  (optional)
@@ -87,6 +108,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = counterpartyHTLCRequest
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.POST,
@@ -102,18 +125,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param ownHTLCRequest  (optional)
     * @return kotlin.Any
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun ownHtlcV1(ownHTLCRequest: OwnHTLCRequest?) : kotlin.Any {
-        val localVariableConfig = ownHtlcV1RequestConfig(ownHTLCRequest = ownHTLCRequest)
-
-        val localVarResponse = request<OwnHTLCRequest, kotlin.Any>(
-            localVariableConfig
-        )
+        val localVarResponse = ownHtlcV1WithHttpInfo(ownHTLCRequest = ownHTLCRequest)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -131,6 +152,24 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * Create an instance to interact with the own HTLC.
+    * 
+    * @param ownHTLCRequest  (optional)
+    * @return ApiResponse<kotlin.Any?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun ownHtlcV1WithHttpInfo(ownHTLCRequest: OwnHTLCRequest?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = ownHtlcV1RequestConfig(ownHTLCRequest = ownHTLCRequest)
+
+        return request<OwnHTLCRequest, kotlin.Any>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation ownHtlcV1
     *
     * @param ownHTLCRequest  (optional)
@@ -140,6 +179,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = ownHTLCRequest
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.POST,
@@ -155,18 +196,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param withdrawCounterpartyRequest  (optional)
     * @return kotlin.Any
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun withdrawCounterpartyV1(withdrawCounterpartyRequest: WithdrawCounterpartyRequest?) : kotlin.Any {
-        val localVariableConfig = withdrawCounterpartyV1RequestConfig(withdrawCounterpartyRequest = withdrawCounterpartyRequest)
-
-        val localVarResponse = request<WithdrawCounterpartyRequest, kotlin.Any>(
-            localVariableConfig
-        )
+        val localVarResponse = withdrawCounterpartyV1WithHttpInfo(withdrawCounterpartyRequest = withdrawCounterpartyRequest)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Any
@@ -184,6 +223,24 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * Withdraw funds of the counterparty HTLC
+    * 
+    * @param withdrawCounterpartyRequest  (optional)
+    * @return ApiResponse<kotlin.Any?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun withdrawCounterpartyV1WithHttpInfo(withdrawCounterpartyRequest: WithdrawCounterpartyRequest?) : ApiResponse<kotlin.Any?> {
+        val localVariableConfig = withdrawCounterpartyV1RequestConfig(withdrawCounterpartyRequest = withdrawCounterpartyRequest)
+
+        return request<WithdrawCounterpartyRequest, kotlin.Any>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation withdrawCounterpartyV1
     *
     * @param withdrawCounterpartyRequest  (optional)
@@ -193,6 +250,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = withdrawCounterpartyRequest
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.POST,

@@ -38,7 +38,7 @@ data class InvokeRawWeb3EthMethodV1Request (
 
     /* The list of arguments to pass to web3.eth method specified in methodName */
     @Json(name = "params")
-    val params: kotlin.collections.List<kotlin.Any>? = null
+    val params: kotlin.collections.List<kotlin.Any>? = arrayListOf()
 
 )
 

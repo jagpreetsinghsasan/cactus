@@ -49,7 +49,7 @@ data class GenerateTransactionRequestV1 (
 
     /* Requested transaction quorum */
     @Json(name = "quorum")
-    val quorum: java.math.BigDecimal? = null
+    val quorum: java.math.BigDecimal? = 1
 
 )
 

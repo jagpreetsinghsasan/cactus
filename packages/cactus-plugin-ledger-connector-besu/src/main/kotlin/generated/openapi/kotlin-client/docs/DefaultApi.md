@@ -149,7 +149,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: text/plain
+ - **Accept**: Not defined
 
 <a name="getBlockV1"></a>
 # **getBlockV1**
@@ -280,7 +280,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: text/plain
+ - **Accept**: Not defined
 
 <a name="getTransactionV1"></a>
 # **getTransactionV1**

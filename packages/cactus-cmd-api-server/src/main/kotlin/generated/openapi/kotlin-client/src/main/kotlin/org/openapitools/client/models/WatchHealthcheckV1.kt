@@ -59,12 +59,12 @@ enum class WatchHealthcheckV1(val value: kotlin.String) {
         /**
          * Converts the provided [data] to a [String] on success, null otherwise.
          */
-        fun encode(data: Any?): kotlin.String? = if (data is WatchHealthcheckV1) "$data" else null
+        fun encode(data: kotlin.Any?): kotlin.String? = if (data is WatchHealthcheckV1) "$data" else null
 
         /**
          * Returns a valid [WatchHealthcheckV1] for [data], null otherwise.
          */
-        fun decode(data: Any?): WatchHealthcheckV1? = data?.let {
+        fun decode(data: kotlin.Any?): WatchHealthcheckV1? = data?.let {
           val normalizedData = "$it".lowercase()
           values().firstOrNull { value ->
             it == value || normalizedData == "$value".lowercase()

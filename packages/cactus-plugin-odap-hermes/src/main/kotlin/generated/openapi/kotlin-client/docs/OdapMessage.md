@@ -5,11 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **sequenceNumber** | [**java.math.BigDecimal**](java.math.BigDecimal.md) |  |  [optional]
-**phase** | [**inline**](#PhaseEnum) |  |  [optional]
+**phase** | [**inline**](#Phase) |  |  [optional]
 **resourceURL** | **kotlin.String** |  |  [optional]
 **developerURN** | **kotlin.String** |  |  [optional]
 **actionResponse** | [**OdapMessageActionResponse**](OdapMessageActionResponse.md) |  |  [optional]
-**credentialProfile** | [**inline**](#CredentialProfileEnum) |  |  [optional]
+**credentialProfile** | [**inline**](#CredentialProfile) |  |  [optional]
 **credentialBlock** | [**kotlin.collections.List&lt;kotlin.Any&gt;**](kotlin.Any.md) |  |  [optional]
 **credentialsProfile** | [**PayloadProfile**](PayloadProfile.md) |  |  [optional]
 **applicationProfile** | [**kotlin.Any**](.md) |  |  [optional]
@@ -18,14 +18,14 @@ Name | Type | Description | Notes
 **messageSignature** | **kotlin.String** |  |  [optional]
 
 
-<a name="PhaseEnum"></a>
+<a name="Phase"></a>
 ## Enum: Phase
 Name | Value
 ---- | -----
 phase | TransferInitialization, LockEvidenceVerification, CommitmentEstablishment
 
 
-<a name="CredentialProfileEnum"></a>
+<a name="CredentialProfile"></a>
 ## Enum: CredentialProfile
 Name | Value
 ---- | -----

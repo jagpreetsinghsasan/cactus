@@ -72,7 +72,7 @@ data class RunTransactionRequest (
     val gatewayOptions: GatewayOptions? = null,
 
     @Json(name = "endorsingParties")
-    val endorsingParties: kotlin.collections.List<kotlin.String>? = null
+    val endorsingParties: kotlin.collections.List<kotlin.String>? = arrayListOf()
 
 )
 

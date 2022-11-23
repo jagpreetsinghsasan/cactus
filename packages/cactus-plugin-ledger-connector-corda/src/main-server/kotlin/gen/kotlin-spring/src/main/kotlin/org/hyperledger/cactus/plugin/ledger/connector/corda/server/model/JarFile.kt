@@ -26,7 +26,7 @@ data class JarFile(
 
     @get:Size(min=1,max=1073741824)
     @field:JsonProperty("contentBase64", required = true) val contentBase64: kotlin.String
-) : kotlin.collections.HashMap<String, kotlin.Any>(){
+) : kotlin.collections.HashMap<String, kotlin.Any>{
 
 }
 

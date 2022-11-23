@@ -56,12 +56,12 @@ enum class DefaultEventHandlerStrategy(val value: kotlin.String) {
         /**
          * Converts the provided [data] to a [String] on success, null otherwise.
          */
-        fun encode(data: Any?): kotlin.String? = if (data is DefaultEventHandlerStrategy) "$data" else null
+        fun encode(data: kotlin.Any?): kotlin.String? = if (data is DefaultEventHandlerStrategy) "$data" else null
 
         /**
          * Returns a valid [DefaultEventHandlerStrategy] for [data], null otherwise.
          */
-        fun decode(data: Any?): DefaultEventHandlerStrategy? = data?.let {
+        fun decode(data: kotlin.Any?): DefaultEventHandlerStrategy? = data?.let {
           val normalizedData = "$it".lowercase()
           values().firstOrNull { value ->
             it == value || normalizedData == "$value".lowercase()

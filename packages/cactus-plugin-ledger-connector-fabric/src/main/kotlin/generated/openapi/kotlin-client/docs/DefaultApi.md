@@ -55,7 +55,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json, text/plain
+ - **Accept**: application/json
 
 <a name="deployContractV1"></a>
 # **deployContractV1**
@@ -100,7 +100,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json, text/plain
+ - **Accept**: application/json
 
 <a name="getBlockV1"></a>
 # **getBlockV1**
@@ -186,7 +186,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: text/plain
+ - **Accept**: Not defined
 
 <a name="getTransactionReceiptByTxIDV1"></a>
 # **getTransactionReceiptByTxIDV1**

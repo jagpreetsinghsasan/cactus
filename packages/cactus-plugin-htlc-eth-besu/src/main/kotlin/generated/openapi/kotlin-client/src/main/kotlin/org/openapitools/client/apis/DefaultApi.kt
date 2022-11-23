@@ -20,6 +20,8 @@
 
 package org.openapitools.client.apis
 
+import java.io.IOException
+
 import org.openapitools.client.models.GetSingleStatusRequest
 import org.openapitools.client.models.GetStatusRequest
 import org.openapitools.client.models.InitializeRequest
@@ -29,7 +31,10 @@ import org.openapitools.client.models.RefundReq
 import org.openapitools.client.models.RunTransactionResponse
 import org.openapitools.client.models.WithdrawReq
 
+import com.squareup.moshi.Json
+
 import org.openapitools.client.infrastructure.ApiClient
+import org.openapitools.client.infrastructure.ApiResponse
 import org.openapitools.client.infrastructure.ClientException
 import org.openapitools.client.infrastructure.ClientError
 import org.openapitools.client.infrastructure.ServerException
@@ -45,7 +50,7 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     companion object {
         @JvmStatic
         val defaultBasePath: String by lazy {
-            System.getProperties().getProperty("org.openapitools.client.baseUrl", "http://localhost")
+            System.getProperties().getProperty(ApiClient.baseUrlKey, "http://localhost")
         }
     }
 
@@ -54,18 +59,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param getSingleStatusRequest  (optional)
     * @return kotlin.Int
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun getSingleStatusV1(getSingleStatusRequest: GetSingleStatusRequest?) : kotlin.Int {
-        val localVariableConfig = getSingleStatusV1RequestConfig(getSingleStatusRequest = getSingleStatusRequest)
-
-        val localVarResponse = request<GetSingleStatusRequest, kotlin.Int>(
-            localVariableConfig
-        )
+        val localVarResponse = getSingleStatusV1WithHttpInfo(getSingleStatusRequest = getSingleStatusRequest)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.Int
@@ -83,6 +86,24 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * 
+    * 
+    * @param getSingleStatusRequest  (optional)
+    * @return ApiResponse<kotlin.Int?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getSingleStatusV1WithHttpInfo(getSingleStatusRequest: GetSingleStatusRequest?) : ApiResponse<kotlin.Int?> {
+        val localVariableConfig = getSingleStatusV1RequestConfig(getSingleStatusRequest = getSingleStatusRequest)
+
+        return request<GetSingleStatusRequest, kotlin.Int>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation getSingleStatusV1
     *
     * @param getSingleStatusRequest  (optional)
@@ -92,6 +113,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = getSingleStatusRequest
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.POST,
@@ -107,18 +130,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param getStatusRequest  (optional)
     * @return kotlin.collections.List<kotlin.Int>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun getStatusV1(getStatusRequest: GetStatusRequest?) : kotlin.collections.List<kotlin.Int> {
-        val localVariableConfig = getStatusV1RequestConfig(getStatusRequest = getStatusRequest)
-
-        val localVarResponse = request<GetStatusRequest, kotlin.collections.List<kotlin.Int>>(
-            localVariableConfig
-        )
+        val localVarResponse = getStatusV1WithHttpInfo(getStatusRequest = getStatusRequest)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.collections.List<kotlin.Int>
@@ -136,6 +157,24 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * 
+    * 
+    * @param getStatusRequest  (optional)
+    * @return ApiResponse<kotlin.collections.List<kotlin.Int>?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getStatusV1WithHttpInfo(getStatusRequest: GetStatusRequest?) : ApiResponse<kotlin.collections.List<kotlin.Int>?> {
+        val localVariableConfig = getStatusV1RequestConfig(getStatusRequest = getStatusRequest)
+
+        return request<GetStatusRequest, kotlin.collections.List<kotlin.Int>>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation getStatusV1
     *
     * @param getStatusRequest  (optional)
@@ -145,6 +184,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = getStatusRequest
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.POST,
@@ -160,18 +201,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param initializeRequest  (optional)
     * @return RunTransactionResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun initializeV1(initializeRequest: InitializeRequest?) : RunTransactionResponse {
-        val localVariableConfig = initializeV1RequestConfig(initializeRequest = initializeRequest)
-
-        val localVarResponse = request<InitializeRequest, RunTransactionResponse>(
-            localVariableConfig
-        )
+        val localVarResponse = initializeV1WithHttpInfo(initializeRequest = initializeRequest)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as RunTransactionResponse
@@ -189,6 +228,24 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * 
+    * 
+    * @param initializeRequest  (optional)
+    * @return ApiResponse<RunTransactionResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun initializeV1WithHttpInfo(initializeRequest: InitializeRequest?) : ApiResponse<RunTransactionResponse?> {
+        val localVariableConfig = initializeV1RequestConfig(initializeRequest = initializeRequest)
+
+        return request<InitializeRequest, RunTransactionResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation initializeV1
     *
     * @param initializeRequest  (optional)
@@ -198,6 +255,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = initializeRequest
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.POST,
@@ -213,18 +272,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param newContractObj  (optional)
     * @return InvokeContractV1Response
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun newContractV1(newContractObj: NewContractObj?) : InvokeContractV1Response {
-        val localVariableConfig = newContractV1RequestConfig(newContractObj = newContractObj)
-
-        val localVarResponse = request<NewContractObj, InvokeContractV1Response>(
-            localVariableConfig
-        )
+        val localVarResponse = newContractV1WithHttpInfo(newContractObj = newContractObj)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as InvokeContractV1Response
@@ -242,6 +299,24 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * 
+    * 
+    * @param newContractObj  (optional)
+    * @return ApiResponse<InvokeContractV1Response?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun newContractV1WithHttpInfo(newContractObj: NewContractObj?) : ApiResponse<InvokeContractV1Response?> {
+        val localVariableConfig = newContractV1RequestConfig(newContractObj = newContractObj)
+
+        return request<NewContractObj, InvokeContractV1Response>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation newContractV1
     *
     * @param newContractObj  (optional)
@@ -251,6 +326,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = newContractObj
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.POST,
@@ -266,18 +343,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param refundReq  (optional)
     * @return InvokeContractV1Response
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun refundV1(refundReq: RefundReq?) : InvokeContractV1Response {
-        val localVariableConfig = refundV1RequestConfig(refundReq = refundReq)
-
-        val localVarResponse = request<RefundReq, InvokeContractV1Response>(
-            localVariableConfig
-        )
+        val localVarResponse = refundV1WithHttpInfo(refundReq = refundReq)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as InvokeContractV1Response
@@ -295,6 +370,24 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * 
+    * 
+    * @param refundReq  (optional)
+    * @return ApiResponse<InvokeContractV1Response?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun refundV1WithHttpInfo(refundReq: RefundReq?) : ApiResponse<InvokeContractV1Response?> {
+        val localVariableConfig = refundV1RequestConfig(refundReq = refundReq)
+
+        return request<RefundReq, InvokeContractV1Response>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation refundV1
     *
     * @param refundReq  (optional)
@@ -304,6 +397,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = refundReq
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.POST,
@@ -319,18 +414,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param withdrawReq  (optional)
     * @return InvokeContractV1Response
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun withdrawV1(withdrawReq: WithdrawReq?) : InvokeContractV1Response {
-        val localVariableConfig = withdrawV1RequestConfig(withdrawReq = withdrawReq)
-
-        val localVarResponse = request<WithdrawReq, InvokeContractV1Response>(
-            localVariableConfig
-        )
+        val localVarResponse = withdrawV1WithHttpInfo(withdrawReq = withdrawReq)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as InvokeContractV1Response
@@ -348,6 +441,24 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * 
+    * 
+    * @param withdrawReq  (optional)
+    * @return ApiResponse<InvokeContractV1Response?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun withdrawV1WithHttpInfo(withdrawReq: WithdrawReq?) : ApiResponse<InvokeContractV1Response?> {
+        val localVariableConfig = withdrawV1RequestConfig(withdrawReq = withdrawReq)
+
+        return request<WithdrawReq, InvokeContractV1Response>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation withdrawV1
     *
     * @param withdrawReq  (optional)
@@ -357,6 +468,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = withdrawReq
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.POST,

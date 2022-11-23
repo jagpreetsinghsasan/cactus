@@ -20,10 +20,15 @@
 
 package org.openapitools.client.apis
 
+import java.io.IOException
+
 import org.openapitools.client.models.GetConsortiumJwsResponse
 import org.openapitools.client.models.GetNodeJwsResponse
 
+import com.squareup.moshi.Json
+
 import org.openapitools.client.infrastructure.ApiClient
+import org.openapitools.client.infrastructure.ApiResponse
 import org.openapitools.client.infrastructure.ClientException
 import org.openapitools.client.infrastructure.ClientError
 import org.openapitools.client.infrastructure.ServerException
@@ -39,7 +44,7 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     companion object {
         @JvmStatic
         val defaultBasePath: String by lazy {
-            System.getProperties().getProperty("org.openapitools.client.baseUrl", "http://localhost")
+            System.getProperties().getProperty(ApiClient.baseUrlKey, "http://localhost")
         }
     }
 
@@ -48,18 +53,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * The JWS asserting the consortium metadata (pub keys and hosts of nodes)
     * @param body  (optional)
     * @return GetConsortiumJwsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun getConsortiumJwsV1(body: kotlin.Any?) : GetConsortiumJwsResponse {
-        val localVariableConfig = getConsortiumJwsV1RequestConfig(body = body)
-
-        val localVarResponse = request<kotlin.Any, GetConsortiumJwsResponse>(
-            localVariableConfig
-        )
+        val localVarResponse = getConsortiumJwsV1WithHttpInfo(body = body)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as GetConsortiumJwsResponse
@@ -77,6 +80,24 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * Retrieves a consortium JWS
+    * The JWS asserting the consortium metadata (pub keys and hosts of nodes)
+    * @param body  (optional)
+    * @return ApiResponse<GetConsortiumJwsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getConsortiumJwsV1WithHttpInfo(body: kotlin.Any?) : ApiResponse<GetConsortiumJwsResponse?> {
+        val localVariableConfig = getConsortiumJwsV1RequestConfig(body = body)
+
+        return request<kotlin.Any, GetConsortiumJwsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation getConsortiumJwsV1
     *
     * @param body  (optional)
@@ -86,6 +107,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = body
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.POST,
@@ -101,18 +124,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param body  (optional)
     * @return GetNodeJwsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun getNodeJwsV1(body: kotlin.Any?) : GetNodeJwsResponse {
-        val localVariableConfig = getNodeJwsV1RequestConfig(body = body)
-
-        val localVarResponse = request<kotlin.Any, GetNodeJwsResponse>(
-            localVariableConfig
-        )
+        val localVarResponse = getNodeJwsV1WithHttpInfo(body = body)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as GetNodeJwsResponse
@@ -130,6 +151,24 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * Retrieves the JWT of a Cactus Node
+    * 
+    * @param body  (optional)
+    * @return ApiResponse<GetNodeJwsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getNodeJwsV1WithHttpInfo(body: kotlin.Any?) : ApiResponse<GetNodeJwsResponse?> {
+        val localVariableConfig = getNodeJwsV1RequestConfig(body = body)
+
+        return request<kotlin.Any, GetNodeJwsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation getNodeJwsV1
     *
     * @param body  (optional)
@@ -139,6 +178,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = body
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.POST,
@@ -153,18 +194,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * Get the Prometheus Metrics
     * 
     * @return kotlin.String
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun getPrometheusMetricsV1() : kotlin.String {
-        val localVariableConfig = getPrometheusMetricsV1RequestConfig()
-
-        val localVarResponse = request<Unit, kotlin.String>(
-            localVariableConfig
-        )
+        val localVarResponse = getPrometheusMetricsV1WithHttpInfo()
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.String
@@ -182,6 +221,23 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * Get the Prometheus Metrics
+    * 
+    * @return ApiResponse<kotlin.String?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getPrometheusMetricsV1WithHttpInfo() : ApiResponse<kotlin.String?> {
+        val localVariableConfig = getPrometheusMetricsV1RequestConfig()
+
+        return request<Unit, kotlin.String>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation getPrometheusMetricsV1
     *
     * @return RequestConfig
@@ -190,7 +246,7 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-
+        
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/api/v1/plugins/@hyperledger/cactus-plugin-consortium-manual/get-prometheus-exporter-metrics",

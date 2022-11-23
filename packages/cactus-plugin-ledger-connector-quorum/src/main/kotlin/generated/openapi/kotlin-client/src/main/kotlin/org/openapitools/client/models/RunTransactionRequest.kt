@@ -43,7 +43,7 @@ data class RunTransactionRequest (
 
     /* The amount of milliseconds to wait for a transaction receipt with thehash of the transaction(which indicates successful execution) beforegiving up and crashing. */
     @Json(name = "timeoutMs")
-    val timeoutMs: java.math.BigDecimal? = null
+    val timeoutMs: java.math.BigDecimal? = 60000
 
 )
 

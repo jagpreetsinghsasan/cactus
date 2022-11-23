@@ -1,6 +1,7 @@
 package org.hyperledger.cactus.plugin.ledger.connector.corda.server.model
 
 import java.util.Objects
+import com.fasterxml.jackson.annotation.JsonValue
 import com.fasterxml.jackson.annotation.JsonProperty
 import javax.validation.constraints.DecimalMax
 import javax.validation.constraints.DecimalMin

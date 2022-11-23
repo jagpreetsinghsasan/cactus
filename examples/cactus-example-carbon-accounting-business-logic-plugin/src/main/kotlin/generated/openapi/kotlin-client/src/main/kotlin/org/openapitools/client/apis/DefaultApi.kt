@@ -20,13 +20,18 @@
 
 package org.openapitools.client.apis
 
+import java.io.IOException
+
 import org.openapitools.client.models.DaoTokenGetAllowanceNotFoundResponse
 import org.openapitools.client.models.DaoTokenGetAllowanceRequest
 import org.openapitools.client.models.DaoTokenGetAllowanceResponse
 import org.openapitools.client.models.EnrollAdminV1Request
 import org.openapitools.client.models.EnrollAdminV1Response
 
+import com.squareup.moshi.Json
+
 import org.openapitools.client.infrastructure.ApiClient
+import org.openapitools.client.infrastructure.ApiResponse
 import org.openapitools.client.infrastructure.ClientException
 import org.openapitools.client.infrastructure.ClientError
 import org.openapitools.client.infrastructure.ServerException
@@ -42,7 +47,7 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     companion object {
         @JvmStatic
         val defaultBasePath: String by lazy {
-            System.getProperties().getProperty("org.openapitools.client.baseUrl", "http://localhost")
+            System.getProperties().getProperty(ApiClient.baseUrlKey, "http://localhost")
         }
     }
 
@@ -51,18 +56,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param daoTokenGetAllowanceRequest  (optional)
     * @return DaoTokenGetAllowanceResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun daoTokenGetAllowanceV1(daoTokenGetAllowanceRequest: DaoTokenGetAllowanceRequest?) : DaoTokenGetAllowanceResponse {
-        val localVariableConfig = daoTokenGetAllowanceV1RequestConfig(daoTokenGetAllowanceRequest = daoTokenGetAllowanceRequest)
-
-        val localVarResponse = request<DaoTokenGetAllowanceRequest, DaoTokenGetAllowanceResponse>(
-            localVariableConfig
-        )
+        val localVarResponse = daoTokenGetAllowanceV1WithHttpInfo(daoTokenGetAllowanceRequest = daoTokenGetAllowanceRequest)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as DaoTokenGetAllowanceResponse
@@ -80,6 +83,24 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * Get the number of tokens &#x60;spender&#x60; is approved to spend on behalf of &#x60;account&#x60;
+    * 
+    * @param daoTokenGetAllowanceRequest  (optional)
+    * @return ApiResponse<DaoTokenGetAllowanceResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun daoTokenGetAllowanceV1WithHttpInfo(daoTokenGetAllowanceRequest: DaoTokenGetAllowanceRequest?) : ApiResponse<DaoTokenGetAllowanceResponse?> {
+        val localVariableConfig = daoTokenGetAllowanceV1RequestConfig(daoTokenGetAllowanceRequest = daoTokenGetAllowanceRequest)
+
+        return request<DaoTokenGetAllowanceRequest, DaoTokenGetAllowanceResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation daoTokenGetAllowanceV1
     *
     * @param daoTokenGetAllowanceRequest  (optional)
@@ -89,6 +110,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = daoTokenGetAllowanceRequest
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.POST,
@@ -104,18 +127,16 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * 
     * @param enrollAdminV1Request  (optional)
     * @return EnrollAdminV1Response
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
     fun enrollAdminV1(enrollAdminV1Request: EnrollAdminV1Request?) : EnrollAdminV1Response {
-        val localVariableConfig = enrollAdminV1RequestConfig(enrollAdminV1Request = enrollAdminV1Request)
-
-        val localVarResponse = request<EnrollAdminV1Request, EnrollAdminV1Response>(
-            localVariableConfig
-        )
+        val localVarResponse = enrollAdminV1WithHttpInfo(enrollAdminV1Request = enrollAdminV1Request)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as EnrollAdminV1Response
@@ -133,6 +154,24 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * Registers an admin account within the Fabric organization specified.
+    * 
+    * @param enrollAdminV1Request  (optional)
+    * @return ApiResponse<EnrollAdminV1Response?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun enrollAdminV1WithHttpInfo(enrollAdminV1Request: EnrollAdminV1Request?) : ApiResponse<EnrollAdminV1Response?> {
+        val localVariableConfig = enrollAdminV1RequestConfig(enrollAdminV1Request = enrollAdminV1Request)
+
+        return request<EnrollAdminV1Request, EnrollAdminV1Response>(
+            localVariableConfig
+        )
+    }
+
+    /**
     * To obtain the request config of the operation enrollAdminV1
     *
     * @param enrollAdminV1Request  (optional)
@@ -142,6 +181,8 @@ class DefaultApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val localVariableBody = enrollAdminV1Request
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.POST,

@@ -22,7 +22,6 @@ package org.openapitools.client.models
 
 import org.openapitools.client.models.BesuPrivateTransactionConfig
 import org.openapitools.client.models.EthContractInvocationType
-import org.openapitools.client.models.OneOfLessThanStringCommaNumberGreaterThan
 import org.openapitools.client.models.Web3SigningCredential
 
 import com.squareup.moshi.Json
@@ -87,7 +86,7 @@ data class InvokeContractV1Request (
 
     /* The amount of milliseconds to wait for a transaction receipt beforegiving up and crashing. Only has any effect if the invocation type is SEND */
     @Json(name = "timeoutMs")
-    val timeoutMs: java.math.BigDecimal? = null,
+    val timeoutMs: java.math.BigDecimal? = 60000,
 
     /* The keychainId for retrieve the contracts json. */
     @Json(name = "keychainId")

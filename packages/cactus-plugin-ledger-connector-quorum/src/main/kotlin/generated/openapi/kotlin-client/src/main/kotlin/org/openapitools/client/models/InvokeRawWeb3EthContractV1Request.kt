@@ -58,7 +58,7 @@ data class InvokeRawWeb3EthContractV1Request (
 
     /* The list of arguments for deployed solidity contract method */
     @Json(name = "contractMethodArgs")
-    val contractMethodArgs: kotlin.collections.List<kotlin.Any>? = null
+    val contractMethodArgs: kotlin.collections.List<kotlin.Any>? = arrayListOf()
 
 )
 

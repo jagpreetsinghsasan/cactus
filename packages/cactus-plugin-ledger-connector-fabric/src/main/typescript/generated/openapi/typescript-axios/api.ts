@@ -14,7 +14,7 @@
 
 
 import { Configuration } from './configuration';
-import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
+import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from './common';
@@ -27,11 +27,14 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
  * @enum {string}
  */
 
-export enum ChainCodeLanguageRuntime {
-    Golang = 'golang',
-    Node = 'node',
-    Java = 'java'
-}
+export const ChainCodeLanguageRuntime = {
+    Golang: 'golang',
+    Node: 'node',
+    Java: 'java'
+} as const;
+
+export type ChainCodeLanguageRuntime = typeof ChainCodeLanguageRuntime[keyof typeof ChainCodeLanguageRuntime];
+
 
 /**
  * 
@@ -44,43 +47,43 @@ export interface ChainCodeLifeCycleCommandResponses {
      * @type {SSHExecCommandResponse}
      * @memberof ChainCodeLifeCycleCommandResponses
      */
-    packaging?: SSHExecCommandResponse;
+    'packaging'?: SSHExecCommandResponse;
     /**
      * 
      * @type {Array<SSHExecCommandResponse>}
      * @memberof ChainCodeLifeCycleCommandResponses
      */
-    installList: Array<SSHExecCommandResponse>;
+    'installList': Array<SSHExecCommandResponse>;
     /**
      * 
      * @type {Array<SSHExecCommandResponse>}
      * @memberof ChainCodeLifeCycleCommandResponses
      */
-    queryInstalledList: Array<SSHExecCommandResponse>;
+    'queryInstalledList': Array<SSHExecCommandResponse>;
     /**
      * 
      * @type {Array<SSHExecCommandResponse>}
      * @memberof ChainCodeLifeCycleCommandResponses
      */
-    approveForMyOrgList: Array<SSHExecCommandResponse>;
+    'approveForMyOrgList': Array<SSHExecCommandResponse>;
     /**
      * 
      * @type {SSHExecCommandResponse}
      * @memberof ChainCodeLifeCycleCommandResponses
      */
-    commit?: SSHExecCommandResponse;
+    'commit'?: SSHExecCommandResponse;
     /**
      * 
      * @type {SSHExecCommandResponse}
      * @memberof ChainCodeLifeCycleCommandResponses
      */
-    queryCommitted?: SSHExecCommandResponse;
+    'queryCommitted'?: SSHExecCommandResponse;
     /**
      * 
      * @type {SSHExecCommandResponse}
      * @memberof ChainCodeLifeCycleCommandResponses
      */
-    init?: SSHExecCommandResponse;
+    'init'?: SSHExecCommandResponse;
 }
 /**
  * Enumerates the supported source code programming languages of Hyperledger Fabric
@@ -88,12 +91,15 @@ export interface ChainCodeLifeCycleCommandResponses {
  * @enum {string}
  */
 
-export enum ChainCodeProgrammingLanguage {
-    Golang = 'golang',
-    Javascript = 'javascript',
-    Typescript = 'typescript',
-    Java = 'java'
-}
+export const ChainCodeProgrammingLanguage = {
+    Golang: 'golang',
+    Javascript: 'javascript',
+    Typescript: 'typescript',
+    Java: 'java'
+} as const;
+
+export type ChainCodeProgrammingLanguage = typeof ChainCodeProgrammingLanguage[keyof typeof ChainCodeProgrammingLanguage];
+
 
 /**
  * 
@@ -108,61 +114,61 @@ export interface ConnectionProfile {
      * @type {string}
      * @memberof ConnectionProfile
      */
-    name: string;
+    'name': string;
     /**
      * 
      * @type {string}
      * @memberof ConnectionProfile
      */
-    x_type?: string;
+    'x-type'?: string;
     /**
      * 
      * @type {string}
      * @memberof ConnectionProfile
      */
-    description?: string;
+    'description'?: string;
     /**
      * 
      * @type {string}
      * @memberof ConnectionProfile
      */
-    version: string;
+    'version': string;
     /**
      * 
      * @type {ConnectionProfileClient}
      * @memberof ConnectionProfile
      */
-    client?: ConnectionProfileClient;
+    'client'?: ConnectionProfileClient;
     /**
      * 
      * @type {{ [key: string]: object; }}
      * @memberof ConnectionProfile
      */
-    channels?: { [key: string]: object; };
+    'channels'?: { [key: string]: object; };
     /**
      * 
      * @type {{ [key: string]: object; }}
      * @memberof ConnectionProfile
      */
-    organizations: { [key: string]: object; };
+    'organizations': { [key: string]: object; };
     /**
      * 
      * @type {{ [key: string]: object; }}
      * @memberof ConnectionProfile
      */
-    orderers?: { [key: string]: object; };
+    'orderers'?: { [key: string]: object; };
     /**
      * 
      * @type {{ [key: string]: object; }}
      * @memberof ConnectionProfile
      */
-    peers: { [key: string]: object; };
+    'peers': { [key: string]: object; };
     /**
      * 
      * @type {{ [key: string]: object; }}
      * @memberof ConnectionProfile
      */
-    certificateAuthorities?: { [key: string]: object; };
+    'certificateAuthorities'?: { [key: string]: object; };
 }
 /**
  * 
@@ -175,7 +181,7 @@ export interface ConnectionProfileClient {
      * @type {string}
      * @memberof ConnectionProfileClient
      */
-    organization?: string;
+    'organization'?: string;
 }
 /**
  * 
@@ -183,12 +189,15 @@ export interface ConnectionProfileClient {
  * @enum {string}
  */
 
-export enum DefaultEventHandlerStrategy {
-    MspidScopeAllfortx = 'MSPID_SCOPE_ALLFORTX',
-    MspidScopeAnyfortx = 'MSPID_SCOPE_ANYFORTX',
-    NetworkScopeAllfortx = 'NETWORK_SCOPE_ALLFORTX',
-    NetworkScopeAnyfortx = 'NETWORK_SCOPE_ANYFORTX'
-}
+export const DefaultEventHandlerStrategy = {
+    MspidScopeAllfortx: 'MSPID_SCOPE_ALLFORTX',
+    MspidScopeAnyfortx: 'MSPID_SCOPE_ANYFORTX',
+    NetworkScopeAllfortx: 'NETWORK_SCOPE_ALLFORTX',
+    NetworkScopeAnyfortx: 'NETWORK_SCOPE_ANYFORTX'
+} as const;
+
+export type DefaultEventHandlerStrategy = typeof DefaultEventHandlerStrategy[keyof typeof DefaultEventHandlerStrategy];
+
 
 /**
  * 
@@ -201,73 +210,73 @@ export interface DeployContractGoSourceV1Request {
      * @type {string}
      * @memberof DeployContractGoSourceV1Request
      */
-    policyDslSource: string;
+    'policyDslSource': string;
     /**
      * The TLS root cert files that will be passed to the chaincode instantiation command.
      * @type {string}
      * @memberof DeployContractGoSourceV1Request
      */
-    tlsRootCertFiles: string;
+    'tlsRootCertFiles': string;
     /**
      * The name of the Fabric channel where the contract will get instantiated.
      * @type {string}
      * @memberof DeployContractGoSourceV1Request
      */
-    channelId: string;
+    'channelId': string;
     /**
      * 
      * @type {Array<DeploymentTargetOrganization>}
      * @memberof DeployContractGoSourceV1Request
      */
-    targetOrganizations: Array<DeploymentTargetOrganization>;
+    'targetOrganizations': Array<DeploymentTargetOrganization>;
     /**
      * An array of peer addresses where the contract will be instantiated. Note that at present only the first item from this array will be used which is the behavior taken from the official Fabric samples repository and therefore it is assumed to be correct usage.
      * @type {Array<string>}
      * @memberof DeployContractGoSourceV1Request
      */
-    targetPeerAddresses: Array<string>;
+    'targetPeerAddresses': Array<string>;
     /**
      * 
      * @type {DeployContractGoSourceV1RequestConstructorArgs}
      * @memberof DeployContractGoSourceV1Request
      */
-    constructorArgs?: DeployContractGoSourceV1RequestConstructorArgs;
+    'constructorArgs'?: DeployContractGoSourceV1RequestConstructorArgs;
     /**
      * 
      * @type {string}
      * @memberof DeployContractGoSourceV1Request
      */
-    chainCodeVersion: string;
+    'chainCodeVersion': string;
     /**
      * 
      * @type {FileBase64}
      * @memberof DeployContractGoSourceV1Request
      */
-    goSource: FileBase64;
+    'goSource': FileBase64;
     /**
      * 
      * @type {FileBase64}
      * @memberof DeployContractGoSourceV1Request
      */
-    goMod?: FileBase64;
+    'goMod'?: FileBase64;
     /**
      * The go module name that will be used for the go compilation process.
      * @type {string}
      * @memberof DeployContractGoSourceV1Request
      */
-    moduleName?: string;
+    'moduleName'?: string;
     /**
      * 
      * @type {Array<string>}
      * @memberof DeployContractGoSourceV1Request
      */
-    pinnedDeps?: Array<string>;
+    'pinnedDeps'?: Array<string>;
     /**
      * Indicates to the go chaincode compiler of Cactus if it should do an actual go compilation with the contact source or if it should just execute the go mod tidy command.
      * @type {boolean}
      * @memberof DeployContractGoSourceV1Request
      */
-    modTidyOnly?: boolean | null;
+    'modTidyOnly'?: boolean | null;
 }
 /**
  * 
@@ -280,7 +289,7 @@ export interface DeployContractGoSourceV1RequestConstructorArgs {
      * @type {Array<any>}
      * @memberof DeployContractGoSourceV1RequestConstructorArgs
      */
-    Args?: Array<any>;
+    'Args'?: Array<any>;
 }
 /**
  * 
@@ -293,19 +302,19 @@ export interface DeployContractGoSourceV1Response {
      * @type {boolean}
      * @memberof DeployContractGoSourceV1Response
      */
-    success: boolean;
+    'success': boolean;
     /**
      * 
      * @type {Array<SSHExecCommandResponse>}
      * @memberof DeployContractGoSourceV1Response
      */
-    installationCommandResponses: Array<SSHExecCommandResponse>;
+    'installationCommandResponses': Array<SSHExecCommandResponse>;
     /**
      * 
      * @type {SSHExecCommandResponse}
      * @memberof DeployContractGoSourceV1Response
      */
-    instantiationCommandResponse: SSHExecCommandResponse;
+    'instantiationCommandResponse': SSHExecCommandResponse;
 }
 /**
  * 
@@ -318,91 +327,91 @@ export interface DeployContractV1Request {
      * @type {ChainCodeProgrammingLanguage}
      * @memberof DeployContractV1Request
      */
-    ccLang: ChainCodeProgrammingLanguage;
+    'ccLang': ChainCodeProgrammingLanguage;
     /**
      * File-system path pointing at the CA file.
      * @type {string}
      * @memberof DeployContractV1Request
      */
-    caFile: string;
+    'caFile': string;
     /**
      * Ordering service endpoint specified as <hostname or IP address>:<port>
      * @type {string}
      * @memberof DeployContractV1Request
      */
-    orderer: string;
+    'orderer': string;
     /**
      * The hostname override to use when validating the TLS connection to the orderer
      * @type {string}
      * @memberof DeployContractV1Request
      */
-    ordererTLSHostnameOverride: string;
+    'ordererTLSHostnameOverride': string;
     /**
      * Timeout for client to connect (default 3s)
      * @type {number}
      * @memberof DeployContractV1Request
      */
-    connTimeout?: number;
+    'connTimeout'?: number;
     /**
      * Passed in to the peer via the --signature-policy argument on the command line. See also: https://hyperledger-fabric.readthedocs.io/en/release-2.2/endorsement-policies.html#setting-chaincode-level-endorsement-policies
      * @type {string}
      * @memberof DeployContractV1Request
      */
-    signaturePolicy?: string;
+    'signaturePolicy'?: string;
     /**
      * Name of the collections config file as present in the sourceFiles array of the request.
      * @type {string}
      * @memberof DeployContractV1Request
      */
-    collectionsConfigFile?: string;
+    'collectionsConfigFile'?: string;
     /**
      * The name of the Fabric channel where the contract will get instantiated.
      * @type {string}
      * @memberof DeployContractV1Request
      */
-    channelId: string;
+    'channelId': string;
     /**
      * 
      * @type {Array<DeploymentTargetOrganization>}
      * @memberof DeployContractV1Request
      */
-    targetOrganizations: Array<DeploymentTargetOrganization>;
+    'targetOrganizations': Array<DeploymentTargetOrganization>;
     /**
      * 
      * @type {DeployContractGoSourceV1RequestConstructorArgs}
      * @memberof DeployContractV1Request
      */
-    constructorArgs?: DeployContractGoSourceV1RequestConstructorArgs;
+    'constructorArgs'?: DeployContractGoSourceV1RequestConstructorArgs;
     /**
      * 
      * @type {number}
      * @memberof DeployContractV1Request
      */
-    ccSequence: number;
+    'ccSequence': number;
     /**
      * 
      * @type {string}
      * @memberof DeployContractV1Request
      */
-    ccVersion: string;
+    'ccVersion': string;
     /**
      * 
      * @type {string}
      * @memberof DeployContractV1Request
      */
-    ccName: string;
+    'ccName': string;
     /**
      * Human readable label to uniquely identify the contract. Recommended to include in this at least the contract name and the exact version in order to make it easily distinguishable from other deployments of the same contract.
      * @type {string}
      * @memberof DeployContractV1Request
      */
-    ccLabel: string;
+    'ccLabel': string;
     /**
      * The your-smart-contract.go file where the functionality of your contract is implemented.
      * @type {Array<FileBase64>}
      * @memberof DeployContractV1Request
      */
-    sourceFiles: Array<FileBase64>;
+    'sourceFiles': Array<FileBase64>;
 }
 /**
  * 
@@ -415,19 +424,19 @@ export interface DeployContractV1Response {
      * @type {boolean}
      * @memberof DeployContractV1Response
      */
-    success: boolean;
+    'success': boolean;
     /**
      * 
      * @type {Array<string>}
      * @memberof DeployContractV1Response
      */
-    packageIds: Array<string>;
+    'packageIds': Array<string>;
     /**
      * 
      * @type {ChainCodeLifeCycleCommandResponses}
      * @memberof DeployContractV1Response
      */
-    lifecycle: ChainCodeLifeCycleCommandResponses;
+    'lifecycle': ChainCodeLifeCycleCommandResponses;
 }
 /**
  * 
@@ -440,37 +449,37 @@ export interface DeploymentTargetOrgFabric2x {
      * @type {string}
      * @memberof DeploymentTargetOrgFabric2x
      */
-    _transient?: string;
+    'transient'?: string;
     /**
      * Mapped to environment variables of the Fabric CLI container.
      * @type {string}
      * @memberof DeploymentTargetOrgFabric2x
      */
-    CORE_PEER_LOCALMSPID: string;
+    'CORE_PEER_LOCALMSPID': string;
     /**
      * Mapped to environment variables of the Fabric CLI container.
      * @type {string}
      * @memberof DeploymentTargetOrgFabric2x
      */
-    CORE_PEER_ADDRESS: string;
+    'CORE_PEER_ADDRESS': string;
     /**
      * Mapped to environment variables of the Fabric CLI container.
      * @type {string}
      * @memberof DeploymentTargetOrgFabric2x
      */
-    CORE_PEER_MSPCONFIGPATH: string;
+    'CORE_PEER_MSPCONFIGPATH': string;
     /**
      * Mapped to environment variables of the Fabric CLI container.
      * @type {string}
      * @memberof DeploymentTargetOrgFabric2x
      */
-    CORE_PEER_TLS_ROOTCERT_FILE: string;
+    'CORE_PEER_TLS_ROOTCERT_FILE': string;
     /**
      * Mapped to environment variables of the Fabric CLI container.
      * @type {string}
      * @memberof DeploymentTargetOrgFabric2x
      */
-    ORDERER_TLS_ROOTCERT_FILE: string;
+    'ORDERER_TLS_ROOTCERT_FILE': string;
 }
 /**
  * 
@@ -483,31 +492,31 @@ export interface DeploymentTargetOrganization {
      * @type {string}
      * @memberof DeploymentTargetOrganization
      */
-    CORE_PEER_LOCALMSPID: string;
+    'CORE_PEER_LOCALMSPID': string;
     /**
      * Mapped to environment variables of the Fabric CLI container.
      * @type {string}
      * @memberof DeploymentTargetOrganization
      */
-    CORE_PEER_ADDRESS: string;
+    'CORE_PEER_ADDRESS': string;
     /**
      * Mapped to environment variables of the Fabric CLI container.
      * @type {string}
      * @memberof DeploymentTargetOrganization
      */
-    CORE_PEER_MSPCONFIGPATH: string;
+    'CORE_PEER_MSPCONFIGPATH': string;
     /**
      * Mapped to environment variables of the Fabric CLI container.
      * @type {string}
      * @memberof DeploymentTargetOrganization
      */
-    CORE_PEER_TLS_ROOTCERT_FILE: string;
+    'CORE_PEER_TLS_ROOTCERT_FILE': string;
     /**
      * Mapped to environment variables of the Fabric CLI container.
      * @type {string}
      * @memberof DeploymentTargetOrganization
      */
-    ORDERER_TLS_ROOTCERT_FILE: string;
+    'ORDERER_TLS_ROOTCERT_FILE': string;
 }
 /**
  * 
@@ -520,13 +529,13 @@ export interface ErrorExceptionResponseV1 {
      * @type {string}
      * @memberof ErrorExceptionResponseV1
      */
-    message: string;
+    'message': string;
     /**
      * 
      * @type {string}
      * @memberof ErrorExceptionResponseV1
      */
-    error: string;
+    'error': string;
 }
 /**
  * 
@@ -534,11 +543,14 @@ export interface ErrorExceptionResponseV1 {
  * @enum {string}
  */
 
-export enum FabricContractInvocationType {
-    Send = 'FabricContractInvocationType.SEND',
-    Call = 'FabricContractInvocationType.CALL',
-    Sendprivate = 'FabricContractInvocationType.SENDPRIVATE'
-}
+export const FabricContractInvocationType = {
+    Send: 'FabricContractInvocationType.SEND',
+    Call: 'FabricContractInvocationType.CALL',
+    Sendprivate: 'FabricContractInvocationType.SENDPRIVATE'
+} as const;
+
+export type FabricContractInvocationType = typeof FabricContractInvocationType[keyof typeof FabricContractInvocationType];
+
 
 /**
  * 
@@ -551,31 +563,31 @@ export interface FabricSigningCredential {
      * @type {string}
      * @memberof FabricSigningCredential
      */
-    keychainId: string;
+    'keychainId': string;
     /**
      * 
      * @type {string}
      * @memberof FabricSigningCredential
      */
-    keychainRef: string;
+    'keychainRef': string;
     /**
      * 
      * @type {FabricSigningCredentialType}
      * @memberof FabricSigningCredential
      */
-    type?: FabricSigningCredentialType;
+    'type'?: FabricSigningCredentialType;
     /**
      * 
      * @type {VaultTransitKey}
      * @memberof FabricSigningCredential
      */
-    vaultTransitKey?: VaultTransitKey;
+    'vaultTransitKey'?: VaultTransitKey;
     /**
      * 
      * @type {WebSocketKey}
      * @memberof FabricSigningCredential
      */
-    webSocketKey?: WebSocketKey;
+    'webSocketKey'?: WebSocketKey;
 }
 /**
  * different type of identity provider for singing fabric messages supported by this package
@@ -583,11 +595,14 @@ export interface FabricSigningCredential {
  * @enum {string}
  */
 
-export enum FabricSigningCredentialType {
-    X509 = 'X.509',
-    VaultX509 = 'Vault-X.509',
-    WsX509 = 'WS-X.509'
-}
+export const FabricSigningCredentialType = {
+    X509: 'X.509',
+    VaultX509: 'Vault-X.509',
+    WsX509: 'WS-X.509'
+} as const;
+
+export type FabricSigningCredentialType = typeof FabricSigningCredentialType[keyof typeof FabricSigningCredentialType];
+
 
 /**
  * Represents a file-system file that has a name and a body which holds the file contents as a Base64 encoded string
@@ -600,19 +615,19 @@ export interface FileBase64 {
      * @type {string}
      * @memberof FileBase64
      */
-    body: string;
+    'body': string;
     /**
      * The name as referred to on a file system
      * @type {string}
      * @memberof FileBase64
      */
-    filename: string;
+    'filename': string;
     /**
      * The relative path of the file, if it should be placed in a sub-directory
      * @type {string}
      * @memberof FileBase64
      */
-    filepath?: string;
+    'filepath'?: string;
 }
 /**
  * 
@@ -625,13 +640,13 @@ export interface GatewayDiscoveryOptions {
      * @type {boolean}
      * @memberof GatewayDiscoveryOptions
      */
-    asLocalhost?: boolean;
+    'asLocalhost'?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof GatewayDiscoveryOptions
      */
-    enabled?: boolean;
+    'enabled'?: boolean;
 }
 /**
  * 
@@ -644,19 +659,19 @@ export interface GatewayEventHandlerOptions {
      * @type {number}
      * @memberof GatewayEventHandlerOptions
      */
-    commitTimeout?: number;
+    'commitTimeout'?: number;
     /**
      * 
      * @type {number}
      * @memberof GatewayEventHandlerOptions
      */
-    endorseTimeout?: number;
+    'endorseTimeout'?: number;
     /**
      * 
      * @type {DefaultEventHandlerStrategy}
      * @memberof GatewayEventHandlerOptions
      */
-    strategy: DefaultEventHandlerStrategy;
+    'strategy': DefaultEventHandlerStrategy;
 }
 /**
  * 
@@ -669,31 +684,31 @@ export interface GatewayOptions {
      * @type {ConnectionProfile}
      * @memberof GatewayOptions
      */
-    connectionProfile?: ConnectionProfile;
+    'connectionProfile'?: ConnectionProfile;
     /**
      * 
      * @type {GatewayDiscoveryOptions}
      * @memberof GatewayOptions
      */
-    discovery?: GatewayDiscoveryOptions;
+    'discovery'?: GatewayDiscoveryOptions;
     /**
      * 
      * @type {GatewayEventHandlerOptions}
      * @memberof GatewayOptions
      */
-    eventHandlerOptions?: GatewayEventHandlerOptions;
+    'eventHandlerOptions'?: GatewayEventHandlerOptions;
     /**
      * 
      * @type {string}
      * @memberof GatewayOptions
      */
-    identity: string;
+    'identity': string;
     /**
      * 
      * @type {GatewayOptionsWallet}
      * @memberof GatewayOptions
      */
-    wallet: GatewayOptionsWallet;
+    'wallet': GatewayOptionsWallet;
 }
 /**
  * 
@@ -706,13 +721,13 @@ export interface GatewayOptionsWallet {
      * @type {FabricSigningCredential}
      * @memberof GatewayOptionsWallet
      */
-    keychain?: FabricSigningCredential;
+    'keychain'?: FabricSigningCredential;
     /**
      * 
      * @type {string}
      * @memberof GatewayOptionsWallet
      */
-    json?: string;
+    'json'?: string;
 }
 /**
  * Request for GetBlock endpoint.
@@ -725,31 +740,31 @@ export interface GetBlockRequestV1 {
      * @type {string}
      * @memberof GetBlockRequestV1
      */
-    channelName: string;
+    'channelName': string;
     /**
      * Fabric channel we want to connect to. If not provided, then one from channelName parameter will be used
      * @type {string}
      * @memberof GetBlockRequestV1
      */
-    connectionChannelName?: string;
+    'connectionChannelName'?: string;
     /**
      * 
      * @type {GatewayOptions}
      * @memberof GetBlockRequestV1
      */
-    gatewayOptions: GatewayOptions;
+    'gatewayOptions': GatewayOptions;
     /**
      * 
      * @type {GetBlockRequestV1Query}
      * @memberof GetBlockRequestV1
      */
-    query: GetBlockRequestV1Query;
+    'query': GetBlockRequestV1Query;
     /**
      * If true, encoded buffer will be returned. Otherwise, entire block object is returned.
      * @type {boolean}
      * @memberof GetBlockRequestV1
      */
-    skipDecode?: boolean;
+    'skipDecode'?: boolean;
 }
 /**
  * Query selector, caller must provide at least one of them. First found will be used, rest will be ignored, so it\'s recommended to pass single selector.
@@ -762,19 +777,19 @@ export interface GetBlockRequestV1Query {
      * @type {string}
      * @memberof GetBlockRequestV1Query
      */
-    blockNumber?: string;
+    'blockNumber'?: string;
     /**
      * 
      * @type {GetBlockRequestV1QueryBlockHash}
      * @memberof GetBlockRequestV1Query
      */
-    blockHash?: GetBlockRequestV1QueryBlockHash;
+    'blockHash'?: GetBlockRequestV1QueryBlockHash;
     /**
      * Select block by id of transaction that it contains.
      * @type {string}
      * @memberof GetBlockRequestV1Query
      */
-    transactionId?: string;
+    'transactionId'?: string;
 }
 /**
  * Select block by it\'s hash.
@@ -787,13 +802,13 @@ export interface GetBlockRequestV1QueryBlockHash {
      * @type {string}
      * @memberof GetBlockRequestV1QueryBlockHash
      */
-    encoding?: string;
+    'encoding'?: string;
     /**
      * Buffer of blockHash. It\'s encoding should be described in `encoding` parameter.
      * @type {any}
      * @memberof GetBlockRequestV1QueryBlockHash
      */
-    buffer: any;
+    'buffer': any;
 }
 /**
  * When skipDecode is false (default) then decoded block object is returned.
@@ -806,7 +821,7 @@ export interface GetBlockResponseDecodedV1 {
      * @type {any}
      * @memberof GetBlockResponseDecodedV1
      */
-    decodedBlock: any | null;
+    'decodedBlock': any;
 }
 /**
  * When skipDecode is true then encoded block Buffer is returned.
@@ -819,7 +834,7 @@ export interface GetBlockResponseEncodedV1 {
      * @type {any}
      * @memberof GetBlockResponseEncodedV1
      */
-    encodedBlock: any;
+    'encodedBlock': any;
 }
 /**
  * @type GetBlockResponseV1
@@ -839,61 +854,61 @@ export interface GetTransactionReceiptResponse {
      * @type {string}
      * @memberof GetTransactionReceiptResponse
      */
-    blockNumber?: string;
+    'blockNumber'?: string;
     /**
      * 
      * @type {string}
      * @memberof GetTransactionReceiptResponse
      */
-    channelID?: string;
+    'channelID'?: string;
     /**
      * 
      * @type {TransactReceiptTransactionCreator}
      * @memberof GetTransactionReceiptResponse
      */
-    transactionCreator?: TransactReceiptTransactionCreator;
+    'transactionCreator'?: TransactReceiptTransactionCreator;
     /**
      * 
      * @type {Array<TransactReceiptTransactionEndorsement>}
      * @memberof GetTransactionReceiptResponse
      */
-    transactionEndorsement?: Array<TransactReceiptTransactionEndorsement>;
+    'transactionEndorsement'?: Array<TransactReceiptTransactionEndorsement>;
     /**
      * 
      * @type {TransactReceiptBlockMetaData}
      * @memberof GetTransactionReceiptResponse
      */
-    blockMetaData?: TransactReceiptBlockMetaData;
+    'blockMetaData'?: TransactReceiptBlockMetaData;
     /**
      * 
      * @type {string}
      * @memberof GetTransactionReceiptResponse
      */
-    chainCodeName?: string;
+    'chainCodeName'?: string;
     /**
      * 
      * @type {string}
      * @memberof GetTransactionReceiptResponse
      */
-    chainCodeVersion?: string;
+    'chainCodeVersion'?: string;
     /**
      * 
      * @type {string}
      * @memberof GetTransactionReceiptResponse
      */
-    responseStatus?: string;
+    'responseStatus'?: string;
     /**
      * 
      * @type {string}
      * @memberof GetTransactionReceiptResponse
      */
-    rwsetKey?: string;
+    'rwsetKey'?: string;
     /**
      * 
      * @type {string}
      * @memberof GetTransactionReceiptResponse
      */
-    rwsetWriteData?: string;
+    'rwsetWriteData'?: string;
 }
 /**
  * 
@@ -906,7 +921,7 @@ export interface InlineResponse501 {
      * @type {string}
      * @memberof InlineResponse501
      */
-    message?: string;
+    'message'?: string;
 }
 /**
  * 
@@ -919,61 +934,61 @@ export interface RunTransactionRequest {
      * @type {Array<string>}
      * @memberof RunTransactionRequest
      */
-    endorsingPeers?: Array<string>;
+    'endorsingPeers'?: Array<string>;
     /**
      * 
      * @type {object}
      * @memberof RunTransactionRequest
      */
-    transientData?: object | null;
+    'transientData'?: object | null;
     /**
      * 
      * @type {GatewayOptions}
      * @memberof RunTransactionRequest
      */
-    gatewayOptions?: GatewayOptions;
+    'gatewayOptions'?: GatewayOptions;
     /**
      * 
      * @type {FabricSigningCredential}
      * @memberof RunTransactionRequest
      */
-    signingCredential: FabricSigningCredential;
+    'signingCredential': FabricSigningCredential;
     /**
      * 
      * @type {string}
      * @memberof RunTransactionRequest
      */
-    channelName: string;
+    'channelName': string;
     /**
      * 
      * @type {string}
      * @memberof RunTransactionRequest
      */
-    contractName: string;
+    'contractName': string;
     /**
      * 
      * @type {FabricContractInvocationType}
      * @memberof RunTransactionRequest
      */
-    invocationType: FabricContractInvocationType;
+    'invocationType': FabricContractInvocationType;
     /**
      * 
      * @type {string}
      * @memberof RunTransactionRequest
      */
-    methodName: string;
+    'methodName': string;
     /**
      * 
      * @type {Array<string>}
      * @memberof RunTransactionRequest
      */
-    params: Array<string>;
+    'params': Array<string>;
     /**
      * 
      * @type {Array<string>}
      * @memberof RunTransactionRequest
      */
-    endorsingParties?: Array<string>;
+    'endorsingParties'?: Array<string>;
 }
 /**
  * 
@@ -986,19 +1001,19 @@ export interface RunTransactionResponse {
      * @type {string}
      * @memberof RunTransactionResponse
      */
-    functionOutput: string;
+    'functionOutput': string;
     /**
      * 
      * @type {boolean}
      * @memberof RunTransactionResponse
      */
-    success: boolean;
+    'success': boolean;
     /**
      * 
      * @type {string}
      * @memberof RunTransactionResponse
      */
-    transactionId: string;
+    'transactionId': string;
 }
 /**
  * 
@@ -1011,25 +1026,25 @@ export interface SSHExecCommandResponse {
      * @type {string}
      * @memberof SSHExecCommandResponse
      */
-    stdout: string;
+    'stdout': string;
     /**
      * 
      * @type {string}
      * @memberof SSHExecCommandResponse
      */
-    stderr: string;
+    'stderr': string;
     /**
      * 
      * @type {number}
      * @memberof SSHExecCommandResponse
      */
-    code: number | null;
+    'code': number | null;
     /**
      * 
      * @type {string}
      * @memberof SSHExecCommandResponse
      */
-    signal: string | null;
+    'signal': string | null;
 }
 /**
  * 
@@ -1042,19 +1057,19 @@ export interface TransactReceiptBlockMetaData {
      * @type {string}
      * @memberof TransactReceiptBlockMetaData
      */
-    mspid?: string;
+    'mspid'?: string;
     /**
      * 
      * @type {string}
      * @memberof TransactReceiptBlockMetaData
      */
-    blockCreatorID?: string;
+    'blockCreatorID'?: string;
     /**
      * 
      * @type {string}
      * @memberof TransactReceiptBlockMetaData
      */
-    signature?: string;
+    'signature'?: string;
 }
 /**
  * 
@@ -1067,13 +1082,13 @@ export interface TransactReceiptTransactionCreator {
      * @type {string}
      * @memberof TransactReceiptTransactionCreator
      */
-    mspid?: string;
+    'mspid'?: string;
     /**
      * 
      * @type {string}
      * @memberof TransactReceiptTransactionCreator
      */
-    creatorID?: string;
+    'creatorID'?: string;
 }
 /**
  * 
@@ -1086,19 +1101,19 @@ export interface TransactReceiptTransactionEndorsement {
      * @type {string}
      * @memberof TransactReceiptTransactionEndorsement
      */
-    mspid?: string;
+    'mspid'?: string;
     /**
      * 
      * @type {string}
      * @memberof TransactReceiptTransactionEndorsement
      */
-    endorserID?: string;
+    'endorserID'?: string;
     /**
      * 
      * @type {string}
      * @memberof TransactReceiptTransactionEndorsement
      */
-    signature?: string;
+    'signature'?: string;
 }
 /**
  * vault key details for signing fabric message with private key stored with transit engine.
@@ -1111,13 +1126,13 @@ export interface VaultTransitKey {
      * @type {string}
      * @memberof VaultTransitKey
      */
-    keyName: string;
+    'keyName': string;
     /**
      * token for accessing private key
      * @type {string}
      * @memberof VaultTransitKey
      */
-    token: string;
+    'token': string;
 }
 /**
  * web-socket key details for signing fabric message with private key stored with external client
@@ -1130,13 +1145,13 @@ export interface WebSocketKey {
      * @type {string}
      * @memberof WebSocketKey
      */
-    sessionId: string;
+    'sessionId': string;
     /**
      * signature of the session ID
      * @type {string}
      * @memberof WebSocketKey
      */
-    signature: string;
+    'signature': string;
 }
 
 /**
@@ -1152,7 +1167,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deployContractGoSourceV1: async (deployContractGoSourceV1Request?: DeployContractGoSourceV1Request, options: any = {}): Promise<RequestArgs> => {
+        deployContractGoSourceV1: async (deployContractGoSourceV1Request?: DeployContractGoSourceV1Request, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-fabric/deploy-contract-go-source`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1169,7 +1184,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(deployContractGoSourceV1Request, localVarRequestOptions, configuration)
@@ -1186,7 +1201,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deployContractV1: async (deployContractV1Request?: DeployContractV1Request, options: any = {}): Promise<RequestArgs> => {
+        deployContractV1: async (deployContractV1Request?: DeployContractV1Request, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-fabric/deploy-contract`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1203,7 +1218,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(deployContractV1Request, localVarRequestOptions, configuration)
@@ -1220,7 +1235,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBlockV1: async (getBlockRequestV1?: GetBlockRequestV1, options: any = {}): Promise<RequestArgs> => {
+        getBlockV1: async (getBlockRequestV1?: GetBlockRequestV1, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-fabric/get-block`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1237,7 +1252,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(getBlockRequestV1, localVarRequestOptions, configuration)
@@ -1253,7 +1268,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPrometheusMetricsV1: async (options: any = {}): Promise<RequestArgs> => {
+        getPrometheusMetricsV1: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-fabric/get-prometheus-exporter-metrics`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1268,7 +1283,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
 
 
     
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
@@ -1284,7 +1299,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTransactionReceiptByTxIDV1: async (runTransactionRequest: RunTransactionRequest, options: any = {}): Promise<RequestArgs> => {
+        getTransactionReceiptByTxIDV1: async (runTransactionRequest: RunTransactionRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'runTransactionRequest' is not null or undefined
             assertParamExists('getTransactionReceiptByTxIDV1', 'runTransactionRequest', runTransactionRequest)
             const localVarPath = `/api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-fabric/get-transaction-receipt-by-txid`;
@@ -1303,7 +1318,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(runTransactionRequest, localVarRequestOptions, configuration)
@@ -1320,7 +1335,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        runTransactionV1: async (runTransactionRequest: RunTransactionRequest, options: any = {}): Promise<RequestArgs> => {
+        runTransactionV1: async (runTransactionRequest: RunTransactionRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'runTransactionRequest' is not null or undefined
             assertParamExists('runTransactionV1', 'runTransactionRequest', runTransactionRequest)
             const localVarPath = `/api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-fabric/run-transaction`;
@@ -1339,7 +1354,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(runTransactionRequest, localVarRequestOptions, configuration)
@@ -1366,7 +1381,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deployContractGoSourceV1(deployContractGoSourceV1Request?: DeployContractGoSourceV1Request, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeployContractGoSourceV1Response>> {
+        async deployContractGoSourceV1(deployContractGoSourceV1Request?: DeployContractGoSourceV1Request, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeployContractGoSourceV1Response>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deployContractGoSourceV1(deployContractGoSourceV1Request, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1377,7 +1392,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deployContractV1(deployContractV1Request?: DeployContractV1Request, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeployContractV1Response>> {
+        async deployContractV1(deployContractV1Request?: DeployContractV1Request, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeployContractV1Response>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deployContractV1(deployContractV1Request, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1388,7 +1403,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getBlockV1(getBlockRequestV1?: GetBlockRequestV1, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetBlockResponseV1>> {
+        async getBlockV1(getBlockRequestV1?: GetBlockRequestV1, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetBlockResponseV1>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getBlockV1(getBlockRequestV1, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1398,7 +1413,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPrometheusMetricsV1(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async getPrometheusMetricsV1(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getPrometheusMetricsV1(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1409,7 +1424,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getTransactionReceiptByTxIDV1(runTransactionRequest: RunTransactionRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetTransactionReceiptResponse>> {
+        async getTransactionReceiptByTxIDV1(runTransactionRequest: RunTransactionRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetTransactionReceiptResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getTransactionReceiptByTxIDV1(runTransactionRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1420,7 +1435,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async runTransactionV1(runTransactionRequest: RunTransactionRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RunTransactionResponse>> {
+        async runTransactionV1(runTransactionRequest: RunTransactionRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RunTransactionResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.runTransactionV1(runTransactionRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1511,7 +1526,7 @@ export class DefaultApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public deployContractGoSourceV1(deployContractGoSourceV1Request?: DeployContractGoSourceV1Request, options?: any) {
+    public deployContractGoSourceV1(deployContractGoSourceV1Request?: DeployContractGoSourceV1Request, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).deployContractGoSourceV1(deployContractGoSourceV1Request, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -1523,7 +1538,7 @@ export class DefaultApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public deployContractV1(deployContractV1Request?: DeployContractV1Request, options?: any) {
+    public deployContractV1(deployContractV1Request?: DeployContractV1Request, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).deployContractV1(deployContractV1Request, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -1535,7 +1550,7 @@ export class DefaultApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public getBlockV1(getBlockRequestV1?: GetBlockRequestV1, options?: any) {
+    public getBlockV1(getBlockRequestV1?: GetBlockRequestV1, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).getBlockV1(getBlockRequestV1, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -1546,7 +1561,7 @@ export class DefaultApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public getPrometheusMetricsV1(options?: any) {
+    public getPrometheusMetricsV1(options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).getPrometheusMetricsV1(options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -1558,7 +1573,7 @@ export class DefaultApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public getTransactionReceiptByTxIDV1(runTransactionRequest: RunTransactionRequest, options?: any) {
+    public getTransactionReceiptByTxIDV1(runTransactionRequest: RunTransactionRequest, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).getTransactionReceiptByTxIDV1(runTransactionRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -1570,7 +1585,7 @@ export class DefaultApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public runTransactionV1(runTransactionRequest: RunTransactionRequest, options?: any) {
+    public runTransactionV1(runTransactionRequest: RunTransactionRequest, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).runTransactionV1(runTransactionRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }

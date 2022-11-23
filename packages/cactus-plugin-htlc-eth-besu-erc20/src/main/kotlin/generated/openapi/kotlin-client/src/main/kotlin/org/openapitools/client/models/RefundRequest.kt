@@ -20,7 +20,6 @@
 
 package org.openapitools.client.models
 
-import org.openapitools.client.models.OneOfLessThanStringCommaNumberGreaterThan
 import org.openapitools.client.models.Web3SigningCredential
 
 import com.squareup.moshi.Json

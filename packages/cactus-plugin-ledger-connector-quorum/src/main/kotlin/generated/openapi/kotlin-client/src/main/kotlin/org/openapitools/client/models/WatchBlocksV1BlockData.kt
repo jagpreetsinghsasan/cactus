@@ -20,7 +20,6 @@
 
 package org.openapitools.client.models
 
-import org.openapitools.client.models.OneOfLessThanStringCommaNumberGreaterThan
 import org.openapitools.client.models.Web3Transaction
 
 import com.squareup.moshi.Json
@@ -86,7 +85,7 @@ data class WatchBlocksV1BlockData (
     val gasUsed: kotlin.Int,
 
     @Json(name = "timestamp")
-    val timestamp: OneOfLessThanStringCommaNumberGreaterThan,
+    val timestamp: OneOfLessThanStringCommaNumberGreaterThan?,
 
     @Json(name = "size")
     val propertySize: java.math.BigDecimal,

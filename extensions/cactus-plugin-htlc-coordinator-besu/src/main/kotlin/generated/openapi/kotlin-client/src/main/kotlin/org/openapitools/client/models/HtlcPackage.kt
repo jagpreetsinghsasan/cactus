@@ -50,12 +50,12 @@ enum class HtlcPackage(val value: kotlin.String) {
         /**
          * Converts the provided [data] to a [String] on success, null otherwise.
          */
-        fun encode(data: Any?): kotlin.String? = if (data is HtlcPackage) "$data" else null
+        fun encode(data: kotlin.Any?): kotlin.String? = if (data is HtlcPackage) "$data" else null
 
         /**
          * Returns a valid [HtlcPackage] for [data], null otherwise.
          */
-        fun decode(data: Any?): HtlcPackage? = data?.let {
+        fun decode(data: kotlin.Any?): HtlcPackage? = data?.let {
           val normalizedData = "$it".lowercase()
           values().firstOrNull { value ->
             it == value || normalizedData == "$value".lowercase()

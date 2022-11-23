@@ -141,7 +141,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: text/plain
+ - **Accept**: Not defined
 
 <a name="invokeContractJsonObject"></a>
 # **invokeContractJsonObject**

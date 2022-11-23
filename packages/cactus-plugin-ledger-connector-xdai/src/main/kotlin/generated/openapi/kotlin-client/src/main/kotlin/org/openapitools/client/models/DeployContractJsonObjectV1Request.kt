@@ -52,11 +52,11 @@ data class DeployContractJsonObjectV1Request (
 
     /* The amount of milliseconds to wait for a transaction receipt with theaddress of the contract(which indicates successful deployment) beforegiving up and crashing. */
     @Json(name = "timeoutMs")
-    val timeoutMs: java.math.BigDecimal? = null,
+    val timeoutMs: java.math.BigDecimal? = 60000,
 
     /* The list of arguments to pass in to the constructor of the contract being deployed. */
     @Json(name = "constructorArgs")
-    val constructorArgs: kotlin.collections.List<kotlin.Any>? = null
+    val constructorArgs: kotlin.collections.List<kotlin.Any>? = arrayListOf()
 
 )
 

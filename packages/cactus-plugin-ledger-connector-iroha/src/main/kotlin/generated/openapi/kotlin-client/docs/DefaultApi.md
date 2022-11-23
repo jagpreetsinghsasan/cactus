@@ -52,7 +52,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/octet-stream, application/json
+ - **Accept**: application/json
 
 <a name="getPrometheusMetricsV1"></a>
 # **getPrometheusMetricsV1**
@@ -93,7 +93,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: text/plain
+ - **Accept**: Not defined
 
 <a name="runTransactionV1"></a>
 # **runTransactionV1**

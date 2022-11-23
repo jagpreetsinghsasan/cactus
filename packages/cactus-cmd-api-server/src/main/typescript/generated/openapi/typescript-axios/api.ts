@@ -14,7 +14,7 @@
 
 
 import { Configuration } from './configuration';
-import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
+import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from './common';
@@ -32,19 +32,19 @@ export interface HealthCheckResponse {
      * @type {boolean}
      * @memberof HealthCheckResponse
      */
-    success?: boolean;
+    'success'?: boolean;
     /**
      * 
      * @type {string}
      * @memberof HealthCheckResponse
      */
-    createdAt: string;
+    'createdAt': string;
     /**
      * 
      * @type {MemoryUsage}
      * @memberof HealthCheckResponse
      */
-    memoryUsage: MemoryUsage;
+    'memoryUsage': MemoryUsage;
 }
 /**
  * 
@@ -57,31 +57,31 @@ export interface MemoryUsage {
      * @type {number}
      * @memberof MemoryUsage
      */
-    rss?: number;
+    'rss'?: number;
     /**
      * 
      * @type {number}
      * @memberof MemoryUsage
      */
-    heapTotal?: number;
+    'heapTotal'?: number;
     /**
      * 
      * @type {number}
      * @memberof MemoryUsage
      */
-    heapUsed?: number;
+    'heapUsed'?: number;
     /**
      * 
      * @type {number}
      * @memberof MemoryUsage
      */
-    external?: number;
+    'external'?: number;
     /**
      * 
      * @type {number}
      * @memberof MemoryUsage
      */
-    arrayBuffers?: number;
+    'arrayBuffers'?: number;
 }
 /**
  * 
@@ -89,13 +89,16 @@ export interface MemoryUsage {
  * @enum {string}
  */
 
-export enum WatchHealthcheckV1 {
-    Subscribe = 'org.hyperledger.cactus.api.async.besu.WatchHealthcheckV1.Subscribe',
-    Next = 'org.hyperledger.cactus.api.async.besu.WatchHealthcheckV1.Next',
-    Unsubscribe = 'org.hyperledger.cactus.api.async.besu.WatchHealthcheckV1.Unsubscribe',
-    Error = 'org.hyperledger.cactus.api.async.besu.WatchHealthcheckV1.Error',
-    Complete = 'org.hyperledger.cactus.api.async.besu.WatchHealthcheckV1.Complete'
-}
+export const WatchHealthcheckV1 = {
+    Subscribe: 'org.hyperledger.cactus.api.async.besu.WatchHealthcheckV1.Subscribe',
+    Next: 'org.hyperledger.cactus.api.async.besu.WatchHealthcheckV1.Next',
+    Unsubscribe: 'org.hyperledger.cactus.api.async.besu.WatchHealthcheckV1.Unsubscribe',
+    Error: 'org.hyperledger.cactus.api.async.besu.WatchHealthcheckV1.Error',
+    Complete: 'org.hyperledger.cactus.api.async.besu.WatchHealthcheckV1.Complete'
+} as const;
+
+export type WatchHealthcheckV1 = typeof WatchHealthcheckV1[keyof typeof WatchHealthcheckV1];
+
 
 
 /**
@@ -110,7 +113,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getHealthCheckV1: async (options: any = {}): Promise<RequestArgs> => {
+        getHealthCheckV1: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/api-server/healthcheck`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -125,7 +128,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
 
 
     
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
@@ -140,7 +143,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPrometheusMetricsV1: async (options: any = {}): Promise<RequestArgs> => {
+        getPrometheusMetricsV1: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/api-server/get-prometheus-exporter-metrics`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -155,7 +158,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
 
 
     
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
@@ -180,7 +183,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getHealthCheckV1(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HealthCheckResponse>> {
+        async getHealthCheckV1(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HealthCheckResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getHealthCheckV1(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -190,7 +193,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPrometheusMetricsV1(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async getPrometheusMetricsV1(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getPrometheusMetricsV1(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -239,7 +242,7 @@ export class DefaultApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public getHealthCheckV1(options?: any) {
+    public getHealthCheckV1(options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).getHealthCheckV1(options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -250,7 +253,7 @@ export class DefaultApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public getPrometheusMetricsV1(options?: any) {
+    public getPrometheusMetricsV1(options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).getPrometheusMetricsV1(options).then((request) => request(this.axios, this.basePath));
     }
 }

@@ -71,8 +71,12 @@ Class | Method | HTTP request | Description
  - [org.openapitools.client.models.GetTransactionsRequestParameters](docs/GetTransactionsRequestParameters.md)
  - [org.openapitools.client.models.GrantPermissionRequestParameters](docs/GrantPermissionRequestParameters.md)
  - [org.openapitools.client.models.IrohaBaseConfig](docs/IrohaBaseConfig.md)
+ - [org.openapitools.client.models.IrohaBlockProgress](docs/IrohaBlockProgress.md)
+ - [org.openapitools.client.models.IrohaBlockResponse](docs/IrohaBlockResponse.md)
+ - [org.openapitools.client.models.IrohaBlockResponsePayload](docs/IrohaBlockResponsePayload.md)
  - [org.openapitools.client.models.IrohaCommand](docs/IrohaCommand.md)
  - [org.openapitools.client.models.IrohaQuery](docs/IrohaQuery.md)
+ - [org.openapitools.client.models.IrohaSocketIOTransactV1](docs/IrohaSocketIOTransactV1.md)
  - [org.openapitools.client.models.KeyPair](docs/KeyPair.md)
  - [org.openapitools.client.models.RemovePeerRequestParameters](docs/RemovePeerRequestParameters.md)
  - [org.openapitools.client.models.RemoveSignatoryRequestParameters](docs/RemoveSignatoryRequestParameters.md)
@@ -86,6 +90,7 @@ Class | Method | HTTP request | Description
  - [org.openapitools.client.models.SetAccountQuorumRequestParameters](docs/SetAccountQuorumRequestParameters.md)
  - [org.openapitools.client.models.SubtractAssetQuantityRequestParameters](docs/SubtractAssetQuantityRequestParameters.md)
  - [org.openapitools.client.models.TransferAssetRequestParameters](docs/TransferAssetRequestParameters.md)
+ - [org.openapitools.client.models.WatchBlocksV1](docs/WatchBlocksV1.md)
 
 
 <a name="documentation-for-authorization"></a>

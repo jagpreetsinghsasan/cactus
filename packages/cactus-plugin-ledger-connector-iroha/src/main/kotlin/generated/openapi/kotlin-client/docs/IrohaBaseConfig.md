@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **quorum** | [**java.math.BigDecimal**](java.math.BigDecimal.md) |  |  [optional]
 **timeoutLimit** | [**java.math.BigDecimal**](java.math.BigDecimal.md) |  |  [optional]
 **tls** | **kotlin.Boolean** | Can only be set to false for an insecure grpc connection. |  [optional]
+**monitorMode** | **kotlin.Boolean** | Flag used for monitoring. It changes default beahviour of transaction wrapper so it return error to caller instead of throwing RuntimeError straight away. |  [optional]
 
 
 

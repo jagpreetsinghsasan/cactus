@@ -53,7 +53,7 @@ data class GetBlockRequestV1 (
 
     /* If true, encoded buffer will be returned. Otherwise, entire block object is returned. */
     @Json(name = "skipDecode")
-    val skipDecode: kotlin.Boolean? = null
+    val skipDecode: kotlin.Boolean? = false
 
 )
 

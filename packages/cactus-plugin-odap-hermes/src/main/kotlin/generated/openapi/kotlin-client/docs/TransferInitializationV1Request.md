@@ -26,7 +26,7 @@ Name | Type | Description | Notes
 **version** | **kotlin.String** |  |  [optional]
 **developerURN** | **kotlin.String** |  |  [optional]
 **credentialProfile** | [**CredentialProfile**](CredentialProfile.md) |  |  [optional]
-**escrowType** | [**inline**](#EscrowTypeEnum) |  |  [optional]
+**escrowType** | [**inline**](#EscrowType) |  |  [optional]
 **expiryTime** | **kotlin.String** |  |  [optional]
 **multipleClaimsAllowed** | **kotlin.Boolean** |  |  [optional]
 **multipleCancelsAllowed** | **kotlin.Boolean** |  |  [optional]
@@ -37,7 +37,7 @@ Name | Type | Description | Notes
 **histories** | [**kotlin.collections.List&lt;History&gt;**](History.md) |  |  [optional]
 
 
-<a name="EscrowTypeEnum"></a>
+<a name="EscrowType"></a>
 ## Enum: escrowType
 Name | Value
 ---- | -----

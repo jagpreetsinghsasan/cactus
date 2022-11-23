@@ -13,11 +13,11 @@ Name | Type | Description | Notes
 **serverIdentityPubkey** | **kotlin.String** |  | 
 **signature** | **kotlin.String** |  | 
 **backupGatewaysAllowed** | **kotlin.collections.List&lt;kotlin.String&gt;** |  | 
-**odapPhase** | [**inline**](#OdapPhaseEnum) |  |  [optional]
+**odapPhase** | [**inline**](#OdapPhase) |  |  [optional]
 **destination** | **kotlin.String** |  |  [optional]
 
 
-<a name="OdapPhaseEnum"></a>
+<a name="OdapPhase"></a>
 ## Enum: odapPhase
 Name | Value
 ---- | -----

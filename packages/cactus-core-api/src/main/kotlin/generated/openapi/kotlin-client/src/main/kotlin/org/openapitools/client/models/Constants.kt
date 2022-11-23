@@ -47,12 +47,12 @@ enum class Constants(val value: kotlin.String) {
         /**
          * Converts the provided [data] to a [String] on success, null otherwise.
          */
-        fun encode(data: Any?): kotlin.String? = if (data is Constants) "$data" else null
+        fun encode(data: kotlin.Any?): kotlin.String? = if (data is Constants) "$data" else null
 
         /**
          * Returns a valid [Constants] for [data], null otherwise.
          */
-        fun decode(data: Any?): Constants? = data?.let {
+        fun decode(data: kotlin.Any?): Constants? = data?.let {
           val normalizedData = "$it".lowercase()
           values().firstOrNull { value ->
             it == value || normalizedData == "$value".lowercase()

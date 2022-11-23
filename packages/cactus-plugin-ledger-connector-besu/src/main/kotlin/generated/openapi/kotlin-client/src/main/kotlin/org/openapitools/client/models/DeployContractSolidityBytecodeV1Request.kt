@@ -72,7 +72,7 @@ data class DeployContractSolidityBytecodeV1Request (
 
     /* The amount of milliseconds to wait for a transaction receipt with theaddress of the contract(which indicates successful deployment) beforegiving up and crashing. */
     @Json(name = "timeoutMs")
-    val timeoutMs: java.math.BigDecimal? = null,
+    val timeoutMs: java.math.BigDecimal? = 60000,
 
     @Json(name = "privateTransactionConfig")
     val privateTransactionConfig: BesuPrivateTransactionConfig? = null
