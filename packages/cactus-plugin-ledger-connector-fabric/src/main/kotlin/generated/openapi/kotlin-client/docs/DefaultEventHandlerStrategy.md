@@ -1,0 +1,16 @@
+
+# DefaultEventHandlerStrategy
+
+## Enum
+
+
+    * `mSPIDSCOPEALLFORTX` (value: `"MSPID_SCOPE_ALLFORTX"`)
+
+    * `mSPIDSCOPEANYFORTX` (value: `"MSPID_SCOPE_ANYFORTX"`)
+
+    * `nETWORKSCOPEALLFORTX` (value: `"NETWORK_SCOPE_ALLFORTX"`)
+
+    * `nETWORKSCOPEANYFORTX` (value: `"NETWORK_SCOPE_ANYFORTX"`)
+
+
+

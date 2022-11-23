@@ -73,7 +73,7 @@
   "devDependencies": {
     "@commitlint/cli": "13.1.0",
     "@commitlint/config-conventional": "13.1.0",
-    "@openapitools/openapi-generator-cli": "2.4.14",
+    "@openapitools/openapi-generator-cli": "2.5.1",
     "@lerna-lite/cli": "1.4.0",
     "@lerna-lite/exec": "1.4.0",
     "@lerna-lite/list": "1.4.0",
