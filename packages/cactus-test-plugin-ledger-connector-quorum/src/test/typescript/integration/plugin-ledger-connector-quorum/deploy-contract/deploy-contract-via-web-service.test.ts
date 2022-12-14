@@ -111,6 +111,7 @@ describe(testCase, () => {
       instanceId: uuidV4(),
       rpcApiHttpHost,
       pluginRegistry: new PluginRegistry({ plugins: [kvStoragePlugin] }),
+      privateUrl: rpcApiHttpHost,
     });
     plugins.push(ledgerConnectorQuorum);
 

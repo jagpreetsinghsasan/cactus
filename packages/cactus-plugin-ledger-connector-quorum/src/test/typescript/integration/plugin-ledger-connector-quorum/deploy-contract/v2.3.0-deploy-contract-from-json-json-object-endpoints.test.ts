@@ -80,6 +80,7 @@ test(testCase, async (t: Test) => {
       rpcApiHttpHost,
       logLevel,
       pluginRegistry: new PluginRegistry(),
+      privateUrl: rpcApiHttpHost,
     },
   );
 

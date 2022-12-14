@@ -96,6 +96,7 @@ describe("invokeRawWeb3EthContract Tests", () => {
       logLevel: sutLogLevel,
       instanceId: uuidv4(),
       pluginRegistry: new PluginRegistry({ plugins: [keychainPlugin] }),
+      privateUrl: rpcApiHttpHost,
     });
 
     log.info("Deploy contract to interact with...");

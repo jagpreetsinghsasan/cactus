@@ -59,6 +59,7 @@ describe("invokeRawWeb3EthMethod Tests", () => {
       logLevel: sutLogLevel,
       instanceId: uuidv4(),
       pluginRegistry: new PluginRegistry(),
+      privateUrl: rpcApiHttpHost,
     });
 
     web3 = new Web3(rpcApiHttpHost);

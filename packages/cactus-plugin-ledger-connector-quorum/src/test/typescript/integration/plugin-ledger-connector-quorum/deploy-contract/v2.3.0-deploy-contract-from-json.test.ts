@@ -96,44 +96,26 @@ describe(testCase, () => {
     await ledger.destroy();
   });
 
-  afterAll(async () => await Servers.shutdown(server));
-
-  afterAll(async () => {
-    const pruning = pruneDockerAllIfGithubAction({ logLevel });
-    await expect(pruning).resolves.toBeTruthy();
+  const keychainEntryKey = uuidV4();
+  const keychainEntryValue = testEthAccount.privateKey;
+  const keychainPlugin = new PluginKeychainMemory({
+    instanceId: uuidV4(),
+    keychainId: uuidV4(),
+    // pre-provision keychain with mock backend holding the private key of the
+    // test account that we'll reference while sending requests with the
+    // signing credential pointing to this keychain entry.
+    backend: new Map([[keychainEntryKey, keychainEntryValue]]),
+    logLevel,
   });
-  beforeAll(async () => {
-    await ledger.start();
-
-    const listenOptions: IListenOptions = {
-      hostname: "0.0.0.0",
-      port: 0,
-      server,
-    };
-    addressInfo = (await Servers.listen(listenOptions)) as AddressInfo;
-    ({ address, port } = addressInfo);
-    apiHost = `http://${address}:${port}`;
-    apiConfig = new Configuration({ basePath: apiHost });
-    apiClient = new QuorumApi(apiConfig);
-    rpcApiHttpHost = await ledger.getRpcApiHttpHost();
-    web3 = new Web3(rpcApiHttpHost);
-    testEthAccount = web3.eth.accounts.create(uuidV4());
-
-    const keychainEntryValue = testEthAccount.privateKey;
-    keychainPlugin = new PluginKeychainMemory({
-      instanceId: uuidV4(),
-      keychainId: uuidV4(),
-      // pre-provision keychain with mock backend holding the private key of the
-      // test account that we'll reference while sending requests with the
-      // signing credential pointing to this keychain entry.
-      backend: new Map([[keychainEntryKey, keychainEntryValue]]),
-      logLevel,
-    });
-    keychainPlugin.set(
-      HelloWorldContractJson.contractName,
-      JSON.stringify(HelloWorldContractJson),
-    );
-    connector = new PluginLedgerConnectorQuorum({
+  keychainPlugin.set(
+    HelloWorldContractJson.contractName,
+    JSON.stringify(HelloWorldContractJson),
+  );
+  // Instantiate connector with the keychain plugin that already has the
+  // private key we want to use for one of our tests
+  const connector: PluginLedgerConnectorQuorum = new PluginLedgerConnectorQuorum(
+    {
+      privateUrl: rpcApiHttpHost,
       instanceId: uuidV4(),
       rpcApiHttpHost,
       logLevel,

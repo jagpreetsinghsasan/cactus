@@ -74,6 +74,7 @@ describe(testCase, () => {
     // private key we want to use for one of our tests
     const connector: PluginLedgerConnectorQuorum = new PluginLedgerConnectorQuorum(
       {
+        privateUrl: rpcApiHttpHost,
         instanceId: uuidV4(),
         rpcApiHttpHost,
         logLevel,

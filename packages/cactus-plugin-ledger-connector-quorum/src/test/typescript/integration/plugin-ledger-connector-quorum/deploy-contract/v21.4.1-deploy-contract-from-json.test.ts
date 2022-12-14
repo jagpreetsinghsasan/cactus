@@ -108,6 +108,7 @@ describe(testCase, () => {
     connector = new PluginLedgerConnectorQuorum({
       instanceId: uuidV4(),
       rpcApiHttpHost,
+      privateUrl: rpcApiHttpHost,
       logLevel,
       pluginRegistry: new PluginRegistry({ plugins: [keychainPlugin] }),
     });

@@ -98,6 +98,7 @@ test(testCase, async (t: Test) => {
       rpcApiHttpHost,
       logLevel,
       pluginRegistry,
+      privateUrl: rpcApiHttpHost,
     },
   );
 

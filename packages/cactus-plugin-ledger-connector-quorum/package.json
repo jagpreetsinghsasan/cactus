@@ -64,7 +64,9 @@
     "sanitize-html": "2.7.0",
     "typescript-optional": "2.0.1",
     "web3": "1.5.2",
-    "web3-eth-contract": "1.5.2"
+    "web3-eth-contract": "1.5.2",
+    "web3js-quorum": "22.4.0",
+    "run-time-error": "1.4.0"
   },
   "devDependencies": {
     "@hyperledger/cactus-plugin-keychain-memory": "1.1.3",
