@@ -32,12 +32,9 @@ export class QuorumMultiPartyTestLedger implements ITestLedger {
   public containerId: string | undefined;
 
   constructor(public readonly options: IQuorumMultiPartyTestLedgerOptions) {
-    this.containerImageName =
-      options?.containerImageName ||
-      "ghcr.io/hyperledger/cactus-quorum-multi-party-all-in-one";
+    this.containerImageName = options?.containerImageName || "alpha";
 
-    this.containerImageVersion =
-      options?.containerImageVersion || "2022-03-30--1928";
+    this.containerImageVersion = options?.containerImageVersion || "latest";
 
     this.logLevel = options?.logLevel || "info";
 

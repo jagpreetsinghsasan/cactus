@@ -46,7 +46,7 @@ declare module "web3js-quorum" {
     /**
      * client certificate buffer
      */
-    clcert: Buffer
+    cacert: Buffer
     /**
      * CA certificate buffer
      */

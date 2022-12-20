@@ -7,7 +7,11 @@ import type {
 
 import { Express } from "express";
 import Web3 from "web3";
-import Web3JsQuorum, { IWeb3Quorum } from "web3js-quorum";
+import Web3JsQuorum, {
+  IPrivacyOptions,
+  ISendRawTransaction,
+  IWeb3Quorum,
+} from "web3js-quorum";
 import { AbiItem } from "web3-utils";
 import { Contract } from "web3-eth-contract";
 import { ContractSendMethod } from "web3-eth-contract";
@@ -592,27 +596,51 @@ export class PluginLedgerConnectorQuorum
       secret,
     } = web3SigningCredential as Web3SigningCredentialPrivateKeyHex;
 
-    const signingAccount = this.web3Quorum.eth.accounts.privateKeyToAccount(
-      secret,
+    // const signingAccount = this.web3Quorum.eth.accounts.privateKeyToAccount(
+    //   secret,
+    // );
+    // const txCount = await this.web3Quorum.eth.getTransactionCount(
+    //   signingAccount.address,
+    // );
+
+    // const privacyGroupId = this.web3Quorum.utils.generatePrivacyGroup({
+    //   privateFor: req.privateTransactionConfig?.privateFor as string[],
+    //   privateFrom: req.privateTransactionConfig?.privateFrom as string,
+    // });
+    const iPrivacyOptions: IPrivacyOptions = {
+      privateFor: req.privateTransactionConfig?.privateFor as string[],
+      privateFrom: req.privateTransactionConfig?.privateFrom as string,
+    };
+    this.log.info("iPrivacyOptions=%o", iPrivacyOptions);
+    const privacyGroupId = this.web3Quorum.utils.generatePrivacyGroup(
+      iPrivacyOptions,
     );
-    const txCount = await this.web3Quorum.eth.getTransactionCount(
-      signingAccount.address,
-    );
+    this.log.info("privacyGroupId=%o", privacyGroupId);
+    // this.log.info("signingAccount.address=%o", signingAccount.address);
+    // const privateKeyBuffer = Buffer.from(secret, "hex");
+    // const from = this.web3.eth.accounts.privateKeyToAccount("0x" + secret)
+    //   .address;
+    // this.log.info("from=%o", from);
+    // const from = `0x${ Web3.utils.pri (privateKeyBuffer).toString("hex")}`;
+    // const transactionCount = await this.web3Quorum.priv.getTransactionCount(
+    //   req.transactionConfig.from as string,
+    //   privacyGroupId,
+    // );
+    // this.log.info("transactionCount=%o", transactionCount);
+    // this.log.info("Private key=%o", req.privateTransactionConfig?.privateFrom);
     const txn = {
-      gasLimit: req.transactionConfig.gas, //max number of gas units the tx is allowed to use
-      gasPrice: req.transactionConfig.gasPrice, //ETH per unit of gas
+      // gasLimit: req.transactionConfig.gas, //max number of gas units the tx is allowed to use
+      // gasPrice: req.transactionConfig.gasPrice, //ETH per unit of gas
       data: req.transactionConfig.data,
       privateKey: secret,
       privateFrom: req.privateTransactionConfig?.privateFrom,
       privateFor: req.privateTransactionConfig?.privateFor,
-      from: signingAccount,
-      isPrivate: true,
-      nonce: txCount,
-      value: 0,
-    };
+      gasLimit: "3000000",
+      // privacyGroupId: privacyGroupId,
+    } as ISendRawTransaction;
 
     const txHash = await this.web3Quorum.priv.generateAndSendRawTransaction(
-      txn as any,
+      txn,
     );
 
     if (!txHash) {

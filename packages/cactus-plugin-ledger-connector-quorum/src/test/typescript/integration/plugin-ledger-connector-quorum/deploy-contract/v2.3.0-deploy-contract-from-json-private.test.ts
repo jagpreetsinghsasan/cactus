@@ -97,7 +97,9 @@ describe("PluginLedgerConnectorQuorum", () => {
   });
 
   beforeAll(async () => {
-    ledger = new QuorumMultiPartyTestLedger({ logLevel });
+    ledger = new QuorumMultiPartyTestLedger({
+      logLevel,
+    });
 
     if (preWarmedLedger) {
       keys = keyStatic;
@@ -245,25 +247,23 @@ describe("PluginLedgerConnectorQuorum", () => {
     // const signingAccount = webQJsMember1.eth.accounts.privateKeyToAccount(
     //   secret,
     // );
-    const accountKey = JSON.parse(
-      await ledger.pullFile(
-        "/opt/quorum-dev-quickstart/config/nodes/member1/accountKeystore",
-      ),
-    );
-    const signingAccount = webQJsMember1.eth.accounts.decrypt(accountKey, "");
+    // const accountKey = JSON.parse(
+    //   await ledger.pullFile(
+    //     "/opt/quorum-dev-quickstart/config/nodes/member1/accountKeystore",
+    //   ),
+    // );
+
+    // const signingAccount = webQJsMember1.eth.accounts.decrypt(accountKey, "");
     // const txCount = await webQJsMember1.eth.getTransactionCount(
     //   signingAccount.address,
     // );
-    //const accountAddress = keys.quorum.member1.accountAddress;
+    const accountAddress = keys.quorum.member1.accountAddress;
     //const txCount = await webQJsMember1.eth.getTransactionCount(accountAddress);
     const deployRes = await connector1.deployContract({
       contractName: HelloWorldContractJson.contractName,
       privateTransactionConfig: {
         privateFrom: keys.tessera.member1.publicKey,
-        privateFor: [
-          keys.tessera.member1.publicKey,
-          keys.tessera.member2.publicKey,
-        ],
+        privateFor: [keys.tessera.member2.publicKey],
         isPrivate: true,
         gasLimit: 10000000,
         gasPrice: 0,
@@ -271,11 +271,11 @@ describe("PluginLedgerConnectorQuorum", () => {
       web3SigningCredential: {
         secret: keys.quorum.member1.privateKey,
         type: Web3SigningCredentialType.PrivateKeyHex,
-        ethAccount: signingAccount.address,
+        ethAccount: accountAddress,
       },
       keychainId: keychainId1,
       gas: 3000000,
-      // gasPrice: 0,
+      gasPrice: 0,
       //nonce: txCount,
       // value: 0,
     });
