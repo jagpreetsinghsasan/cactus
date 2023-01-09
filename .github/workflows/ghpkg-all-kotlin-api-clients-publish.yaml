@@ -45,19 +45,19 @@ jobs:
 
     - run: yarn configure
 
-    - name: build-cactus-plugin-ledger-connector-corda-kotlin-client
-      run: |
-        WDIR=`pwd`
-        cd ${WDIR}/packages/cactus-plugin-ledger-connector-corda/src/main/kotlin/generated/openapi/kotlin-client
-        chmod +x gradlew
-        ./gradlew clean
-        ./gradlew build
+    # - name: build-cactus-plugin-ledger-connector-corda-kotlin-client
+    #   run: |
+    #     WDIR=`pwd`
+    #     cd ${WDIR}/packages/cactus-plugin-ledger-connector-corda/src/main/kotlin/generated/openapi/kotlin-client
+    #     chmod +x gradlew
+    #     ./gradlew clean
+    #     ./gradlew build
 
-    - name: publish-cactus-plugin-ledger-connector-corda-kotlin-client
-      uses: actions/upload-artifact@v3.0.0
-      with:
-        name: cactus-plugin-ledger-connector-corda-kotlin-client-${{ env.GITVERSION }}.jar
-        path: packages/cactus-plugin-ledger-connector-corda/src/main/kotlin/generated/openapi/kotlin-client/build/libs/kotlin-client-1.0.0.jar
+    # - name: publish-cactus-plugin-ledger-connector-corda-kotlin-client
+    #   uses: actions/upload-artifact@v3.0.0
+    #   with:
+    #     name: cactus-plugin-ledger-connector-corda-kotlin-client-${{ env.GITVERSION }}.jar
+    #     path: packages/cactus-plugin-ledger-connector-corda/src/main/kotlin/generated/openapi/kotlin-client/build/libs/kotlin-client-1.0.0.jar
 
     - name: build-cactus-cmd-api-server-kotlin-client
       run: |
@@ -70,5 +70,19 @@ jobs:
     - name: publish-cactus-cmd-api-server-kotlin-client
       uses: actions/upload-artifact@v3.0.0
       with:
-        name: cactus-cmd-api-server--kotlin-client-${{ env.GITVERSION }}.jar
+        name: cactus-cmd-api-server-kotlin-client-${{ env.GITVERSION }}.jar
         path: packages/cactus-cmd-api-server/src/main/kotlin/generated/openapi/kotlin-client/build/libs/kotlin-client-1.0.0.jar
+
+    - name: build-cactus-core-api-kotlin-client
+      run: |
+        WDIR=`pwd`
+        cd ${WDIR}/packages/cactus-core-api/src/main/kotlin/generated/openapi/kotlin-client
+        chmod +x gradlew
+        ./gradlew clean
+        ./gradlew build
+
+    - name: publish-cactus-core-api-kotlin-client
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: cactus-core-api-kotlin-client-${{ env.GITVERSION }}.jar
+        path: packages/cactus-core-api/src/main/kotlin/generated/openapi/kotlin-client/build/libs/kotlin-client-1.0.0.jar
