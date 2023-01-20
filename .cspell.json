@@ -133,7 +133,10 @@
         "vscc",
         "wasm",
         "Xdai",
-        "goquorum"
+        "goquorum",
+        "kdfparams",
+        "dklen",
+        "quorumjs"
     ],
     "dictionaries": [
         "typescript,node,npm,go,rust"

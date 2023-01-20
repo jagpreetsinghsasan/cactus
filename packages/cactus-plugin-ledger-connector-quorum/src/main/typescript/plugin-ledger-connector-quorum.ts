@@ -7,7 +7,7 @@ import type {
 
 import { Express } from "express";
 import Web3 from "web3";
-import Web3JsQuorum, {
+import {
   IPrivacyOptions,
   ISendRawTransaction,
   IWeb3Quorum,
@@ -63,6 +63,7 @@ import {
   InvokeRawWeb3EthMethodV1Request,
   InvokeRawWeb3EthContractV1Request,
 } from "./generated/openapi/typescript-axios/";
+const Web3JsQuorum = require("web3js-quorum");
 
 import { RunTransactionEndpoint } from "./web-services/run-transaction-endpoint";
 import { InvokeContractEndpoint } from "./web-services/invoke-contract-endpoint";
@@ -130,7 +131,7 @@ export class PluginLedgerConnectorQuorum
     this.log = LoggerProvider.getOrCreate({ level, label });
 
     this.web3 = new Web3(this.getWeb3Provider());
-    this.web3Quorum = Web3JsQuorum(this.web3);
+    this.web3Quorum = new Web3JsQuorum(this.web3);
     this.instanceId = options.instanceId;
     this.pluginRegistry = options.pluginRegistry as PluginRegistry;
     this.prometheusExporter =
