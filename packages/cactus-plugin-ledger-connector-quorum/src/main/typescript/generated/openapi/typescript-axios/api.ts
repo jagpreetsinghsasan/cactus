@@ -13,13 +13,15 @@
  */
 
 
-import { Configuration } from './configuration';
-import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
+import type { Configuration } from './configuration';
+import type { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from './common';
+import type { RequestArgs } from './base';
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from './base';
+import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError } from './base';
 
 /**
  * 
@@ -27,86 +29,86 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
  * @interface ContractJSON
  */
 export interface ContractJSON {
-    [key: string]: object | any;
+    [key: string]: any;
 
     /**
      * 
      * @type {string}
      * @memberof ContractJSON
      */
-    contractName: string;
+    'contractName': string;
     /**
      * See https://ethereum.stackexchange.com/a/47556 regarding the maximum length of the bytecode
      * @type {string}
      * @memberof ContractJSON
      */
-    bytecode: string;
+    'bytecode': string;
     /**
      * The application binary interface of the solidity contract, optional parameter
      * @type {Array<any>}
      * @memberof ContractJSON
      */
-    abi?: Array<any>;
+    'abi'?: Array<any>;
     /**
      * 
      * @type {string}
      * @memberof ContractJSON
      */
-    metadata?: string;
+    'metadata'?: string;
     /**
      * 
      * @type {string}
      * @memberof ContractJSON
      */
-    deployedBytecode?: string;
+    'deployedBytecode'?: string;
     /**
      * 
      * @type {string}
      * @memberof ContractJSON
      */
-    sourceMap?: string;
+    'sourceMap'?: string;
     /**
      * 
      * @type {string}
      * @memberof ContractJSON
      */
-    deployedSourceMap?: string;
+    'deployedSourceMap'?: string;
     /**
      * 
      * @type {string}
      * @memberof ContractJSON
      */
-    sourcePath?: string;
+    'sourcePath'?: string;
     /**
      * 
      * @type {object}
      * @memberof ContractJSON
      */
-    compiler?: object;
+    'compiler'?: object;
     /**
      * 
      * @type {object}
      * @memberof ContractJSON
      */
-    networks?: object;
+    'networks'?: object;
     /**
      * 
      * @type {object}
      * @memberof ContractJSON
      */
-    ast?: object;
+    'ast'?: object;
     /**
      * 
      * @type {object}
      * @memberof ContractJSON
      */
-    functionHashes?: object;
+    'functionHashes'?: object;
     /**
      * 
      * @type {object}
      * @memberof ContractJSON
      */
-    gasEstimates?: object;
+    'gasEstimates'?: object;
 }
 /**
  * 
@@ -119,37 +121,37 @@ export interface DeployContractSolidityBytecodeJsonObjectV1Request {
      * @type {Web3SigningCredential}
      * @memberof DeployContractSolidityBytecodeJsonObjectV1Request
      */
-    web3SigningCredential: Web3SigningCredential;
+    'web3SigningCredential': Web3SigningCredential;
     /**
      * 
      * @type {number}
      * @memberof DeployContractSolidityBytecodeJsonObjectV1Request
      */
-    gas?: number;
+    'gas'?: number;
     /**
      * 
      * @type {string}
      * @memberof DeployContractSolidityBytecodeJsonObjectV1Request
      */
-    gasPrice?: string;
+    'gasPrice'?: string;
     /**
      * The amount of milliseconds to wait for a transaction receipt with theaddress of the contract(which indicates successful deployment) beforegiving up and crashing.
      * @type {number}
      * @memberof DeployContractSolidityBytecodeJsonObjectV1Request
      */
-    timeoutMs?: number;
+    'timeoutMs'?: number;
     /**
      * 
      * @type {ContractJSON}
      * @memberof DeployContractSolidityBytecodeJsonObjectV1Request
      */
-    contractJSON: ContractJSON;
+    'contractJSON': ContractJSON;
     /**
      * The list of arguments to pass in to the constructor of the contract being deployed.
      * @type {Array<any>}
      * @memberof DeployContractSolidityBytecodeJsonObjectV1Request
      */
-    constructorArgs?: Array<any>;
+    'constructorArgs'?: Array<any>;
 }
 /**
  * 
@@ -162,49 +164,49 @@ export interface DeployContractSolidityBytecodeV1Request {
      * @type {string}
      * @memberof DeployContractSolidityBytecodeV1Request
      */
-    contractName: string;
+    'contractName': string;
     /**
      * 
      * @type {Web3SigningCredential}
      * @memberof DeployContractSolidityBytecodeV1Request
      */
-    web3SigningCredential: Web3SigningCredential;
+    'web3SigningCredential': Web3SigningCredential;
     /**
      * The keychainId for retrieve the contracts json.
      * @type {string}
      * @memberof DeployContractSolidityBytecodeV1Request
      */
-    keychainId: string;
+    'keychainId': string;
     /**
      * 
      * @type {number}
      * @memberof DeployContractSolidityBytecodeV1Request
      */
-    gas?: number;
+    'gas'?: number;
     /**
      * 
      * @type {string}
      * @memberof DeployContractSolidityBytecodeV1Request
      */
-    gasPrice?: string;
+    'gasPrice'?: string;
     /**
      * The amount of milliseconds to wait for a transaction receipt with theaddress of the contract(which indicates successful deployment) beforegiving up and crashing.
      * @type {number}
      * @memberof DeployContractSolidityBytecodeV1Request
      */
-    timeoutMs?: number;
+    'timeoutMs'?: number;
     /**
      * For use when not using keychain, pass the contract in as this variable
      * @type {object}
      * @memberof DeployContractSolidityBytecodeV1Request
      */
-    contractJSON?: object;
+    'contractJSON'?: object;
     /**
      * The list of arguments to pass in to the constructor of the contract being deployed.
      * @type {Array<any>}
      * @memberof DeployContractSolidityBytecodeV1Request
      */
-    constructorArgs?: Array<any>;
+    'constructorArgs'?: Array<any>;
 }
 /**
  * 
@@ -217,7 +219,7 @@ export interface DeployContractSolidityBytecodeV1Response {
      * @type {Web3TransactionReceipt}
      * @memberof DeployContractSolidityBytecodeV1Response
      */
-    transactionReceipt: Web3TransactionReceipt;
+    'transactionReceipt': Web3TransactionReceipt;
 }
 /**
  * 
@@ -225,10 +227,13 @@ export interface DeployContractSolidityBytecodeV1Response {
  * @enum {string}
  */
 
-export enum EthContractInvocationType {
-    Send = 'SEND',
-    Call = 'CALL'
-}
+export const EthContractInvocationType = {
+    Send: 'SEND',
+    Call: 'CALL'
+} as const;
+
+export type EthContractInvocationType = typeof EthContractInvocationType[keyof typeof EthContractInvocationType];
+
 
 /**
  * 
@@ -236,12 +241,15 @@ export enum EthContractInvocationType {
  * @enum {string}
  */
 
-export enum EthContractInvocationWeb3Method {
-    Send = 'send',
-    Call = 'call',
-    EncodeAbi = 'encodeABI',
-    EstimateGas = 'estimateGas'
-}
+export const EthContractInvocationWeb3Method = {
+    Send: 'send',
+    Call: 'call',
+    EncodeAbi: 'encodeABI',
+    EstimateGas: 'estimateGas'
+} as const;
+
+export type EthContractInvocationWeb3Method = typeof EthContractInvocationWeb3Method[keyof typeof EthContractInvocationWeb3Method];
+
 
 /**
  * 
@@ -254,68 +262,70 @@ export interface InvokeContractJsonObjectV1Request {
      * @type {Web3SigningCredential}
      * @memberof InvokeContractJsonObjectV1Request
      */
-    web3SigningCredential: Web3SigningCredential;
+    'web3SigningCredential': Web3SigningCredential;
     /**
      * 
      * @type {EthContractInvocationType}
      * @memberof InvokeContractJsonObjectV1Request
      */
-    invocationType: EthContractInvocationType;
+    'invocationType': EthContractInvocationType;
     /**
      * The name of the contract method to invoke.
      * @type {string}
      * @memberof InvokeContractJsonObjectV1Request
      */
-    methodName: string;
+    'methodName': string;
     /**
      * The list of arguments to pass in to the contract method being invoked.
      * @type {Array<any>}
      * @memberof InvokeContractJsonObjectV1Request
      */
-    params: Array<any>;
+    'params': Array<any>;
     /**
      * Address of the solidity contract
      * @type {string}
      * @memberof InvokeContractJsonObjectV1Request
      */
-    contractAddress: string;
+    'contractAddress': string;
     /**
      * 
-     * @type {string | number}
+     * @type {QuorumTransactionConfigFrom}
      * @memberof InvokeContractJsonObjectV1Request
      */
-    value?: string | number;
+    'value'?: QuorumTransactionConfigFrom;
     /**
      * 
-     * @type {string | number}
+     * @type {QuorumTransactionConfigFrom}
      * @memberof InvokeContractJsonObjectV1Request
      */
-    gas?: string | number;
+    'gas'?: QuorumTransactionConfigFrom;
     /**
      * 
-     * @type {string | number}
+     * @type {QuorumTransactionConfigFrom}
      * @memberof InvokeContractJsonObjectV1Request
      */
-    gasPrice?: string | number;
+    'gasPrice'?: QuorumTransactionConfigFrom;
     /**
      * 
      * @type {number}
      * @memberof InvokeContractJsonObjectV1Request
      */
-    nonce?: number;
+    'nonce'?: number;
     /**
      * The amount of milliseconds to wait for a transaction receipt beforegiving up and crashing. Only has any effect if the invocation type is SEND
      * @type {number}
      * @memberof InvokeContractJsonObjectV1Request
      */
-    timeoutMs?: number;
+    'timeoutMs'?: number;
     /**
      * 
      * @type {ContractJSON}
      * @memberof InvokeContractJsonObjectV1Request
      */
-    contractJSON: ContractJSON;
+    'contractJSON': ContractJSON;
 }
+
+
 /**
  * 
  * @export
@@ -327,68 +337,70 @@ export interface InvokeContractV1Request {
      * @type {string}
      * @memberof InvokeContractV1Request
      */
-    contractName: string;
+    'contractName': string;
     /**
      * 
      * @type {Web3SigningCredential}
      * @memberof InvokeContractV1Request
      */
-    web3SigningCredential: Web3SigningCredential;
+    'web3SigningCredential': Web3SigningCredential;
     /**
      * 
      * @type {EthContractInvocationType}
      * @memberof InvokeContractV1Request
      */
-    invocationType: EthContractInvocationType;
+    'invocationType': EthContractInvocationType;
     /**
      * The name of the contract method to invoke.
      * @type {string}
      * @memberof InvokeContractV1Request
      */
-    methodName: string;
+    'methodName': string;
     /**
      * The list of arguments to pass in to the contract method being invoked.
      * @type {Array<any>}
      * @memberof InvokeContractV1Request
      */
-    params: Array<any>;
+    'params': Array<any>;
     /**
      * 
-     * @type {string | number}
+     * @type {QuorumTransactionConfigFrom}
      * @memberof InvokeContractV1Request
      */
-    value?: string | number;
+    'value'?: QuorumTransactionConfigFrom;
     /**
      * 
-     * @type {string | number}
+     * @type {QuorumTransactionConfigFrom}
      * @memberof InvokeContractV1Request
      */
-    gas?: string | number;
+    'gas'?: QuorumTransactionConfigFrom;
     /**
      * 
-     * @type {string | number}
+     * @type {QuorumTransactionConfigFrom}
      * @memberof InvokeContractV1Request
      */
-    gasPrice?: string | number;
+    'gasPrice'?: QuorumTransactionConfigFrom;
     /**
      * 
      * @type {number}
      * @memberof InvokeContractV1Request
      */
-    nonce?: number;
+    'nonce'?: number;
     /**
      * The amount of milliseconds to wait for a transaction receipt beforegiving up and crashing. Only has any effect if the invocation type is SEND
      * @type {number}
      * @memberof InvokeContractV1Request
      */
-    timeoutMs?: number;
+    'timeoutMs'?: number;
     /**
      * The keychainId for retrieve the contracts json.
      * @type {string}
      * @memberof InvokeContractV1Request
      */
-    keychainId: string;
+    'keychainId': string;
 }
+
+
 /**
  * 
  * @export
@@ -400,19 +412,19 @@ export interface InvokeContractV1Response {
      * @type {Web3TransactionReceipt}
      * @memberof InvokeContractV1Response
      */
-    transactionReceipt?: Web3TransactionReceipt;
+    'transactionReceipt'?: Web3TransactionReceipt;
     /**
      * 
      * @type {any}
      * @memberof InvokeContractV1Response
      */
-    callOutput?: any | null;
+    'callOutput'?: any;
     /**
      * 
      * @type {boolean}
      * @memberof InvokeContractV1Response
      */
-    success: boolean;
+    'success': boolean;
 }
 /**
  * 
@@ -425,38 +437,40 @@ export interface InvokeRawWeb3EthContractV1Request {
      * @type {Array<any>}
      * @memberof InvokeRawWeb3EthContractV1Request
      */
-    abi: Array<any>;
+    'abi': Array<any>;
     /**
      * Deployed solidity contract address
      * @type {string}
      * @memberof InvokeRawWeb3EthContractV1Request
      */
-    address: string;
+    'address': string;
     /**
      * 
      * @type {EthContractInvocationWeb3Method}
      * @memberof InvokeRawWeb3EthContractV1Request
      */
-    invocationType: EthContractInvocationWeb3Method;
+    'invocationType': EthContractInvocationWeb3Method;
     /**
      * The list of arguments for contract invocation method (send, call, etc...)
      * @type {object}
      * @memberof InvokeRawWeb3EthContractV1Request
      */
-    invocationParams?: object;
+    'invocationParams'?: object;
     /**
      * Method of deployed solidity contract to execute
      * @type {string}
      * @memberof InvokeRawWeb3EthContractV1Request
      */
-    contractMethod: string;
+    'contractMethod': string;
     /**
      * The list of arguments for deployed solidity contract method
      * @type {Array<any>}
      * @memberof InvokeRawWeb3EthContractV1Request
      */
-    contractMethodArgs?: Array<any>;
+    'contractMethodArgs'?: Array<any>;
 }
+
+
 /**
  * 
  * @export
@@ -468,19 +482,19 @@ export interface InvokeRawWeb3EthContractV1Response {
      * @type {number}
      * @memberof InvokeRawWeb3EthContractV1Response
      */
-    status: number;
+    'status': number;
     /**
      * Output of contract invocation method
      * @type {any}
      * @memberof InvokeRawWeb3EthContractV1Response
      */
-    data?: any | null;
+    'data'?: any;
     /**
      * Error details
      * @type {string}
      * @memberof InvokeRawWeb3EthContractV1Response
      */
-    errorDetail?: string;
+    'errorDetail'?: string;
 }
 /**
  * 
@@ -493,13 +507,13 @@ export interface InvokeRawWeb3EthMethodV1Request {
      * @type {string}
      * @memberof InvokeRawWeb3EthMethodV1Request
      */
-    methodName: string;
+    'methodName': string;
     /**
      * The list of arguments to pass to web3.eth method specified in methodName
      * @type {Array<any>}
      * @memberof InvokeRawWeb3EthMethodV1Request
      */
-    params?: Array<any>;
+    'params'?: Array<any>;
 }
 /**
  * 
@@ -512,19 +526,19 @@ export interface InvokeRawWeb3EthMethodV1Response {
      * @type {number}
      * @memberof InvokeRawWeb3EthMethodV1Response
      */
-    status: number;
+    'status': number;
     /**
      * Output of requested web3.eth method
      * @type {any}
      * @memberof InvokeRawWeb3EthMethodV1Response
      */
-    data?: any | null;
+    'data'?: any;
     /**
      * Error details
      * @type {string}
      * @memberof InvokeRawWeb3EthMethodV1Response
      */
-    errorDetail?: string;
+    'errorDetail'?: string;
 }
 /**
  * 
@@ -532,57 +546,69 @@ export interface InvokeRawWeb3EthMethodV1Response {
  * @interface QuorumTransactionConfig
  */
 export interface QuorumTransactionConfig {
-    [key: string]: object | any;
+    [key: string]: any;
 
     /**
      * 
      * @type {string}
      * @memberof QuorumTransactionConfig
      */
-    rawTransaction?: string;
+    'rawTransaction'?: string;
     /**
      * 
-     * @type {string | number}
+     * @type {QuorumTransactionConfigFrom}
      * @memberof QuorumTransactionConfig
      */
-    from?: string | number;
+    'from'?: QuorumTransactionConfigFrom;
     /**
      * 
-     * @type {string}
+     * @type {QuorumTransactionConfigTo}
      * @memberof QuorumTransactionConfig
      */
-    to?: string;
+    'to'?: QuorumTransactionConfigTo;
     /**
      * 
-     * @type {string | number}
+     * @type {QuorumTransactionConfigFrom}
      * @memberof QuorumTransactionConfig
      */
-    value?: string | number;
+    'value'?: QuorumTransactionConfigFrom;
     /**
      * 
-     * @type {string | number}
+     * @type {QuorumTransactionConfigFrom}
      * @memberof QuorumTransactionConfig
      */
-    gas?: string | number;
+    'gas'?: QuorumTransactionConfigFrom;
     /**
      * 
-     * @type {string | number}
+     * @type {QuorumTransactionConfigFrom}
      * @memberof QuorumTransactionConfig
      */
-    gasPrice?: string | number;
+    'gasPrice'?: QuorumTransactionConfigFrom;
     /**
      * 
      * @type {number}
      * @memberof QuorumTransactionConfig
      */
-    nonce?: number;
+    'nonce'?: number;
     /**
      * 
-     * @type {string}
+     * @type {QuorumTransactionConfigTo}
      * @memberof QuorumTransactionConfig
      */
-    data?: string;
+    'data'?: QuorumTransactionConfigTo;
 }
+/**
+ * @type QuorumTransactionConfigFrom
+ * @export
+ */
+export type QuorumTransactionConfigFrom = number | string;
+
+/**
+ * @type QuorumTransactionConfigTo
+ * @export
+ */
+export type QuorumTransactionConfigTo = string;
+
 /**
  * 
  * @export
@@ -594,19 +620,19 @@ export interface RunTransactionRequest {
      * @type {Web3SigningCredential}
      * @memberof RunTransactionRequest
      */
-    web3SigningCredential: Web3SigningCredential;
+    'web3SigningCredential': Web3SigningCredential;
     /**
      * 
      * @type {QuorumTransactionConfig}
      * @memberof RunTransactionRequest
      */
-    transactionConfig: QuorumTransactionConfig;
+    'transactionConfig': QuorumTransactionConfig;
     /**
      * The amount of milliseconds to wait for a transaction receipt with thehash of the transaction(which indicates successful execution) beforegiving up and crashing.
      * @type {number}
      * @memberof RunTransactionRequest
      */
-    timeoutMs?: number;
+    'timeoutMs'?: number;
 }
 /**
  * 
@@ -619,7 +645,7 @@ export interface RunTransactionResponse {
      * @type {Web3TransactionReceipt}
      * @memberof RunTransactionResponse
      */
-    transactionReceipt: Web3TransactionReceipt;
+    'transactionReceipt': Web3TransactionReceipt;
 }
 /**
  * 
@@ -632,61 +658,126 @@ export interface SolidityContractJsonArtifact {
      * @type {string}
      * @memberof SolidityContractJsonArtifact
      */
-    contractName: string;
+    'contractName': string;
     /**
      * 
      * @type {string}
      * @memberof SolidityContractJsonArtifact
      */
-    metadata?: string;
+    'metadata'?: string;
     /**
      * 
      * @type {string}
      * @memberof SolidityContractJsonArtifact
      */
-    bytecode?: string;
+    'bytecode'?: string;
     /**
      * 
      * @type {string}
      * @memberof SolidityContractJsonArtifact
      */
-    deployedBytecode?: string;
+    'deployedBytecode'?: string;
     /**
      * 
      * @type {string}
      * @memberof SolidityContractJsonArtifact
      */
-    sourceMap?: string;
+    'sourceMap'?: string;
     /**
      * 
      * @type {string}
      * @memberof SolidityContractJsonArtifact
      */
-    deployedSourceMap?: string;
+    'deployedSourceMap'?: string;
     /**
      * 
      * @type {string}
      * @memberof SolidityContractJsonArtifact
      */
-    sourcePath?: string;
+    'sourcePath'?: string;
     /**
      * 
-     * @type {{ [key: string]: object; }}
+     * @type {SolidityContractJsonArtifactCompiler}
      * @memberof SolidityContractJsonArtifact
      */
-    compiler?: { [key: string]: object; };
+    'compiler'?: SolidityContractJsonArtifactCompiler;
     /**
      * 
-     * @type {{ [key: string]: object; }}
+     * @type {{ [key: string]: any; }}
      * @memberof SolidityContractJsonArtifact
      */
-    functionHashes?: { [key: string]: object; };
+    'functionHashes'?: { [key: string]: any; };
     /**
      * 
-     * @type {object}
+     * @type {SolidityContractJsonArtifactGasEstimates}
      * @memberof SolidityContractJsonArtifact
      */
-    gasEstimates?: object;
+    'gasEstimates'?: SolidityContractJsonArtifactGasEstimates;
+}
+/**
+ * 
+ * @export
+ * @interface SolidityContractJsonArtifactCompiler
+ */
+export interface SolidityContractJsonArtifactCompiler {
+    [key: string]: any;
+
+    /**
+     * 
+     * @type {string}
+     * @memberof SolidityContractJsonArtifactCompiler
+     */
+    'name'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SolidityContractJsonArtifactCompiler
+     */
+    'version'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface SolidityContractJsonArtifactGasEstimates
+ */
+export interface SolidityContractJsonArtifactGasEstimates {
+    /**
+     * 
+     * @type {SolidityContractJsonArtifactGasEstimatesCreation}
+     * @memberof SolidityContractJsonArtifactGasEstimates
+     */
+    'creation'?: SolidityContractJsonArtifactGasEstimatesCreation;
+    /**
+     * 
+     * @type {{ [key: string]: any; }}
+     * @memberof SolidityContractJsonArtifactGasEstimates
+     */
+    'external'?: { [key: string]: any; };
+}
+/**
+ * 
+ * @export
+ * @interface SolidityContractJsonArtifactGasEstimatesCreation
+ */
+export interface SolidityContractJsonArtifactGasEstimatesCreation {
+    /**
+     * 
+     * @type {string}
+     * @memberof SolidityContractJsonArtifactGasEstimatesCreation
+     */
+    'codeDepositCost'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SolidityContractJsonArtifactGasEstimatesCreation
+     */
+    'executionCost'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SolidityContractJsonArtifactGasEstimatesCreation
+     */
+    'totalCost'?: string;
 }
 /**
  * 
@@ -694,13 +785,16 @@ export interface SolidityContractJsonArtifact {
  * @enum {string}
  */
 
-export enum WatchBlocksV1 {
-    Subscribe = 'org.hyperledger.cactus.api.async.quorum.WatchBlocksV1.Subscribe',
-    Next = 'org.hyperledger.cactus.api.async.quorum.WatchBlocksV1.Next',
-    Unsubscribe = 'org.hyperledger.cactus.api.async.quorum.WatchBlocksV1.Unsubscribe',
-    Error = 'org.hyperledger.cactus.api.async.quorum.WatchBlocksV1.Error',
-    Complete = 'org.hyperledger.cactus.api.async.quorum.WatchBlocksV1.Complete'
-}
+export const WatchBlocksV1 = {
+    Subscribe: 'org.hyperledger.cactus.api.async.quorum.WatchBlocksV1.Subscribe',
+    Next: 'org.hyperledger.cactus.api.async.quorum.WatchBlocksV1.Next',
+    Unsubscribe: 'org.hyperledger.cactus.api.async.quorum.WatchBlocksV1.Unsubscribe',
+    Error: 'org.hyperledger.cactus.api.async.quorum.WatchBlocksV1.Error',
+    Complete: 'org.hyperledger.cactus.api.async.quorum.WatchBlocksV1.Complete'
+} as const;
+
+export type WatchBlocksV1 = typeof WatchBlocksV1[keyof typeof WatchBlocksV1];
+
 
 /**
  * 
@@ -713,121 +807,121 @@ export interface WatchBlocksV1BlockData {
      * @type {number}
      * @memberof WatchBlocksV1BlockData
      */
-    number: number;
+    'number': number;
     /**
      * 
      * @type {string}
      * @memberof WatchBlocksV1BlockData
      */
-    hash: string;
+    'hash': string;
     /**
      * 
      * @type {string}
      * @memberof WatchBlocksV1BlockData
      */
-    parentHash: string;
+    'parentHash': string;
     /**
      * 
      * @type {string}
      * @memberof WatchBlocksV1BlockData
      */
-    nonce: string;
+    'nonce': string;
     /**
      * 
      * @type {string}
      * @memberof WatchBlocksV1BlockData
      */
-    sha3Uncles: string;
+    'sha3Uncles': string;
     /**
      * 
      * @type {string}
      * @memberof WatchBlocksV1BlockData
      */
-    logsBloom: string;
+    'logsBloom': string;
     /**
      * 
      * @type {string}
      * @memberof WatchBlocksV1BlockData
      */
-    transactionsRoot?: string;
+    'transactionsRoot'?: string;
     /**
      * 
      * @type {string}
      * @memberof WatchBlocksV1BlockData
      */
-    stateRoot: string;
+    'stateRoot': string;
     /**
      * 
      * @type {string}
      * @memberof WatchBlocksV1BlockData
      */
-    receiptsRoot?: string;
+    'receiptsRoot'?: string;
     /**
      * 
      * @type {string}
      * @memberof WatchBlocksV1BlockData
      */
-    difficulty?: string;
+    'difficulty'?: string;
     /**
      * 
      * @type {string}
      * @memberof WatchBlocksV1BlockData
      */
-    mixHash?: string;
+    'mixHash'?: string;
     /**
      * 
      * @type {string}
      * @memberof WatchBlocksV1BlockData
      */
-    miner: string;
+    'miner': string;
     /**
      * 
      * @type {string}
      * @memberof WatchBlocksV1BlockData
      */
-    extraData: string;
+    'extraData': string;
     /**
      * 
      * @type {number}
      * @memberof WatchBlocksV1BlockData
      */
-    gasLimit: number;
+    'gasLimit': number;
     /**
      * 
      * @type {number}
      * @memberof WatchBlocksV1BlockData
      */
-    gasUsed: number;
+    'gasUsed': number;
     /**
      * 
-     * @type {string | number}
+     * @type {QuorumTransactionConfigFrom}
      * @memberof WatchBlocksV1BlockData
      */
-    timestamp: string | number;
+    'timestamp': QuorumTransactionConfigFrom;
     /**
      * 
      * @type {number}
      * @memberof WatchBlocksV1BlockData
      */
-    size: number;
+    'size': number;
     /**
      * 
      * @type {string}
      * @memberof WatchBlocksV1BlockData
      */
-    totalDifficulty: string;
+    'totalDifficulty': string;
     /**
      * 
      * @type {Array<string>}
      * @memberof WatchBlocksV1BlockData
      */
-    uncles: Array<string>;
+    'uncles': Array<string>;
     /**
      * 
      * @type {Array<Web3Transaction>}
      * @memberof WatchBlocksV1BlockData
      */
-    transactions: Array<Web3Transaction>;
+    'transactions': Array<Web3Transaction>;
 }
 /**
  * 
@@ -840,7 +934,7 @@ export interface WatchBlocksV1Options {
      * @type {boolean}
      * @memberof WatchBlocksV1Options
      */
-    getBlockData?: boolean;
+    'getBlockData'?: boolean;
 }
 /**
  * 
@@ -853,13 +947,13 @@ export interface WatchBlocksV1Progress {
      * @type {Web3BlockHeader}
      * @memberof WatchBlocksV1Progress
      */
-    blockHeader?: Web3BlockHeader;
+    'blockHeader'?: Web3BlockHeader;
     /**
      * 
      * @type {WatchBlocksV1BlockData}
      * @memberof WatchBlocksV1Progress
      */
-    blockData?: WatchBlocksV1BlockData;
+    'blockData'?: WatchBlocksV1BlockData;
 }
 /**
  * 
@@ -872,97 +966,97 @@ export interface Web3BlockHeader {
      * @type {number}
      * @memberof Web3BlockHeader
      */
-    number: number;
+    'number': number;
     /**
      * 
      * @type {string}
      * @memberof Web3BlockHeader
      */
-    hash: string;
+    'hash': string;
     /**
      * 
      * @type {string}
      * @memberof Web3BlockHeader
      */
-    parentHash: string;
+    'parentHash': string;
     /**
      * 
      * @type {string}
      * @memberof Web3BlockHeader
      */
-    nonce: string;
+    'nonce': string;
     /**
      * 
      * @type {string}
      * @memberof Web3BlockHeader
      */
-    sha3Uncles: string;
+    'sha3Uncles': string;
     /**
      * 
      * @type {string}
      * @memberof Web3BlockHeader
      */
-    logsBloom: string;
+    'logsBloom': string;
     /**
      * 
      * @type {string}
      * @memberof Web3BlockHeader
      */
-    transactionsRoot?: string;
+    'transactionsRoot'?: string;
     /**
      * 
      * @type {string}
      * @memberof Web3BlockHeader
      */
-    stateRoot: string;
+    'stateRoot': string;
     /**
      * 
      * @type {string}
      * @memberof Web3BlockHeader
      */
-    receiptsRoot?: string;
+    'receiptsRoot'?: string;
     /**
      * 
      * @type {string}
      * @memberof Web3BlockHeader
      */
-    difficulty?: string;
+    'difficulty'?: string;
     /**
      * 
      * @type {string}
      * @memberof Web3BlockHeader
      */
-    mixHash?: string;
+    'mixHash'?: string;
     /**
      * 
      * @type {string}
      * @memberof Web3BlockHeader
      */
-    miner: string;
+    'miner': string;
     /**
      * 
      * @type {string}
      * @memberof Web3BlockHeader
      */
-    extraData: string;
+    'extraData': string;
     /**
      * 
      * @type {number}
      * @memberof Web3BlockHeader
      */
-    gasLimit: number;
+    'gasLimit': number;
     /**
      * 
      * @type {number}
      * @memberof Web3BlockHeader
      */
-    gasUsed: number;
+    'gasUsed': number;
     /**
      * 
-     * @type {string | number}
+     * @type {QuorumTransactionConfigFrom}
      * @memberof Web3BlockHeader
      */
-    timestamp: string | number;
+    'timestamp': QuorumTransactionConfigFrom;
 }
 /**
  * @type Web3SigningCredential
@@ -981,26 +1075,28 @@ export interface Web3SigningCredentialCactusKeychainRef {
      * @type {Web3SigningCredentialType}
      * @memberof Web3SigningCredentialCactusKeychainRef
      */
-    type: Web3SigningCredentialType;
+    'type': Web3SigningCredentialType;
     /**
      * The ethereum account (public key) that the credential  belongs to. Basically the username in the traditional  terminology of authentication.
      * @type {string}
      * @memberof Web3SigningCredentialCactusKeychainRef
      */
-    ethAccount: string;
+    'ethAccount': string;
     /**
      * The key to use when looking up the the keychain entry holding the secret pointed to by the  keychainEntryKey parameter.
      * @type {string}
      * @memberof Web3SigningCredentialCactusKeychainRef
      */
-    keychainEntryKey: string;
+    'keychainEntryKey': string;
     /**
      * The keychain ID to use when looking up the the keychain plugin instance that will be used to retrieve the secret pointed to by the keychainEntryKey parameter.
      * @type {string}
      * @memberof Web3SigningCredentialCactusKeychainRef
      */
-    keychainId?: string;
+    'keychainId'?: string;
 }
+
+
 /**
  * 
  * @export
@@ -1012,20 +1108,22 @@ export interface Web3SigningCredentialGethKeychainPassword {
      * @type {Web3SigningCredentialType}
      * @memberof Web3SigningCredentialGethKeychainPassword
      */
-    type: Web3SigningCredentialType;
+    'type': Web3SigningCredentialType;
     /**
      * The ethereum account (public key) that the credential  belongs to. Basically the username in the traditional terminology of authentication.
      * @type {string}
      * @memberof Web3SigningCredentialGethKeychainPassword
      */
-    ethAccount: string;
+    'ethAccount': string;
     /**
      * A geth keychain unlock password.
      * @type {string}
      * @memberof Web3SigningCredentialGethKeychainPassword
      */
-    secret: string;
+    'secret': string;
 }
+
+
 /**
  * Using this denotes that there is no signing required because the transaction is pre-signed.
  * @export
@@ -1037,8 +1135,10 @@ export interface Web3SigningCredentialNone {
      * @type {Web3SigningCredentialType}
      * @memberof Web3SigningCredentialNone
      */
-    type: Web3SigningCredentialType;
+    'type': Web3SigningCredentialType;
 }
+
+
 /**
  * 
  * @export
@@ -1050,32 +1150,37 @@ export interface Web3SigningCredentialPrivateKeyHex {
      * @type {Web3SigningCredentialType}
      * @memberof Web3SigningCredentialPrivateKeyHex
      */
-    type: Web3SigningCredentialType;
+    'type': Web3SigningCredentialType;
     /**
      * The ethereum account (public key) that the credential belongs to. Basically the username in the traditional terminology of authentication.
      * @type {string}
      * @memberof Web3SigningCredentialPrivateKeyHex
      */
-    ethAccount: string;
+    'ethAccount': string;
     /**
      * The HEX encoded private key of an eth account.
      * @type {string}
      * @memberof Web3SigningCredentialPrivateKeyHex
      */
-    secret: string;
+    'secret': string;
 }
+
+
 /**
  * 
  * @export
  * @enum {string}
  */
 
-export enum Web3SigningCredentialType {
-    CactusKeychainRef = 'CACTUS_KEYCHAIN_REF',
-    GethKeychainPassword = 'GETH_KEYCHAIN_PASSWORD',
-    PrivateKeyHex = 'PRIVATE_KEY_HEX',
-    None = 'NONE'
-}
+export const Web3SigningCredentialType = {
+    CactusKeychainRef: 'CACTUS_KEYCHAIN_REF',
+    GethKeychainPassword: 'GETH_KEYCHAIN_PASSWORD',
+    PrivateKeyHex: 'PRIVATE_KEY_HEX',
+    None: 'NONE'
+} as const;
+
+export type Web3SigningCredentialType = typeof Web3SigningCredentialType[keyof typeof Web3SigningCredentialType];
+
 
 /**
  * 
@@ -1088,85 +1193,85 @@ export interface Web3Transaction {
      * @type {string}
      * @memberof Web3Transaction
      */
-    hash: string;
+    'hash': string;
     /**
      * 
      * @type {number}
      * @memberof Web3Transaction
      */
-    nonce: number;
+    'nonce': number;
     /**
      * 
      * @type {string}
      * @memberof Web3Transaction
      */
-    blockHash: string | null;
+    'blockHash': string | null;
     /**
      * 
      * @type {number}
      * @memberof Web3Transaction
      */
-    blockNumber: number | null;
+    'blockNumber': number | null;
     /**
      * 
      * @type {number}
      * @memberof Web3Transaction
      */
-    transactionIndex: number | null;
+    'transactionIndex': number | null;
     /**
      * 
      * @type {string}
      * @memberof Web3Transaction
      */
-    from: string;
+    'from': string;
     /**
      * 
      * @type {string}
      * @memberof Web3Transaction
      */
-    to: string | null;
+    'to': string | null;
     /**
      * 
      * @type {string}
      * @memberof Web3Transaction
      */
-    value: string;
+    'value': string;
     /**
      * 
      * @type {string}
      * @memberof Web3Transaction
      */
-    gasPrice: string;
+    'gasPrice': string;
     /**
      * 
      * @type {number}
      * @memberof Web3Transaction
      */
-    gas: number;
+    'gas': number;
     /**
      * 
      * @type {string}
      * @memberof Web3Transaction
      */
-    input: string;
+    'input': string;
     /**
      * 
      * @type {string}
      * @memberof Web3Transaction
      */
-    v?: string;
+    'v'?: string;
     /**
      * 
      * @type {string}
      * @memberof Web3Transaction
      */
-    r?: string;
+    'r'?: string;
     /**
      * 
      * @type {string}
      * @memberof Web3Transaction
      */
-    s?: string;
+    's'?: string;
 }
 /**
  * 
@@ -1174,62 +1279,62 @@ export interface Web3Transaction {
  * @interface Web3TransactionReceipt
  */
 export interface Web3TransactionReceipt {
-    [key: string]: object | any;
+    [key: string]: any;
 
     /**
      * 
      * @type {boolean}
      * @memberof Web3TransactionReceipt
      */
-    status: boolean;
+    'status': boolean;
     /**
      * 
      * @type {string}
      * @memberof Web3TransactionReceipt
      */
-    transactionHash: string;
+    'transactionHash': string;
     /**
      * 
      * @type {number}
      * @memberof Web3TransactionReceipt
      */
-    transactionIndex: number;
+    'transactionIndex': number;
     /**
      * 
      * @type {string}
      * @memberof Web3TransactionReceipt
      */
-    blockHash: string;
+    'blockHash': string;
     /**
      * 
      * @type {number}
      * @memberof Web3TransactionReceipt
      */
-    blockNumber: number;
+    'blockNumber': number;
     /**
      * 
      * @type {number}
      * @memberof Web3TransactionReceipt
      */
-    gasUsed: number;
+    'gasUsed': number;
     /**
      * 
      * @type {string}
      * @memberof Web3TransactionReceipt
      */
-    contractAddress?: string | null;
+    'contractAddress'?: string | null;
     /**
      * 
      * @type {string}
      * @memberof Web3TransactionReceipt
      */
-    from: string;
+    'from': string;
     /**
      * 
      * @type {string}
      * @memberof Web3TransactionReceipt
      */
-    to: string;
+    'to': string;
 }
 
 /**
@@ -1245,7 +1350,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deployContractSolBytecodeJsonObjectV1: async (deployContractSolidityBytecodeJsonObjectV1Request?: DeployContractSolidityBytecodeJsonObjectV1Request, options: any = {}): Promise<RequestArgs> => {
+        deployContractSolBytecodeJsonObjectV1: async (deployContractSolidityBytecodeJsonObjectV1Request?: DeployContractSolidityBytecodeJsonObjectV1Request, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-quorum/deploy-contract-solidity-bytecode-json-object`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1262,7 +1367,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(deployContractSolidityBytecodeJsonObjectV1Request, localVarRequestOptions, configuration)
@@ -1279,7 +1384,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deployContractSolBytecodeV1: async (deployContractSolidityBytecodeV1Request?: DeployContractSolidityBytecodeV1Request, options: any = {}): Promise<RequestArgs> => {
+        deployContractSolBytecodeV1: async (deployContractSolidityBytecodeV1Request?: DeployContractSolidityBytecodeV1Request, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-quorum/deploy-contract-solidity-bytecode`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1296,7 +1401,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(deployContractSolidityBytecodeV1Request, localVarRequestOptions, configuration)
@@ -1312,7 +1417,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPrometheusMetricsV1: async (options: any = {}): Promise<RequestArgs> => {
+        getPrometheusMetricsV1: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-quorum/get-prometheus-exporter-metrics`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1327,7 +1432,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
 
 
     
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
@@ -1343,7 +1448,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        invokeContractV1: async (invokeContractV1Request?: InvokeContractV1Request, options: any = {}): Promise<RequestArgs> => {
+        invokeContractV1: async (invokeContractV1Request?: InvokeContractV1Request, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-quorum/invoke-contract`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1360,7 +1465,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(invokeContractV1Request, localVarRequestOptions, configuration)
@@ -1377,7 +1482,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        invokeContractV1NoKeychain: async (invokeContractJsonObjectV1Request?: InvokeContractJsonObjectV1Request, options: any = {}): Promise<RequestArgs> => {
+        invokeContractV1NoKeychain: async (invokeContractJsonObjectV1Request?: InvokeContractJsonObjectV1Request, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-quorum/invoke-contract-json-object`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1394,7 +1499,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(invokeContractJsonObjectV1Request, localVarRequestOptions, configuration)
@@ -1411,7 +1516,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        invokeRawWeb3EthContractV1: async (invokeRawWeb3EthContractV1Request?: InvokeRawWeb3EthContractV1Request, options: any = {}): Promise<RequestArgs> => {
+        invokeRawWeb3EthContractV1: async (invokeRawWeb3EthContractV1Request?: InvokeRawWeb3EthContractV1Request, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-quorum/invoke-raw-web3eth-contract`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1428,7 +1533,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(invokeRawWeb3EthContractV1Request, localVarRequestOptions, configuration)
@@ -1445,7 +1550,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        invokeWeb3EthMethodV1: async (invokeRawWeb3EthMethodV1Request?: InvokeRawWeb3EthMethodV1Request, options: any = {}): Promise<RequestArgs> => {
+        invokeWeb3EthMethodV1: async (invokeRawWeb3EthMethodV1Request?: InvokeRawWeb3EthMethodV1Request, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-quorum/invoke-raw-web3eth-method`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1462,7 +1567,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(invokeRawWeb3EthMethodV1Request, localVarRequestOptions, configuration)
@@ -1479,7 +1584,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        runTransactionV1: async (runTransactionRequest?: RunTransactionRequest, options: any = {}): Promise<RequestArgs> => {
+        runTransactionV1: async (runTransactionRequest?: RunTransactionRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-quorum/run-transaction`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1496,7 +1601,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(runTransactionRequest, localVarRequestOptions, configuration)
@@ -1523,7 +1628,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deployContractSolBytecodeJsonObjectV1(deployContractSolidityBytecodeJsonObjectV1Request?: DeployContractSolidityBytecodeJsonObjectV1Request, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeployContractSolidityBytecodeV1Response>> {
+        async deployContractSolBytecodeJsonObjectV1(deployContractSolidityBytecodeJsonObjectV1Request?: DeployContractSolidityBytecodeJsonObjectV1Request, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeployContractSolidityBytecodeV1Response>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deployContractSolBytecodeJsonObjectV1(deployContractSolidityBytecodeJsonObjectV1Request, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1534,7 +1639,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deployContractSolBytecodeV1(deployContractSolidityBytecodeV1Request?: DeployContractSolidityBytecodeV1Request, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeployContractSolidityBytecodeV1Response>> {
+        async deployContractSolBytecodeV1(deployContractSolidityBytecodeV1Request?: DeployContractSolidityBytecodeV1Request, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeployContractSolidityBytecodeV1Response>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deployContractSolBytecodeV1(deployContractSolidityBytecodeV1Request, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1544,7 +1649,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPrometheusMetricsV1(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async getPrometheusMetricsV1(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getPrometheusMetricsV1(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1555,7 +1660,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async invokeContractV1(invokeContractV1Request?: InvokeContractV1Request, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InvokeContractV1Response>> {
+        async invokeContractV1(invokeContractV1Request?: InvokeContractV1Request, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InvokeContractV1Response>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.invokeContractV1(invokeContractV1Request, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1566,7 +1671,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async invokeContractV1NoKeychain(invokeContractJsonObjectV1Request?: InvokeContractJsonObjectV1Request, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InvokeContractV1Response>> {
+        async invokeContractV1NoKeychain(invokeContractJsonObjectV1Request?: InvokeContractJsonObjectV1Request, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InvokeContractV1Response>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.invokeContractV1NoKeychain(invokeContractJsonObjectV1Request, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1577,7 +1682,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async invokeRawWeb3EthContractV1(invokeRawWeb3EthContractV1Request?: InvokeRawWeb3EthContractV1Request, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InvokeRawWeb3EthContractV1Response>> {
+        async invokeRawWeb3EthContractV1(invokeRawWeb3EthContractV1Request?: InvokeRawWeb3EthContractV1Request, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InvokeRawWeb3EthContractV1Response>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.invokeRawWeb3EthContractV1(invokeRawWeb3EthContractV1Request, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1588,7 +1693,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async invokeWeb3EthMethodV1(invokeRawWeb3EthMethodV1Request?: InvokeRawWeb3EthMethodV1Request, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InvokeRawWeb3EthMethodV1Response>> {
+        async invokeWeb3EthMethodV1(invokeRawWeb3EthMethodV1Request?: InvokeRawWeb3EthMethodV1Request, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InvokeRawWeb3EthMethodV1Response>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.invokeWeb3EthMethodV1(invokeRawWeb3EthMethodV1Request, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1599,7 +1704,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async runTransactionV1(runTransactionRequest?: RunTransactionRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RunTransactionResponse>> {
+        async runTransactionV1(runTransactionRequest?: RunTransactionRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RunTransactionResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.runTransactionV1(runTransactionRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1710,7 +1815,7 @@ export class DefaultApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public deployContractSolBytecodeJsonObjectV1(deployContractSolidityBytecodeJsonObjectV1Request?: DeployContractSolidityBytecodeJsonObjectV1Request, options?: any) {
+    public deployContractSolBytecodeJsonObjectV1(deployContractSolidityBytecodeJsonObjectV1Request?: DeployContractSolidityBytecodeJsonObjectV1Request, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).deployContractSolBytecodeJsonObjectV1(deployContractSolidityBytecodeJsonObjectV1Request, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -1722,7 +1827,7 @@ export class DefaultApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public deployContractSolBytecodeV1(deployContractSolidityBytecodeV1Request?: DeployContractSolidityBytecodeV1Request, options?: any) {
+    public deployContractSolBytecodeV1(deployContractSolidityBytecodeV1Request?: DeployContractSolidityBytecodeV1Request, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).deployContractSolBytecodeV1(deployContractSolidityBytecodeV1Request, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -1733,7 +1838,7 @@ export class DefaultApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public getPrometheusMetricsV1(options?: any) {
+    public getPrometheusMetricsV1(options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).getPrometheusMetricsV1(options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -1745,7 +1850,7 @@ export class DefaultApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public invokeContractV1(invokeContractV1Request?: InvokeContractV1Request, options?: any) {
+    public invokeContractV1(invokeContractV1Request?: InvokeContractV1Request, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).invokeContractV1(invokeContractV1Request, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -1757,7 +1862,7 @@ export class DefaultApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public invokeContractV1NoKeychain(invokeContractJsonObjectV1Request?: InvokeContractJsonObjectV1Request, options?: any) {
+    public invokeContractV1NoKeychain(invokeContractJsonObjectV1Request?: InvokeContractJsonObjectV1Request, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).invokeContractV1NoKeychain(invokeContractJsonObjectV1Request, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -1769,7 +1874,7 @@ export class DefaultApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public invokeRawWeb3EthContractV1(invokeRawWeb3EthContractV1Request?: InvokeRawWeb3EthContractV1Request, options?: any) {
+    public invokeRawWeb3EthContractV1(invokeRawWeb3EthContractV1Request?: InvokeRawWeb3EthContractV1Request, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).invokeRawWeb3EthContractV1(invokeRawWeb3EthContractV1Request, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -1781,7 +1886,7 @@ export class DefaultApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public invokeWeb3EthMethodV1(invokeRawWeb3EthMethodV1Request?: InvokeRawWeb3EthMethodV1Request, options?: any) {
+    public invokeWeb3EthMethodV1(invokeRawWeb3EthMethodV1Request?: InvokeRawWeb3EthMethodV1Request, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).invokeWeb3EthMethodV1(invokeRawWeb3EthMethodV1Request, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -1793,7 +1898,7 @@ export class DefaultApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public runTransactionV1(runTransactionRequest?: RunTransactionRequest, options?: any) {
+    public runTransactionV1(runTransactionRequest?: RunTransactionRequest, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).runTransactionV1(runTransactionRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
