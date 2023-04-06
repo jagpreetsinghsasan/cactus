@@ -1,29 +1,45 @@
 import { execSync } from "child_process";
 import { existsSync, readFileSync } from "fs";
+let testToolingPackageAffected = false;
 
 // this function generates a list of packages and extensions which need to be
 // tested by the CI due to a given git diff
-// NOTE: 
+// NOTE: execute this function to get the package list for CI only when
+// testToolingPackageAffected == true;
 function packagesAndExtensionsAffectedByDiff(diffGitFilePaths) {
+  const dependencyGraph = generateDependencyGraph();
+  //for each package
   const uniquePackagesAffectedByDiff = extractUniquePackagesFromDiff(
     diffGitFilePaths,
   );
-  const dependencyGraph = generateDependencyGraph();
   const allPackagesAndDependenciesAffectedByDiff = new Set();
   uniquePackagesAffectedByDiff.forEach((uniquePackage) => {
-    if (dependencyGraph.get(uniquePackage) !== undefined) {
-      Array.from(dependencyGraph.get(uniquePackage)).forEach(
-        (cactusPackage) => {
-          allPackagesAndDependenciesAffectedByDiff.add(cactusPackage);
-        },
-      );
-    }
+    dependencyGraph.forEach((cactusPackageDependencySet, cactusPackage) => {
+      if (cactusPackageDependencySet.has(uniquePackage)) {
+        allPackagesAndDependenciesAffectedByDiff.add(cactusPackage);
+      }
+    });
+    allPackagesAndDependenciesAffectedByDiff.add(uniquePackage);
   });
-  const allPackagesExtensionsAndDependenciesAffectedByDiff = new Set([
+
+  //for each extension
+  const uniqueExtensionsAffectedByDiff = extractUniqueExtensionsFromDiff(
+    diffGitFilePaths,
+  );
+  const allExtensionsAndDependenciesAffectedByDiff = new Set();
+  uniqueExtensionsAffectedByDiff.forEach((uniqueExtension) => {
+    dependencyGraph.forEach((cactusExtensionDependencySet, cactusExtension) => {
+      if (cactusExtensionDependencySet.has(uniqueExtension)) {
+        allExtensionsAndDependenciesAffectedByDiff.add(cactusExtension);
+      }
+    });
+    allExtensionsAndDependenciesAffectedByDiff.add(uniqueExtension);
+  });
+
+  return new Set([
     ...allPackagesAndDependenciesAffectedByDiff,
-    ...extractUniqueExtensionsFromDiff(diffGitFilePaths),
+    ...allExtensionsAndDependenciesAffectedByDiff,
   ]);
-  return allPackagesExtensionsAndDependenciesAffectedByDiff;
 }
 
 // generate a dependency graph, which looks like
@@ -33,7 +49,7 @@ function packagesAndExtensionsAffectedByDiff(diffGitFilePaths) {
 //     )
 function generateDependencyGraph() {
   const dependencyGraph = new Map();
-  // for all the packages
+  // for each package, add all package dependencies
   const allCactusPackages = getAllCactusPackages();
   allCactusPackages.forEach((cactusPackage) => {
     const packageJSONPath = "packages/" + cactusPackage + "/package.json";
@@ -53,6 +69,7 @@ function generateDependencyGraph() {
       }
     }
   });
+
   // for all the extensions
   const allCactusExtensions = getAllCactusExtensions();
   allCactusExtensions.forEach((cactusExtension) => {
@@ -98,22 +115,44 @@ function getAllCactusExtensions() {
   return allCactusExtensions;
 }
 
+// this function extracts unique packages, from the git diff
 function extractUniquePackagesFromDiff(diffGitFilePaths) {
   let uniquePackages = new Set();
   diffGitFilePaths.forEach((filePath) => {
-    let filePathSplit = filePath.split("/");
-    if (filePathSplit.length > 2 && filePathSplit[0] == "packages") {
+    const fileExtension = filePath.substring(
+      filePath.lastIndexOf(".") + 1,
+      filePath.length,
+    );
+    const filePathSplit = filePath.split("/");
+    if (
+      filePathSplit.length > 2 &&
+      filePathSplit[0] == "packages" &&
+      fileExtension != "md" &&
+      filePathSplit[1] != "cactus-test-tooling"
+    ) {
       uniquePackages.add(filePathSplit[1]);
+    }
+    if (filePathSplit[1] == "cactus-test-tooling" && fileExtension != "md") {
+      testToolingPackageAffected = true;
     }
   });
   return uniquePackages;
 }
 
+// this function extracts the unique extensions from the git diff
 function extractUniqueExtensionsFromDiff(diffGitFilePaths) {
   let uniqueExtensions = new Set();
   diffGitFilePaths.forEach((filePath) => {
-    let filePathSplit = filePath.split("/");
-    if (filePathSplit.length > 2 && filePathSplit[0] == "extensions") {
+    const fileExtension = filePath.substring(
+      filePath.lastIndexOf(".") + 1,
+      filePath.length,
+    );
+    const filePathSplit = filePath.split("/");
+    if (
+      filePathSplit.length > 2 &&
+      filePathSplit[0] == "extensions" &&
+      fileExtension != "md"
+    ) {
       uniqueExtensions.add(filePathSplit[1]);
     }
   });
@@ -155,12 +194,30 @@ function getGitDiff() {
 
 // ------------------------------------------------------------------------------------------------
 
+// getting the git diff
 const diffGitFilePaths = getGitDiff();
+
+// checking if its a documentation PR
+// TODO: Update this task to work on docs/ folder of packages
+// instead of checking for .md files
 console.log(
   `Is this a documentation PR: ` + checkIfOnlyDocsDiff(diffGitFilePaths),
 );
+
+// printing a list of all packages which need to be tested by CI as they are affected
+// NOTE: Testing the entire CI for cactus-test-tooling due to urgent requirements
+// TODO: Update the case of cactus-test-tooling for more optimized CI
 const allPackagesExtensionsAndDependenciesAffectedByDiff = packagesAndExtensionsAffectedByDiff(
   diffGitFilePaths,
 );
-console.log(`All packagesa and extensions for which the CI needs to run are: `);
-console.log(allPackagesExtensionsAndDependenciesAffectedByDiff);
+if (testToolingPackageAffected) {
+  const allPackagesAndExtensions =
+    getAllCactusExtensions() + getAllCactusExtensions();
+  console.log("cactus-test-tooling is affected. Running the entire CI");
+  console.log(allPackagesAndExtensions);
+} else {
+  console.log(
+    `All packages and extensions for which the CI needs to run are: `,
+  );
+  console.log(allPackagesExtensionsAndDependenciesAffectedByDiff);
+}
