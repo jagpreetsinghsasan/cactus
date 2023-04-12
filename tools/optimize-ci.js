@@ -3,6 +3,62 @@ import { existsSync } from "fs";
 import jsDependencyExtractor from "js-dependency-extractor";
 let testToolingPackageAffected = false;
 
+const pathsToCiJobsMapping = new Map([
+  ["tools/docker/besu-all-in-one", ["ghcr-tools-besu-all-in-one"]],
+  ["packages/cactus-cmd-api-server", ["ghcr-packages-cactus-cmd-api-server"]],
+  [
+    "packages/cactus-plugin-ledger-connector-besu",
+    ["ghcr-packages-cactus-plugin-ledger-connector-besu"],
+  ],
+  [
+    "packages/cactus-plugin-ledger-connector-corda",
+    ["ghcr-packages-cactus-plugin-ledger-connector-corda-server"],
+  ],
+  [
+    "packages/cactus-plugin-ledger-connector-fabric",
+    ["ghcr-packages-cactus-plugin-ledger-connector-fabric"],
+  ],
+  [
+    "tools/docker/corda-all-in-one",
+    [
+      "ghcr-tools-corda-all-in-one",
+      "ghcr-tools-corda-all-in-one-flowdb",
+      "ghcr-tools-corda-all-in-one-obligation",
+    ],
+  ],
+  [".devcontainer", ["ghcr-dev-container-vscode"]],
+  ["examples/carbon-accounting", ["ghcr-examples-carbon-accounting"]],
+  ["examples/supply-chain-app", ["ghcr-examples-supply-chain-app"]],
+  [
+    "tools/docker/fabric-all-in-one",
+    ["ghcr-tools-fabric-all-in-one", "ghcr-tools-fabric2-all-in-one"],
+  ],
+  ["tools/docker/iroha-all-in-one", ["ghcr-tools-iroha-all-in-one"]],
+  [
+    "packages/cactus-plugin-keychain-vault/src/cactus-keychain-vault-server",
+    ["ghcr-packages-cactus-plugin-keychain-vault-server"],
+  ],
+  ["tools/docker/quorum-all-in-one", ["ghcr-tools-quorum-all-in-one"]],
+  [
+    "tools/docker/quorum-multi-party-all-in-one",
+    ["ghcr-tools-quorum-multi-party-all-in-one"],
+  ],
+  ["tools/docker/rust-compiler", ["ghcr-tools-rust-compiler"]],
+  ["tools/docker/test-npm-registry", ["ghcr-tools-test-npm-registry"]],
+  ["whitepaper", ["ghcr-whitepaper"]],
+]);
+
+function listOfGhcrJobsToRun(gitDiffFilePaths) {
+  let listOfGhcrJobsToRun = [];
+  let gitDiffFilePathsJoined = gitDiffFilePaths.join("|");
+  pathsToCiJobsMapping.forEach((pathForImage) => {
+    if (gitDiffFilePathsJoined.includes(pathForImage)) {
+      listOfGhcrJobsToRun.push(...pathsToCiJobsMapping[pathForImage]);
+    }
+  });
+  console.log(listOfGhcrJobsToRun);
+}
+
 // this function generates a list of packages and extensions which need to be
 // tested by the CI due to a given git diff
 // NOTE: execute this function to get the package list for CI only when
@@ -214,3 +270,5 @@ if (testToolingPackageAffected) {
   );
   console.log(allPackagesExtensionsAndDependenciesAffectedByDiff);
 }
+
+listOfGhcrJobsToRun(gitDiffFilePaths);
