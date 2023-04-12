@@ -48,15 +48,17 @@ const pathsToCiJobsMapping = new Map([
   ["whitepaper", ["ghcr-whitepaper"]],
 ]);
 
+// this function returns an array of "ghcr-*" ci jobs which needs to be executed
+// Sample output: [ 'ghcr-tools-besu-all-in-one', 'ghcr-packages-cactus-cmd-api-server' ]
 function listOfGhcrJobsToRun(gitDiffFilePaths) {
   let listOfGhcrJobsToRun = [];
   let gitDiffFilePathsJoined = gitDiffFilePaths.join("|");
-  pathsToCiJobsMapping.forEach((pathForImage) => {
+  pathsToCiJobsMapping.forEach((_ghcrJobs, pathForImage) => {
     if (gitDiffFilePathsJoined.includes(pathForImage)) {
-      listOfGhcrJobsToRun.push(...pathsToCiJobsMapping[pathForImage]);
+      listOfGhcrJobsToRun.push(...pathsToCiJobsMapping.get(pathForImage));
     }
   });
-  console.log(listOfGhcrJobsToRun);
+  return listOfGhcrJobsToRun;
 }
 
 // this function generates a list of packages and extensions which need to be
@@ -64,6 +66,7 @@ function listOfGhcrJobsToRun(gitDiffFilePaths) {
 // NOTE: execute this function to get the package list for CI only when
 // testToolingPackageAffected == true;
 async function packagesAndExtensionsAffectedByDiff(gitDiffFilePaths) {
+  let uniquePackagesAndExtensionsAffectedByDiff = [];
   const dependencyGraph = await generateDependencyGraph();
   //for each package
   const uniquePackagesAffectedByDiff = extractUniquePackagesFromDiff(
@@ -93,10 +96,13 @@ async function packagesAndExtensionsAffectedByDiff(gitDiffFilePaths) {
     allExtensionsAndDependenciesAffectedByDiff.add(uniqueExtension);
   });
 
-  return new Set([
+  uniquePackagesAndExtensionsAffectedByDiff.push(
     ...allPackagesAndDependenciesAffectedByDiff,
+  );
+  uniquePackagesAndExtensionsAffectedByDiff.push(
     ...allExtensionsAndDependenciesAffectedByDiff,
-  ]);
+  );
+  return uniquePackagesAndExtensionsAffectedByDiff;
 }
 
 function checkIfCactiPackage(packageName) {
@@ -243,15 +249,15 @@ function getGitDiff() {
 
 // ------------------------------------------------------------------------------------------------
 
+let optimizedCliOutput = new Map();
+
 // getting the git diff
 const gitDiffFilePaths = getGitDiff();
 
 // checking if its a documentation PR
 // TODO: Update this task to work on docs/ folder of packages
 // instead of checking for .md files
-console.log(
-  `Is this a documentation PR: ` + checkIfOnlyDocsDiff(gitDiffFilePaths),
-);
+optimizedCliOutput.set("onlyDocsDiff", checkIfOnlyDocsDiff(gitDiffFilePaths));
 
 // printing a list of all packages which need to be tested by CI as they are affected
 // NOTE: Testing the entire CI for cactus-test-tooling due to urgent requirements
@@ -262,13 +268,20 @@ const allPackagesExtensionsAndDependenciesAffectedByDiff = await packagesAndExte
 if (testToolingPackageAffected) {
   const allPackagesAndExtensions =
     getAllCactusExtensions() + getAllCactusExtensions();
-  console.log("cactus-test-tooling is affected. Running the entire CI");
-  console.log(allPackagesAndExtensions);
-} else {
-  console.log(
-    `All packages and extensions for which the CI needs to run are: `,
+  optimizedCliOutput.set(
+    "affectedPluginsAndExtensions",
+    allPackagesAndExtensions,
   );
-  console.log(allPackagesExtensionsAndDependenciesAffectedByDiff);
+} else {
+  optimizedCliOutput.set(
+    "affectedPluginsAndExtensions",
+    await packagesAndExtensionsAffectedByDiff(gitDiffFilePaths),
+  );
 }
 
-listOfGhcrJobsToRun(gitDiffFilePaths);
+optimizedCliOutput.set(
+  "affectedGhcrCiJobs",
+  listOfGhcrJobsToRun(gitDiffFilePaths),
+);
+
+console.log(optimizedCliOutput);
