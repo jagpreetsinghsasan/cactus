@@ -1,16 +1,17 @@
 import { execSync } from "child_process";
-import { existsSync, readFileSync } from "fs";
+import { existsSync } from "fs";
+import jsDependencyExtractor from "js-dependency-extractor";
 let testToolingPackageAffected = false;
 
 // this function generates a list of packages and extensions which need to be
 // tested by the CI due to a given git diff
 // NOTE: execute this function to get the package list for CI only when
 // testToolingPackageAffected == true;
-function packagesAndExtensionsAffectedByDiff(diffGitFilePaths) {
-  const dependencyGraph = generateDependencyGraph();
+async function packagesAndExtensionsAffectedByDiff(gitDiffFilePaths) {
+  const dependencyGraph = await generateDependencyGraph();
   //for each package
   const uniquePackagesAffectedByDiff = extractUniquePackagesFromDiff(
-    diffGitFilePaths,
+    gitDiffFilePaths,
   );
   const allPackagesAndDependenciesAffectedByDiff = new Set();
   uniquePackagesAffectedByDiff.forEach((uniquePackage) => {
@@ -24,7 +25,7 @@ function packagesAndExtensionsAffectedByDiff(diffGitFilePaths) {
 
   //for each extension
   const uniqueExtensionsAffectedByDiff = extractUniqueExtensionsFromDiff(
-    diffGitFilePaths,
+    gitDiffFilePaths,
   );
   const allExtensionsAndDependenciesAffectedByDiff = new Set();
   uniqueExtensionsAffectedByDiff.forEach((uniqueExtension) => {
@@ -42,54 +43,46 @@ function packagesAndExtensionsAffectedByDiff(diffGitFilePaths) {
   ]);
 }
 
-// generate a dependency graph, which looks like
-// map(
-//      package_alpha -> set(packages on which package_alpha is dependent on),
-//      extension_alpha -> set(packages on which extension_alpha is dependent on)
-//     )
-function generateDependencyGraph() {
-  const dependencyGraph = new Map();
-  // for each package, add all package dependencies
-  const allCactusPackages = getAllCactusPackages();
-  allCactusPackages.forEach((cactusPackage) => {
-    const packageJSONPath = "packages/" + cactusPackage + "/package.json";
-    if (existsSync(packageJSONPath)) {
-      const valueSet = new Set();
-      const packageJSON = readFileSync(packageJSONPath).toString();
-      const dependentCactusPackages = packageJSON.match(
-        /@hyperledger\/.*(?=":)/g,
-      );
-      if (dependentCactusPackages !== null) {
-        dependentCactusPackages.forEach((dependentPackage) => {
-          valueSet.add(dependentPackage.split("@hyperledger/")[1]);
-        });
-      }
-      if (valueSet.size !== 0) {
-        dependencyGraph.set(cactusPackage, valueSet);
-      }
-    }
-  });
+function checkIfCactiPackage(packageName) {
+  return packageName.includes("cactus");
+}
 
-  // for all the extensions
-  const allCactusExtensions = getAllCactusExtensions();
-  allCactusExtensions.forEach((cactusExtension) => {
-    const packageJSONPath = "packages/" + cactusExtension + "/package.json";
-    if (existsSync(packageJSONPath)) {
-      const valueSet = new Set();
-      const packageJSON = readFileSync(packageJSONPath).toString();
-      const dependentCactusExtension = packageJSON.match(
-        /@hyperledger\/.*(?=":)/g,
-      );
-      if (dependentCactusExtension !== null) {
-        dependentCactusExtension.forEach((dependentExtension) => {
-          valueSet.add(dependentExtension.split("@hyperledger/")[1]);
-        });
-      }
-      if (valueSet.size !== 0) {
-        dependencyGraph.set(cactusExtension, valueSet);
-      }
+// generate a dependency graph
+async function generateDependencyGraph() {
+  const dependencyGraph = new Map();
+  // for each package, add the hyperledger cacti package dependencies
+  const allCactusPackages = getAllCactusPackages();
+  for (let cactusPackage of allCactusPackages) {
+    const packagePath = "packages/" + cactusPackage;
+    const packageJsonPath = "packages/" + cactusPackage + "/package.json";
+    if (existsSync(packageJsonPath)) {
+      let dependencies = await jsDependencyExtractor({
+        path: packagePath,
+      });
+      dependencies = dependencies.filter(checkIfCactiPackage);
+      dependencies.forEach((cactusDependency, index) => {
+        dependencies[index] = cactusDependency.replace("@hyperledger/", "");
+      });
+      dependencyGraph.set(cactusPackage, new Set(dependencies));
     }
-  });
+  }
+
+  //for each extension, add the hyperledger cacti package dependencies
+  const allCactusExtensions = getAllCactusExtensions();
+  for (let cactusExtension of allCactusExtensions) {
+    const packagePath = "extensions/" + cactusExtension;
+    const packageJsonPath = "extensions/" + cactusExtension + "/package.json";
+    if (existsSync(packageJsonPath)) {
+      let dependencies = await jsDependencyExtractor({
+        path: packagePath,
+      });
+      dependencies = dependencies.filter(checkIfCactiPackage);
+      dependencies.forEach((cactusDependency, index) => {
+        dependencies[index] = cactusDependency.replace("@hyperledger/", "");
+      });
+      dependencyGraph.set(cactusExtension, new Set(dependencies));
+    }
+  }
   return dependencyGraph;
 }
 
@@ -116,9 +109,9 @@ function getAllCactusExtensions() {
 }
 
 // this function extracts unique packages, from the git diff
-function extractUniquePackagesFromDiff(diffGitFilePaths) {
+function extractUniquePackagesFromDiff(gitDiffFilePaths) {
   let uniquePackages = new Set();
-  diffGitFilePaths.forEach((filePath) => {
+  gitDiffFilePaths.forEach((filePath) => {
     const fileExtension = filePath.substring(
       filePath.lastIndexOf(".") + 1,
       filePath.length,
@@ -127,12 +120,15 @@ function extractUniquePackagesFromDiff(diffGitFilePaths) {
     if (
       filePathSplit.length > 2 &&
       filePathSplit[0] == "packages" &&
-      fileExtension != "md" &&
+      (filePath.includes("docs/") == false || fileExtension != "md") &&
       filePathSplit[1] != "cactus-test-tooling"
     ) {
       uniquePackages.add(filePathSplit[1]);
     }
-    if (filePathSplit[1] == "cactus-test-tooling" && fileExtension != "md") {
+    if (
+      filePathSplit[1] == "cactus-test-tooling" &&
+      (filePath.includes("docs/") == false || fileExtension != "md")
+    ) {
       testToolingPackageAffected = true;
     }
   });
@@ -140,9 +136,9 @@ function extractUniquePackagesFromDiff(diffGitFilePaths) {
 }
 
 // this function extracts the unique extensions from the git diff
-function extractUniqueExtensionsFromDiff(diffGitFilePaths) {
+function extractUniqueExtensionsFromDiff(gitDiffFilePaths) {
   let uniqueExtensions = new Set();
-  diffGitFilePaths.forEach((filePath) => {
+  gitDiffFilePaths.forEach((filePath) => {
     const fileExtension = filePath.substring(
       filePath.lastIndexOf(".") + 1,
       filePath.length,
@@ -151,7 +147,7 @@ function extractUniqueExtensionsFromDiff(diffGitFilePaths) {
     if (
       filePathSplit.length > 2 &&
       filePathSplit[0] == "extensions" &&
-      fileExtension != "md"
+      (filePath.includes("docs/") == false || fileExtension != "md")
     ) {
       uniqueExtensions.add(filePathSplit[1]);
     }
@@ -167,13 +163,10 @@ function checkIfNoDiff(filePaths) {
 // return true when diff exists and contains only markdown file changes
 function checkIfOnlyDocsDiff(filePaths) {
   let onlyDocsDiff = true;
-  if (checkIfNoDiff(filePaths) == 0) onlyDocsDiff = false;
+  if (checkIfNoDiff(filePaths)) onlyDocsDiff = false;
   filePaths.forEach((filePath) => {
-    const extension = filePath.substring(
-      filePath.lastIndexOf(".") + 1,
-      filePath.length,
-    );
-    if (extension != "md") onlyDocsDiff = false;
+    if (filePath.includes("docs/") == false || fileExtension != "md")
+      onlyDocsDiff = false;
   });
   return onlyDocsDiff;
 }
@@ -195,20 +188,20 @@ function getGitDiff() {
 // ------------------------------------------------------------------------------------------------
 
 // getting the git diff
-const diffGitFilePaths = getGitDiff();
+const gitDiffFilePaths = getGitDiff();
 
 // checking if its a documentation PR
 // TODO: Update this task to work on docs/ folder of packages
 // instead of checking for .md files
 console.log(
-  `Is this a documentation PR: ` + checkIfOnlyDocsDiff(diffGitFilePaths),
+  `Is this a documentation PR: ` + checkIfOnlyDocsDiff(gitDiffFilePaths),
 );
 
 // printing a list of all packages which need to be tested by CI as they are affected
 // NOTE: Testing the entire CI for cactus-test-tooling due to urgent requirements
 // TODO: Update the case of cactus-test-tooling for more optimized CI
-const allPackagesExtensionsAndDependenciesAffectedByDiff = packagesAndExtensionsAffectedByDiff(
-  diffGitFilePaths,
+const allPackagesExtensionsAndDependenciesAffectedByDiff = await packagesAndExtensionsAffectedByDiff(
+  gitDiffFilePaths,
 );
 if (testToolingPackageAffected) {
   const allPackagesAndExtensions =
