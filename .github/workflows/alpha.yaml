@@ -42,9 +42,8 @@ jobs:
       
       - name: Run optimized cli script
         id: optimize-ci
-        run: >
-          oco=$(eval "node tools/optimize-ci.js ${{ steps.changed-files.outputs.all_changed_files }}")
-          echo "::set-output name=oco::$oco"
+        run: |
+          node tools/optimize-ci.js ${{ steps.changed-files.outputs.all_changed_files }}
       
       - name: List the changed-files
-        run: echo "${{ steps.optimize-ci.outputs.oco }}"
+        run: echo "${{ steps.optimize-ci.outputs }}"
