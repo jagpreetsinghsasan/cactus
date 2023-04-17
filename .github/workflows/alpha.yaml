@@ -8,7 +8,7 @@ on:
     branches: [main, dev]
 
 jobs:
-  nuclei-scan:
+  magic-ci:
     runs-on: ubuntu-20.04
     steps:
       - name: Install Indy SDK
@@ -52,6 +52,7 @@ jobs:
         id: optimize-ci
         run: >
           OPTIMIZED_CI_OUTPUT=$(node tools/optimize-ci.js)
+          echo $OPTIMIZED_CI_OUTPUT
           echo $OPTIMIZED_CI_OUTPUT >> $GITHUB_OUTPUT
       
       - name: Print output
