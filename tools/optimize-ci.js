@@ -243,8 +243,7 @@ function checkIfOnlyDocsDiff(filePaths) {
 //   'tools/magic-script.js'
 // ]
 function getGitDiff() {
-  const cliCommand =
-    "git diff --name-only ${{ github.event.after }} ${{ github.event.before }}";
+  const cliCommand = "git diff origin/main --name-only";
   return execSync(cliCommand).toString("utf-8").split("\n").sort().splice(1);
 }
 
