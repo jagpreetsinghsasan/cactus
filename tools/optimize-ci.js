@@ -262,9 +262,7 @@ optimizedCliOutput.set("onlyDocsDiff", checkIfOnlyDocsDiff(gitDiffFilePaths));
 // printing a list of all packages which need to be tested by CI as they are affected
 // NOTE: Testing the entire CI for cactus-test-tooling due to urgent requirements
 // TODO: Update the case of cactus-test-tooling for more optimized CI
-const allPackagesExtensionsAndDependenciesAffectedByDiff = await packagesAndExtensionsAffectedByDiff(
-  gitDiffFilePaths,
-);
+
 if (testToolingPackageAffected) {
   const allPackagesAndExtensions =
     getAllCactusExtensions() + getAllCactusExtensions();
