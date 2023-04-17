@@ -22,4 +22,4 @@ jobs:
           separator: ","
 
       - name: Output the vars
-        run: echo ${{ steps.changed-files.outputs.stdout }}
+        run: echo ${{ steps.changed-files.outputs.added_files }}
