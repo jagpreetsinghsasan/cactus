@@ -284,4 +284,4 @@ optimizedCliOutput.set(
   listOfGhcrJobsToRun(gitDiffFilePaths),
 );
 
-console.log(optimizedCliOutput);
+console.log(JSON.stringify(Object.fromEntries(optimizedCliOutput)));

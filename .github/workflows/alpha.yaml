@@ -1,0 +1,60 @@
+name: Optimised CI
+
+on:
+  push:
+    branches: [main, dev]
+
+  pull_request:
+    branches: [main, dev]
+
+jobs:
+  nuclei-scan:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Install Indy SDK
+        run: >
+          sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys CE7709D068DB5E88 \
+            && sudo add-apt-repository "deb https://repo.sovrin.org/sdk/deb bionic stable" \
+            && sudo apt-get update \
+            && sudo apt-get install -y \
+                libindy \
+                libnullpay \
+                libvcx \
+                indy-cli \
+            && sudo rm -f /etc/apt/sources.list.d/sovrin.list*
+
+      - name: Set up NodeJS v16.9.1
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: v16.9.1
+
+      - name: Install jq
+        run: sudo apt update && sudo apt install -y jq
+
+      - name: Verify jq
+        run: jq --version
+
+      - uses: actions/checkout@v3.1.0
+
+      - uses: actions/setup-go@v3.0.0
+        with:
+          go-version: 1.17
+
+      - run: go install -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei@v2.6.3
+
+      - run: nuclei --version
+
+      - run: yarn configure
+
+      - name: Run the ci script
+        id: optimize-ci
+        run: >
+          OPTIMIZED_CI_OUTPUT=$(node tools/optimize-ci.js)
+          echo $OPTIMIZED_CI_OUTPUT >> $GITHUB_OUTPUT
+      
+      - name: Print output
+        run: echo "The output is ${{ steps.optimize-ci.outputs.OPTIMIZED_CI_OUTPUT }}"
+
+      - name: Check JSON
+        run: echo "The affected plugins are ${{ steps.optimize-ci.outputs.OPTIMIZED_CI_OUTPUT.affectedPluginsAndExtensions }}"
+
