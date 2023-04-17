@@ -14,12 +14,37 @@ jobs:
       - uses: actions/checkout@v3.1.0
         with:
           fetch-depth: 0
+      
+      - name: Install Indy SDK
+        run: >
+          sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys CE7709D068DB5E88 \
+            && sudo add-apt-repository "deb https://repo.sovrin.org/sdk/deb bionic stable" \
+            && sudo apt-get update \
+            && sudo apt-get install -y \
+                libindy \
+                libnullpay \
+                libvcx \
+                indy-cli \
+            && sudo rm -f /etc/apt/sources.list.d/sovrin.list*
+
+      - name: Set up NodeJS v16.9.1
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: v16.9.1
+      
+      - run: yarn configure
 
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v35
         with:
           separator: ","
-
-      - name: Output the vars
-        run: echo ${{ steps.changed-files.outputs.added_files }}
+      
+      - name: Run optimized cli script
+        id: optimize-ci
+        run: >
+          OPTIMIZED_CI_OUTPUT=$(eval "node tools/optimize-ci.js ${{ steps.changed-files.outputs.all_changed_files }}")
+          echo "OPTIMIZED_CI_OUTPUT=$OPTIMIZED_CI_OUTPUT" >> $GITHUB_OUTPUT
+      
+      - name: List the changed-files
+        run: echo "BLABLABLA ${{ steps.optimize-ci.outputs.OPTIMIZED_CI_OUTPUT}}"
