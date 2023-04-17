@@ -43,8 +43,8 @@ jobs:
       - name: Run optimized cli script
         id: optimize-ci
         run: >
-          OPTIMIZED_CI_OUTPUT=$(eval "node tools/optimize-ci.js ${{ steps.changed-files.outputs.all_changed_files }}")
-          echo "OPTIMIZED_CI_OUTPUT=$OPTIMIZED_CI_OUTPUT" >> $GITHUB_ENV
+          oco=$(eval "node tools/optimize-ci.js ${{ steps.changed-files.outputs.all_changed_files }}")
+          echo "oco=$oco" >> $GITHUB_ENV
       
       - name: List the changed-files
-        run: echo "BLABLABLA ${{ env.OPTIMIZED_CI_OUTPUT}}"
+        run: echo "BLABLABLA ${{ env.oco }}"
