@@ -44,7 +44,7 @@ jobs:
         id: optimize-ci
         run: >
           oco=$(eval "node tools/optimize-ci.js ${{ steps.changed-files.outputs.all_changed_files }}")
-          echo "oco=$oco" >> $GITHUB_OUTPUT
+          echo "::set-output name=oco::$oco"
       
       - name: List the changed-files
-        run: echo "${{ steps.optimize-ci.outputs }}"
+        run: echo "${{ steps.optimize-ci.outputs.oco }}"
