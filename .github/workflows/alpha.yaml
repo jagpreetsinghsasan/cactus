@@ -19,7 +19,7 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v35
         with:
-          seperator: ","
+          separator: ","
 
       - name: List the changed files
         run: |
