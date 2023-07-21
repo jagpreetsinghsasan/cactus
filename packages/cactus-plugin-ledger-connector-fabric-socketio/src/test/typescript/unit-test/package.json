@@ -12,11 +12,11 @@
   "dependencies": {
     "@types/node": "14.18.54",
     "config": "1.31.0",
-    "socket.io-client": "4.5.4",
-    "ts-node": "9.1.1",
     "fabric-ca-client": "2.2.18",
     "fabric-network": "2.2.18",
-    "shelljs": "0.8.5"
+    "shelljs": "0.8.5",
+    "socket.io-client": "4.5.4",
+    "ts-node": "10.9.1"
   },
   "devDependencies": {
     "typescript": "4.9.5"

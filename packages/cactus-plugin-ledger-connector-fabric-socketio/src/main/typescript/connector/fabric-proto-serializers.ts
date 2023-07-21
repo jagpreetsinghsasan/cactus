@@ -9,7 +9,6 @@
  * fabric packages.
  */
 
-import Client from "fabric-client";
 import { cloneDeep } from "lodash";
 
 // TS import is using newer protobufjs version typings, use nodejs import for now.
@@ -110,53 +109,3 @@ const proposalBuilder = loadFabricProto(
 const proposalResponseBuilder = loadFabricProto(
   "fabric-client/lib/protos/peer/proposal_response.proto",
 );
-
-/**
- * Client.Proposal serializers
- */
-export namespace ProposalSerializer {
-  export const ProposalType = proposalBuilder.protos.Proposal;
-  const proposalTypeName = ProposalType["$type"].name;
-
-  export function encode(proposal: Client.Proposal): string {
-    return encodeMetdata(proposalTypeName, (proposal as any).encodeJSON());
-  }
-
-  export function decode(encodedProposal: string): Client.Proposal {
-    return ProposalType.decodeJSON(
-      decodeMetdata(proposalTypeName, encodedProposal),
-    );
-  }
-}
-
-/**
- * Client.ProposalResponse serializers
- */
-export namespace ProposalResponseSerializer {
-  export const ProposalResponseType =
-    proposalResponseBuilder.protos.ProposalResponse;
-  const proposalResponseTypeName = ProposalResponseType["$type"].name;
-
-  export function encode(proposalResponse: Client.ProposalResponse): string {
-    let proposalResponseCopy = cloneDeep(proposalResponse) as Record<
-      string,
-      any
-    >;
-
-    // Peer is not part of protobuf definition, remove it.
-    delete proposalResponseCopy.peer;
-
-    let proposalResponseMessage = new ProposalResponseType(
-      proposalResponseCopy,
-    );
-    const encodedProposalResponse = proposalResponseMessage.encodeJSON();
-    return encodeMetdata(proposalResponseTypeName, encodedProposalResponse);
-  }
-
-  export function decode(encodedProposalResponse: string) {
-    let decodedProposalResponse = ProposalResponseType.decodeJSON(
-      decodeMetdata(proposalResponseTypeName, encodedProposalResponse),
-    );
-    return convertToPlainObject(decodedProposalResponse);
-  }
-}

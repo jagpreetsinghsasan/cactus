@@ -5840,16 +5840,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@grpc/grpc-js@npm:^1.3.4":
-  version: 1.8.14
-  resolution: "@grpc/grpc-js@npm:1.8.14"
-  dependencies:
-    "@grpc/proto-loader": ^0.7.0
-    "@types/node": ">=12.12.47"
-  checksum: 7b889ae67cde5eb9b4feb92d54e73945d881309b9b879a2dde478fa7850b99835efa7592a8154a0f923851d7a18a177c106f5f52b45061180bb04aef7783c1c9
-  languageName: node
-  linkType: hard
-
 "@grpc/grpc-js@npm:~1.5.0":
   version: 1.5.7
   resolution: "@grpc/grpc-js@npm:1.5.7"
@@ -5885,7 +5875,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@grpc/proto-loader@npm:^0.6.1, @grpc/proto-loader@npm:^0.6.2, @grpc/proto-loader@npm:^0.6.4":
+"@grpc/proto-loader@npm:^0.6.1, @grpc/proto-loader@npm:^0.6.4":
   version: 0.6.13
   resolution: "@grpc/proto-loader@npm:0.6.13"
   dependencies:
@@ -6142,7 +6132,6 @@ __metadata:
     "@grpc/grpc-js": 1.9.0
     "@grpc/proto-loader": 0.7.8
     google-protobuf: 3.21.2
-    grpc: 1.24.11
     grpc-tools: 1.12.4
     grpc_tools_node_protoc_ts: 5.3.3
   languageName: unknown
@@ -6328,8 +6317,7 @@ __metadata:
     ethereumjs-common: 1.5.2
     ethereumjs-tx: 2.1.2
     express: 4.16.4
-    fabric-ca-client: 1.4.19
-    fabric-network: 1.4.19
+    fabric-network: 2.2.18
     http-errors: 1.6.3
     http-terminator: 3.2.0
     js-yaml: 3.14.1
@@ -6548,7 +6536,7 @@ __metadata:
     crypto-js: 4.1.1
     cucumber: ^5.0.3
     dotenv: ^16.0.1
-    fabric-network: 2.2.10
+    fabric-network: 2.2.18
     fs-extra: 10.1.0
     hardhat: 2.6.0
     http-status-codes: 2.1.4
@@ -6588,9 +6576,7 @@ __metadata:
     ethereumjs-common: 1.5.2
     ethereumjs-tx: 2.1.2
     express: 4.16.4
-    fabric-ca-client: 1.4.19
-    fabric-client: 1.4.19
-    fabric-network: 1.4.19
+    fabric-network: 2.2.18
     http-errors: 1.6.3
     jsonwebtoken: 9.0.0
     jsrsasign: 10.5.25
@@ -7122,6 +7108,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@hyperledger/cactus-plugin-ledger-connector-fabric-socketio@workspace:packages/cactus-plugin-ledger-connector-fabric-socketio"
   dependencies:
+    "@grpc/grpc-js": 1.9.0
     "@hyperledger/cactus-api-client": 2.0.0-alpha.1
     "@hyperledger/cactus-cmd-socketio-server": 2.0.0-alpha.1
     "@hyperledger/cactus-common": 2.0.0-alpha.1
@@ -7138,11 +7125,9 @@ __metadata:
     cookie-parser: 1.4.6
     debug: 3.1.0
     express: 4.17.3
-    fabric-ca-client: 1.4.19
-    fabric-client: 1.4.19
-    fabric-network: 1.4.19
+    fabric-ca-client: 2.2.18
+    fabric-network: 2.2.18
     fs-extra: 10.1.0
-    grpc: 1.24.11
     js-yaml: 3.14.1
     jsonwebtoken: 9.0.0
     lodash: 4.17.21
@@ -7274,6 +7259,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@hyperledger/cactus-plugin-ledger-connector-iroha@workspace:packages/cactus-plugin-ledger-connector-iroha"
   dependencies:
+    "@grpc/grpc-js": 1.9.0
     "@hyperledger/cactus-common": 2.0.0-alpha.1
     "@hyperledger/cactus-core": 2.0.0-alpha.1
     "@hyperledger/cactus-core-api": 2.0.0-alpha.1
@@ -7285,7 +7271,6 @@ __metadata:
     axios: 0.21.4
     express: 4.17.1
     fast-safe-stringify: 2.1.1
-    grpc: 1.24.11
     internal-ip: 6.2.0
     iroha-helpers: 1.5.0
     key-encoder: 2.0.3
@@ -7525,7 +7510,7 @@ __metadata:
     axios: 0.21.4
     body-parser: 1.19.0
     express: 4.17.1
-    fabric-network: 1.4.19
+    fabric-network: 2.2.18
     fabric-protos: 2.2.18
     js-sha256: 0.9.0
     pg: 8.8.0
@@ -8809,7 +8794,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mapbox/node-pre-gyp@npm:^1.0.0, @mapbox/node-pre-gyp@npm:^1.0.4, @mapbox/node-pre-gyp@npm:^1.0.5":
+"@mapbox/node-pre-gyp@npm:^1.0.0, @mapbox/node-pre-gyp@npm:^1.0.5":
   version: 1.0.9
   resolution: "@mapbox/node-pre-gyp@npm:1.0.9"
   dependencies:
@@ -11329,16 +11314,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/bytebuffer@npm:^5.0.34, @types/bytebuffer@npm:^5.0.40":
-  version: 5.0.43
-  resolution: "@types/bytebuffer@npm:5.0.43"
-  dependencies:
-    "@types/long": "*"
-    "@types/node": "*"
-  checksum: d04ffcec5a25084577362c278e30cf6ee87da2160117a3bae60ff2a5e437e57f730d802806b6e7ba96ebcaf268711a0b1681b09c002ac585d5db5103d0f78a7f
-  languageName: node
-  linkType: hard
-
 "@types/cacheable-request@npm:^6.0.1":
   version: 6.0.2
   resolution: "@types/cacheable-request@npm:6.0.2"
@@ -11975,7 +11950,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/long@npm:*, @types/long@npm:^4.0.0, @types/long@npm:^4.0.1":
+"@types/long@npm:^4.0.0, @types/long@npm:^4.0.1":
   version: 4.0.1
   resolution: "@types/long@npm:4.0.1"
   checksum: ff9653c33f5000d0f131fd98a950a0343e2e33107dd067a97ac4a3b9678e1a2e39ea44772ad920f54ef6e8f107f76bc92c2584ba905a0dc4253282a4101166d0
@@ -14983,7 +14958,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"async@npm:^1.4.0, async@npm:^1.4.2":
+"async@npm:^1.4.2":
   version: 1.5.2
   resolution: "async@npm:1.5.2"
   checksum: fe5d6214d8f15bd51eee5ae8ec5079b228b86d2d595f47b16369dec2e11b3ff75a567bb5f70d12d79006665fbbb7ee0a7ec0e388524eefd454ecbe651c124ebd
@@ -15930,7 +15905,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bn.js@npm:4.12.0, bn.js@npm:^4.0.0, bn.js@npm:^4.1.0, bn.js@npm:^4.11.0, bn.js@npm:^4.11.3, bn.js@npm:^4.11.6, bn.js@npm:^4.11.8, bn.js@npm:^4.11.9":
+"bn.js@npm:4.12.0, bn.js@npm:^4.0.0, bn.js@npm:^4.1.0, bn.js@npm:^4.11.0, bn.js@npm:^4.11.6, bn.js@npm:^4.11.8, bn.js@npm:^4.11.9":
   version: 4.12.0
   resolution: "bn.js@npm:4.12.0"
   checksum: 39afb4f15f4ea537b55eaf1446c896af28ac948fdcf47171961475724d1bb65118cca49fa6e3d67706e4790955ec0e74de584e45c8f1ef89f46c812bee5b5a12
@@ -16233,13 +16208,6 @@ __metadata:
   version: 1.0.3
   resolution: "browser-readablestream-to-it@npm:1.0.3"
   checksum: 07895bbc54cdeea62c8e9b7e32d374ec5c340ed1d0bc0c6cd6f1e0561ad931b160a3988426c763672ddf38ac1f75e45b9d8ae267b43f387183edafcad625f30a
-  languageName: node
-  linkType: hard
-
-"browser-request@npm:~0.3.0":
-  version: 0.3.3
-  resolution: "browser-request@npm:0.3.3"
-  checksum: 8f8db4f95aa33341ffa8d83dd069033310144f439d90bf5aafd4ec0a9495f4cc3fc1515a7d3e15d6968552169f72b7dd90b62efa3647adc4ce9e8be91f907240
   languageName: node
   linkType: hard
 
@@ -16618,7 +16586,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bytebuffer@npm:^5.0.1, bytebuffer@npm:~5":
+"bytebuffer@npm:~5":
   version: 5.0.1
   resolution: "bytebuffer@npm:5.0.1"
   dependencies:
@@ -17733,19 +17701,6 @@ __metadata:
   version: 0.1.19
   resolution: "clone@npm:0.1.19"
   checksum: 5e710e16da67abe30c0664c8fd69c280635be59a4fae0a5fe58ed324e701e99348b48ce67288716fa223edd42ba574e58a3783cb2fcfa381b8b49ce7e56ac3f4
-  languageName: node
-  linkType: hard
-
-"cloudant-follow@npm:~0.17.0":
-  version: 0.17.0
-  resolution: "cloudant-follow@npm:0.17.0"
-  dependencies:
-    browser-request: ~0.3.0
-    debug: ^3.0.0
-    request: ^2.83.0
-  bin:
-    follow: ./cli.js
-  checksum: 606f2a238f6aa59b7ae14e9659d6d7dac4634cba8b46e9ffde0c024ac9dd2e6e003de398410aa49c7f37c9f11332474ffa93c8eae4235b2155f1ebeb8667cb18
   languageName: node
   linkType: hard
 
@@ -19396,7 +19351,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:^3.0.0, debug@npm:^3.0.1, debug@npm:^3.1.0, debug@npm:^3.2.6, debug@npm:^3.2.7":
+"debug@npm:^3.0.1, debug@npm:^3.1.0, debug@npm:^3.2.6, debug@npm:^3.2.7":
   version: 3.2.7
   resolution: "debug@npm:3.2.7"
   dependencies:
@@ -20924,13 +20879,6 @@ __metadata:
   dependencies:
     stackframe: ^1.3.4
   checksum: 3b916d2d14c6682f287c8bfa28e14672f47eafe832701080e420e7cdbaebb2c50293868256a95706ac2330fe078cf5664713158b49bc30d7a5f2ac229ded0e18
-  languageName: node
-  linkType: hard
-
-"errs@npm:^0.3.2":
-  version: 0.3.2
-  resolution: "errs@npm:0.3.2"
-  checksum: 61f68b59632b1a0123035357cc6168202c54695f8b5644fea0be3b4408053faae692d9a833d23e3bc8a74aa62c1017340ba58c10cad48da7d66f8c09328cce8f
   languageName: node
   linkType: hard
 
@@ -23173,19 +23121,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fabric-ca-client@npm:1.4.19":
-  version: 1.4.19
-  resolution: "fabric-ca-client@npm:1.4.19"
-  dependencies:
-    grpc: 1.24.11
-    jsrsasign: ^10.4.1
-    lodash.clone: 4.5.0
-    url: ^0.11.0
-    winston: ^2.4.0
-  checksum: 6f288f528cc5387d388008629a715aaf1d027e4155d9baa7f10a8f32eafe8689d8085b4bb3c7aa7b43f71658dc890be68dbcbce38282c8662589878433ca8049
-  languageName: node
-  linkType: hard
-
 "fabric-ca-client@npm:2.2.18":
   version: 2.2.18
   resolution: "fabric-ca-client@npm:2.2.18"
@@ -23207,64 +23142,6 @@ __metadata:
     url: ^0.11.0
     winston: ^2.4.5
   checksum: 11eed23e79ea44ac6907414036d2eb91f1b85bf2b0eaee23847a39da45745c621b9d9fae67699e11ce4a0780406a72c50140117e97dc6bbc4d77936b45ec076b
-  languageName: node
-  linkType: hard
-
-"fabric-client@npm:1.4.19":
-  version: 1.4.19
-  resolution: "fabric-client@npm:1.4.19"
-  dependencies:
-    "@types/bytebuffer": ^5.0.34
-    bn.js: ^4.11.3
-    bytebuffer: ^5.0.1
-    callsite: ^1.0.0
-    elliptic: ^6.5.4
-    fabric-ca-client: 1.4.19
-    fs-extra: ^8.1.0
-    grpc: 1.24.11
-    ignore-walk: ^3.0.0
-    js-sha3: ^0.7.0
-    js-yaml: ^3.9.0
-    jsrsasign: ^10.4.1
-    klaw: ^4.0.1
-    lodash.clone: 4.5.0
-    long: ^4.0.0
-    nano: ^6.4.4
-    nconf: ^0.10.0
-    pkcs11js: ^1.0.6
-    promise-settle: ^0.3.0
-    protobufjs: 5.0.3
-    sjcl: 1.0.7
-    tar-stream: ^2.2.0
-    url: ^0.11.0
-    winston: ^2.4.0
-  dependenciesMeta:
-    pkcs11js:
-      optional: true
-  checksum: d5010e699c9898bdf009d7a0d442b6095732d0743484a404b0625672dc9fbb74a199ff0c624ac44a3673b94d0a72f04b88f8be5ca53c1146eb788d7f784d3e96
-  languageName: node
-  linkType: hard
-
-"fabric-common@npm:2.2.10":
-  version: 2.2.10
-  resolution: "fabric-common@npm:2.2.10"
-  dependencies:
-    callsite: ^1.0.0
-    elliptic: ^6.5.4
-    fabric-protos: 2.2.10
-    js-sha3: ^0.8.0
-    jsrsasign: ^10.4.1
-    long: ^4.0.0
-    nconf: ^0.11.2
-    pkcs11js: ^1.0.6
-    promise-settle: ^0.3.0
-    sjcl: ^1.0.8
-    winston: ^2.4.5
-    yn: ^4.0.0
-  dependenciesMeta:
-    pkcs11js:
-      optional: true
-  checksum: aa9a79f749e272a6090fa09511ec1d5e1284dc7451cbd15c671f78b979c40596596eefa374a12a131678c372604c6a7ef7cf0e61adfbd91b7416f017407a408f
   languageName: node
   linkType: hard
 
@@ -23312,31 +23189,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fabric-network@npm:1.4.19":
-  version: 1.4.19
-  resolution: "fabric-network@npm:1.4.19"
-  dependencies:
-    fabric-ca-client: 1.4.19
-    fabric-client: 1.4.19
-    nano: ^6.4.4
-    rimraf: ^2.6.2
-    winston: ^2.4.0
-  checksum: a6a8ed1781cefe18e7377369c653d3290ba0ed3680903a8a5f028d544f7f2bcc1eaa5e7a6469bbf3f400c60481601a1d65693164a815e4eabee2f802f2506065
-  languageName: node
-  linkType: hard
-
-"fabric-network@npm:2.2.10":
-  version: 2.2.10
-  resolution: "fabric-network@npm:2.2.10"
-  dependencies:
-    fabric-common: 2.2.10
-    fabric-protos: 2.2.10
-    long: ^4.0.0
-    nano: ^9.0.3
-  checksum: 782435be36fc19daabba079dc71d65d2f8ee03d82b1be99791195ea219bcf68f1f64e9c25864b77e26ed77b5966d106fdeaa27741574a056858d499d0686a4b6
-  languageName: node
-  linkType: hard
-
 "fabric-network@npm:2.2.18":
   version: 2.2.18
   resolution: "fabric-network@npm:2.2.18"
@@ -23356,17 +23208,6 @@ __metadata:
     fabric-protos: 2.5.0-snapshot.23
     nano: ^10.0.0
   checksum: 8de63cc5fe5fb44309c26340f96604692a944f11fef5104d893212ee89d98cf95eb26a3adc408877303741997b95e6ab63aae6af31ea2b63f7f782bd366f039b
-  languageName: node
-  linkType: hard
-
-"fabric-protos@npm:2.2.10":
-  version: 2.2.10
-  resolution: "fabric-protos@npm:2.2.10"
-  dependencies:
-    "@grpc/grpc-js": ^1.3.4
-    "@grpc/proto-loader": ^0.6.2
-    protobufjs: ^6.11.2
-  checksum: bdb682a72b366018c1dc32791e28ddefc5ac721170bb74c5d0bdcbe69d47470df853a78145d382d9c9cc71ba5eb237af59a81eeeb70affb6abf1405e837b64b1
   languageName: node
   linkType: hard
 
@@ -25711,20 +25552,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"grpc@npm:1.24.11":
-  version: 1.24.11
-  resolution: "grpc@npm:1.24.11"
-  dependencies:
-    "@mapbox/node-pre-gyp": ^1.0.4
-    "@types/bytebuffer": ^5.0.40
-    lodash.camelcase: ^4.3.0
-    lodash.clone: ^4.5.0
-    nan: ^2.13.2
-    protobufjs: ^5.0.3
-  checksum: a437525786329ff541d7bbb54e472f52001a4d9b1c2fd896468241e2f070bf558b380b3d19d2b87f401602bd5a319b171e119598f4035958a9519851e91110db
-  languageName: node
-  linkType: hard
-
 "grpc_tools_node_protoc_ts@npm:5.3.3":
   version: 5.3.3
   resolution: "grpc_tools_node_protoc_ts@npm:5.3.3"
@@ -26729,15 +26556,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ignore-walk@npm:^3.0.0":
-  version: 3.0.4
-  resolution: "ignore-walk@npm:3.0.4"
-  dependencies:
-    minimatch: ^3.0.4
-  checksum: 9e9c5ef6c3e0ed7ef5d797991abb554dbb7e60d5fedf6cf05c7129819689eba2b462f625c6e3561e0fc79841904eb829565513eeeab1b44f4fbec4d3146b1a8d
-  languageName: node
-  linkType: hard
-
 "ignore-walk@npm:^6.0.0":
   version: 6.0.2
   resolution: "ignore-walk@npm:6.0.2"
@@ -26914,7 +26732,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ini@npm:1.3.8, ini@npm:^1.3.0, ini@npm:^1.3.2, ini@npm:^1.3.4, ini@npm:~1.3.0":
+"ini@npm:1.3.8, ini@npm:^1.3.2, ini@npm:^1.3.4, ini@npm:~1.3.0":
   version: 1.3.8
   resolution: "ini@npm:1.3.8"
   checksum: dfd98b0ca3a4fc1e323e38a6c8eb8936e31a97a918d3b377649ea15bdb15d481207a0dda1021efbd86b464cae29a0d33c1d7dcaf6c5672bee17fa849bc50a1b3
@@ -29408,13 +29226,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-sha3@npm:^0.7.0":
-  version: 0.7.0
-  resolution: "js-sha3@npm:0.7.0"
-  checksum: 7a4bdd2ae0b42437cffb8416b3426d85bd8926cf4724b0e91bc04d2f1a57a9f64e35608ae7f127d6a7a4cf73825598932227501c2642b75f9f4c273ae5f95b28
-  languageName: node
-  linkType: hard
-
 "js-tokens@npm:^3.0.0 || ^4.0.0, js-tokens@npm:^4.0.0":
   version: 4.0.0
   resolution: "js-tokens@npm:4.0.0"
@@ -29441,7 +29252,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-yaml@npm:3.14.1, js-yaml@npm:^3.13.1, js-yaml@npm:^3.14.1, js-yaml@npm:^3.5.1, js-yaml@npm:^3.9.0, js-yaml@npm:^3.9.1":
+"js-yaml@npm:3.14.1, js-yaml@npm:^3.13.1, js-yaml@npm:^3.14.1, js-yaml@npm:^3.5.1, js-yaml@npm:^3.9.1":
   version: 3.14.1
   resolution: "js-yaml@npm:3.14.1"
   dependencies:
@@ -29794,7 +29605,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsrsasign@npm:10.5.25, jsrsasign@npm:^10.4.0, jsrsasign@npm:^10.4.1":
+"jsrsasign@npm:10.5.25, jsrsasign@npm:^10.4.0":
   version: 10.5.25
   resolution: "jsrsasign@npm:10.5.25"
   checksum: e789cd6d5e6e236edebe91936279cdef886aafaab8d4ebc7d40b8ba0c7b7cd0d6d3c53fba26ea96eb33cc77a05368b369ef31fc9182662bce2344143ad50ea0f
@@ -30057,13 +29868,6 @@ __metadata:
     graceful-fs:
       optional: true
   checksum: 8f69e4797c26e7c3f2426bfa85f38a3da3c2cb1b4c6bd850d2377aed440d41ce9d806f2885c2e2e224372c56af4b1d43b8a499adecf9a05e7373dc6b8b7c52e4
-  languageName: node
-  linkType: hard
-
-"klaw@npm:^4.0.1":
-  version: 4.0.1
-  resolution: "klaw@npm:4.0.1"
-  checksum: 7835649ef632f96099d500f94b38c032acf1432ad5e87da596a2509c2f6a63a7fc346fb357e2227091cc433af5c1378ed448e1c0522ed028981dcd446152291e
   languageName: node
   linkType: hard
 
@@ -30997,13 +30801,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash.clone@npm:4.5.0, lodash.clone@npm:^4.5.0":
-  version: 4.5.0
-  resolution: "lodash.clone@npm:4.5.0"
-  checksum: 5839f22acf3a43c026ac4325f7bcd378f34967415cd0b9fd7efa9bbbf38dc665900d36e040944c5afab94a51ff8a24f6cfc3781fe439705cbad5c722e9506b16
-  languageName: node
-  linkType: hard
-
 "lodash.clonedeep@npm:^4.5.0":
   version: 4.5.0
   resolution: "lodash.clonedeep@npm:4.5.0"
@@ -31078,13 +30875,6 @@ __metadata:
   version: 3.0.3
   resolution: "lodash.isboolean@npm:3.0.3"
   checksum: b70068b4a8b8837912b54052557b21fc4774174e3512ed3c5b94621e5aff5eb6c68089d0a386b7e801d679cd105d2e35417978a5e99071750aa2ed90bffd0250
-  languageName: node
-  linkType: hard
-
-"lodash.isempty@npm:^4.4.0":
-  version: 4.4.0
-  resolution: "lodash.isempty@npm:4.4.0"
-  checksum: a8118f23f7ed72a1dbd176bf27f297d1e71aa1926288449cb8f7cef99ba1bc7527eab52fe7899ab080fa1dc150aba6e4a6367bf49fa4e0b78da1ecc095f8d8c5
   languageName: node
   linkType: hard
 
@@ -33089,7 +32879,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nan@npm:^2.13.2, nan@npm:^2.14.1, nan@npm:^2.15.0":
+"nan@npm:^2.14.1, nan@npm:^2.15.0":
   version: 2.15.0
   resolution: "nan@npm:2.15.0"
   dependencies:
@@ -33141,20 +32931,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nano@npm:^6.4.4":
-  version: 6.4.4
-  resolution: "nano@npm:6.4.4"
-  dependencies:
-    cloudant-follow: ~0.17.0
-    debug: ^2.2.0
-    errs: ^0.3.2
-    lodash.isempty: ^4.4.0
-    request: ^2.85.0
-  checksum: 4391a47bbade34dbb25391162bff86b6e48008223634d9a745ed449733268dd703a50fb64698433d68d9125f84e576e0ef9fb3c5e413652d66cb62e44a072070
-  languageName: node
-  linkType: hard
-
-"nano@npm:^9.0.3, nano@npm:^9.0.5":
+"nano@npm:^9.0.5":
   version: 9.0.5
   resolution: "nano@npm:9.0.5"
   dependencies:
@@ -33293,30 +33070,6 @@ __metadata:
   version: 2.0.3
   resolution: "natural-orderby@npm:2.0.3"
   checksum: 039be7f0b6cf81e63d2ae5299553f8e6c8f6ae4f571c7c002eab9c6d36a2e33101704e0ec64c3cecef956fa3b1a68bb0ddfc03208e89f31c0b0bb806f3198646
-  languageName: node
-  linkType: hard
-
-"nconf@npm:^0.10.0":
-  version: 0.10.0
-  resolution: "nconf@npm:0.10.0"
-  dependencies:
-    async: ^1.4.0
-    ini: ^1.3.0
-    secure-keys: ^1.0.0
-    yargs: ^3.19.0
-  checksum: 14052553bcde03dbdf11bc3ee95b8cdb7fe776ada550763df75c9683335a937545f62e96972ad2fd4bcc85f928d9880fc74b8c5f93eaddef58d6e0f46c0c836f
-  languageName: node
-  linkType: hard
-
-"nconf@npm:^0.11.2":
-  version: 0.11.3
-  resolution: "nconf@npm:0.11.3"
-  dependencies:
-    async: ^1.4.0
-    ini: ^2.0.0
-    secure-keys: ^1.0.0
-    yargs: ^16.1.1
-  checksum: 708369c9526618936872fc7db4d257dda59cb55fb9e07949afcfac7cf60cdc840027a6bdf5bf3c5703129bea23090de1aa6f6f41aec004086963706c04bf81f5
   languageName: node
   linkType: hard
 
@@ -36985,7 +36738,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"protobufjs@npm:5.0.3, protobufjs@npm:^5.0.3":
+"protobufjs@npm:5.0.3":
   version: 5.0.3
   resolution: "protobufjs@npm:5.0.3"
   dependencies:
@@ -38321,7 +38074,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"request@npm:^2.79.0, request@npm:^2.83.0, request@npm:^2.85.0, request@npm:^2.88.0":
+"request@npm:^2.79.0, request@npm:^2.88.0":
   version: 2.88.2
   resolution: "request@npm:2.88.2"
   dependencies:
@@ -40053,13 +39806,6 @@ __metadata:
   version: 1.0.5
   resolution: "sisteransi@npm:1.0.5"
   checksum: aba6438f46d2bfcef94cf112c835ab395172c75f67453fe05c340c770d3c402363018ae1ab4172a1026a90c47eaccf3af7b6ff6fa749a680c2929bd7fa2b37a4
-  languageName: node
-  linkType: hard
-
-"sjcl@npm:1.0.7":
-  version: 1.0.7
-  resolution: "sjcl@npm:1.0.7"
-  checksum: 4eec2df27cf9f9a813c14896d6859ba28fc0234c5a1a3688b7145da309b841b58e8b782b2dbe6bf4f0e01ea2d5ea23c9bb0b9f1300b47d9d54bb135c12e1cccf
   languageName: node
   linkType: hard
 
@@ -47349,7 +47095,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"winston@npm:^2.4.0, winston@npm:^2.4.5":
+"winston@npm:^2.4.5":
   version: 2.4.5
   resolution: "winston@npm:2.4.5"
   dependencies:
@@ -48314,7 +48060,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yargs@npm:^3.10.0, yargs@npm:^3.19.0":
+"yargs@npm:^3.10.0":
   version: 3.32.0
   resolution: "yargs@npm:3.32.0"
   dependencies:

@@ -20,7 +20,7 @@ import { ISocketApiClient } from "@hyperledger/cactus-core-api";
 import { Verifier } from "@hyperledger/cactus-verifier-client";
 import { signProposal } from "./sign-utils";
 
-import { FileSystemWallet } from "fabric-network";
+import { Wallets } from "fabric-network";
 
 const config: any = ConfigUtil.getConfig();
 import { getLogger } from "log4js";
@@ -50,14 +50,13 @@ export function makeSignedProposal<T extends ISocketApiClient<unknown>>(
       let certPem = undefined;
       let privateKeyPem = undefined;
       const submitter = config.assetTradeInfo.fabric.submitter.name;
-      const wallet = new FileSystemWallet(
+      const wallet = await Wallets.newFileSystemWallet(
         config.assetTradeInfo.fabric.keystore,
       );
       logger.debug(`Wallet path: ${config.assetTradeInfo.fabric.keystore}`);
 
-      const submitterExists = await wallet.exists(submitter);
-      if (submitterExists) {
-        const submitterIdentity = await wallet.export(submitter);
+      const submitterIdentity = await wallet.get(submitter);
+      if (submitterIdentity) {
         certPem = (submitterIdentity as any).certificate;
         privateKeyPem = (submitterIdentity as any).privateKey;
       }
