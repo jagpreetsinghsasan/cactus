@@ -44,7 +44,39 @@ jobs:
       - if : ${{ (steps.yarn-cache.outputs.cache-hit != 'true') }}
         name: tools_ci_sh
         run: ./tools/ci.sh
+  get-affected-packages-from-diff:
+    env:
+      RUN_CI_FOR_AFFECTED_PACKAGES_FROM_DIFF_ENABLED: true
+      CI_SKIP_BASED_ON_DIFF_DISABLED: true
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3.1.0
+        with:
+          fetch-depth: 0
+      - name: Use Node.js v16.14.2
+        uses: actions/setup-node@v3.6.0
+        with:
+          node-version: v16.14.2
+      - uses: actions/checkout@v3.5.2
 
+      - run: yarn && yarn configure
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v39
+        with:
+          separator: ","
+
+      - name: Run optimized cli script
+        id: get-affected-packages-from-diff
+        run: |
+          AFFECTED_PACKAGES="$(node tools/get-affected-packages-from-diff.js ${{ steps.changed-files.outputs.all_changed_files }})"
+          echo "AFFECTED_PACKAGES=$AFFECTED_PACKAGES" >> "$GITHUB_OUTPUT"
+      
+      - name: List all the packages affected by diff
+        run: echo "The output is ${{ steps.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES }}"
+    outputs:
+      AFFECTED_PACKAGES: ${{ steps.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES }}  
   yarn_lint:
     continue-on-error: false
     env:
@@ -109,7 +141,7 @@ jobs:
       - name: Set env.GIT_INDEX_FILE_COUNT
         id: set_env_git_index_file_count
         run: |
-            echo "GIT_INDEX_FILE_COUNT=$(git status --porcelain | wc -l)" >> $GITHUB_ENV
+            echo "GIT_INDEX_FILE_COUNT=$(git status --porcelain | wc -l)" >> "$GITHUB_ENV"
 
       - name: Print env.GIT_INDEX_FILE_COUNT
         id: print_env_git_index_file_count
@@ -197,7 +229,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  cactus-api-client:
+  api-client:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+     contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-api-client') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       DEV_BUILD_DISABLED: false
@@ -206,7 +241,6 @@ jobs:
       JEST_TEST_RUNNER_DISABLED: false
       TAPE_TEST_PATTERN: ./packages/cactus-api-client/src/test/typescript/integration/default-consortium-provider.test.ts
       TAPE_TEST_RUNNER_DISABLED: false
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -225,7 +259,10 @@ jobs:
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
 
       - run: ./tools/ci.sh
-  cactus-cmd-api-server:
+  cmd-api-server:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-cmd-api-server') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       DEV_BUILD_DISABLED: false
@@ -235,7 +272,6 @@ jobs:
       TAPE_TEST_PATTERN: >-
         --files={./packages/cactus-cmd-api-server/src/test/typescript/benchmark/artillery-api-benchmark.test.ts,./packages/cactus-cmd-api-server/src/test/typescript/integration/plugin-import-from-github.test.ts,./packages/cactus-cmd-api-server/src/test/typescript/integration/plugin-import-without-install.test.ts,./packages/cactus-cmd-api-server/src/test/typescript/integration/remote-plugin-imports.test.ts,./packages/cactus-cmd-api-server/src/test/typescript/unit/config/self-signed-certificate-generator/certificates-work-for-mutual-tls.test.ts,./packages/cactus-cmd-api-server/src/test/typescript/unit/config/self-signed-certificate-generator/generates-working-certificates.test.ts,./packages/cactus-cmd-api-server/src/test/typescript/unit/grpc-js-proto-loader-client-healthcheck.test.ts,./packages/cactus-cmd-api-server/src/test/typescript/unit/grpc-proto-gen-ts-client-healthcheck.test.ts,./packages/cactus-cmd-api-server/src/test/typescript/unit/grpc-proto-gen-ts-client-m-tls-enabled.test.ts,./packages/cactus-cmd-api-server/src/test/typescript/unit/plugins/install-basic-plugin-consortium-manual.test.ts,./packages/cactus-cmd-api-server/src/test/typescript/unit/plugins/install-basic-plugin-keychain-memory.test.ts,./packages/cactus-cmd-api-server/src/test/typescript/unit/plugins/install-basic-plugin-ledger-connector-fabric-0-7-0.test.ts,./packages/cactus-cmd-api-server/src/test/typescript/unit/plugins/install-basic-plugin-ledger-connector-quorum-0-7-0.test.ts}
       TAPE_TEST_RUNNER_DISABLED: false
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -254,14 +290,16 @@ jobs:
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
 
       - run: ./tools/ci.sh
-  cactus-cmd-socketio-server:
+  cmd-socketio-server:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-cmd-socketio-server') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
       JEST_TEST_PATTERN: packages/cactus-cmd-socketio-server/src/test/typescript/(unit|integration|benchmark)/.*/*.test.ts
       JEST_TEST_RUNNER_DISABLED: false
       TAPE_TEST_RUNNER_DISABLED: true
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -282,6 +320,9 @@ jobs:
       - run: ./tools/ci.sh
 
   cactus-common:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-common') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       DEV_BUILD_DISABLED: false
@@ -290,7 +331,6 @@ jobs:
       JEST_TEST_RUNNER_DISABLED: false
       TAPE_TEST_PATTERN: '--files={./packages/cactus-common/src/test/typescript/unit/key-converter.test.ts,./packages/cactus-common/src/test/typescript/unit/logging/logger.test.ts}'
       TAPE_TEST_RUNNER_DISABLED: false
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -310,13 +350,15 @@ jobs:
 
       - run: ./tools/ci.sh
   cactus-core:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-core') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
       JEST_TEST_PATTERN: packages/cactus-core/src/test/typescript/(unit|integration|benchmark)/.*/*.test.ts
       JEST_TEST_RUNNER_DISABLED: false
       TAPE_TEST_RUNNER_DISABLED: true
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -335,13 +377,15 @@ jobs:
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
   cactus-core-api:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-core-api') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
       JEST_TEST_PATTERN: packages/cactus-core-api/src/test/typescript/(unit|integration|benchmark)/.*/*.test.ts
       JEST_TEST_RUNNER_DISABLED: false
       TAPE_TEST_RUNNER_DISABLED: true
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -359,7 +403,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  cactus-example-carbon-accounting-backend:
+  carbon-accounting-backend:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-example-carbon-accounting-backend') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
@@ -367,7 +414,6 @@ jobs:
       JEST_TEST_RUNNER_DISABLED: false
       TAPE_TEST_PATTERN: ./examples/cactus-example-carbon-accounting-backend/src/test/typescript/integration/admin-enroll-v1-endpoint.test.ts
       TAPE_TEST_RUNNER_DISABLED: false
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -385,14 +431,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  cactus-example-carbon-accounting-business-logic-plugin:
+  carbon-accounting-business-logic-plugin:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-example-carbon-accounting-business-logic-plugin') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
       JEST_TEST_PATTERN: examples/cactus-example-carbon-accounting-business-logic-plugin/src/test/typescript/(unit|integration|benchmark)/.*/*.test.ts
       JEST_TEST_RUNNER_DISABLED: false
       TAPE_TEST_RUNNER_DISABLED: true
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -410,7 +458,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  cactus-example-carbon-accounting-frontend:
+  carbon-accounting-frontend:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-example-carbon-accounting-frontend') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       DEV_BUILD_DISABLED: false
@@ -418,7 +469,6 @@ jobs:
       JEST_TEST_PATTERN: examples/cactus-example-carbon-accounting-frontend/src/test/typescript/(unit|integration|benchmark)/.*/*.test.ts
       JEST_TEST_RUNNER_DISABLED: true
       TAPE_TEST_RUNNER_DISABLED: true
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -436,7 +486,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  cactus-example-supply-chain-backend:
+  supply-chain-backend:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-example-supply-chain-backend') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
@@ -444,7 +497,6 @@ jobs:
       JEST_TEST_RUNNER_DISABLED: false
       TAPE_TEST_PATTERN: '--files={./examples/cactus-example-supply-chain-backend/src/test/typescript/integration/supply-chain-backend-api-calls.test.ts,./examples/cactus-example-supply-chain-backend/src/test/typescript/integration/supply-chain-cli-via-npm-script.test.ts}'
       TAPE_TEST_RUNNER_DISABLED: false
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -462,14 +514,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  cactus-example-supply-chain-business-logic-plugin:
+  supply-chain-business-logic-plugin:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-example-supply-chain-business-logic-plugin') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
       JEST_TEST_PATTERN: examples/cactus-example-supply-chain-business-logic-plugin/src/test/typescript/(unit|integration|benchmark)/.*/*.test.ts
       JEST_TEST_RUNNER_DISABLED: false
       TAPE_TEST_RUNNER_DISABLED: true
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -487,7 +541,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  cactus-example-supply-chain-frontend:
+  supply-chain-frontend:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-example-supply-chain-frontend') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       DEV_BUILD_DISABLED: false
@@ -495,7 +552,6 @@ jobs:
       JEST_TEST_PATTERN: examples/cactus-example-supply-chain-frontend/src/test/typescript/(unit|integration|benchmark)/.*/*.test.ts
       JEST_TEST_RUNNER_DISABLED: true
       TAPE_TEST_RUNNER_DISABLED: true
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -513,14 +569,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  cactus-plugin-consortium-manual:
+  consortium-manual:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-consortium-manual') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
       JEST_TEST_PATTERN: packages/cactus-plugin-consortium-manual/src/test/typescript/(unit|integration|benchmark)/.*/*.test.ts
       JEST_TEST_RUNNER_DISABLED: false
       TAPE_TEST_RUNNER_DISABLED: true
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -538,7 +596,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  cactus-plugin-htlc-coordinator-besu:
+  htlc-coordinator-besu:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-htlc-coordinator-besu') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
@@ -547,7 +608,6 @@ jobs:
       TAPE_TEST_PATTERN: >-
         --files={./extensions/cactus-plugin-htlc-coordinator-besu/src/test/typescript/integration/plugin-htlc-coordinator/counterparty-htlc-endpoint.test.ts,./extensions/cactus-plugin-htlc-coordinator-besu/src/test/typescript/integration/plugin-htlc-coordinator/own-htlc-endpoint.test.ts,./extensions/cactus-plugin-htlc-coordinator-besu/src/test/typescript/integration/plugin-htlc-coordinator/refund.test.ts,./extensions/cactus-plugin-htlc-coordinator-besu/src/test/typescript/integration/plugin-htlc-coordinator/withdraw-counterparty-endpoint.test.ts}
       TAPE_TEST_RUNNER_DISABLED: false
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -565,14 +625,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  cactus-plugin-htlc-eth-besu:
+  htlc-eth-besu:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-htlc-eth-besu') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
       JEST_TEST_PATTERN: packages/cactus-plugin-htlc-eth-besu/src/test/typescript/(unit|integration|benchmark)/.*/*.test.ts
       JEST_TEST_RUNNER_DISABLED: false
       TAPE_TEST_RUNNER_DISABLED: true
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -590,14 +652,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  cactus-plugin-htlc-eth-besu-erc20:
+  htlc-eth-besu-erc20:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-htlc-eth-besu-erc20') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
       JEST_TEST_PATTERN: packages/cactus-plugin-htlc-eth-besu-erc20/src/test/typescript/(unit|integration|benchmark)/.*/*.test.ts
       JEST_TEST_RUNNER_DISABLED: false
       TAPE_TEST_RUNNER_DISABLED: true
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -615,7 +679,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  cactus-plugin-keychain-aws-sm:
+  keychain-aws-sm:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: | 
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-keychain-aws-sm') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
@@ -623,7 +690,6 @@ jobs:
       JEST_TEST_RUNNER_DISABLED: true
       TAPE_TEST_PATTERN: '--files={./packages/cactus-plugin-keychain-aws-sm/src/test/typescript/integration/openapi/openapi-validation.test.ts,./packages/cactus-plugin-keychain-aws-sm/src/test/typescript/integration/plugin-factory-keychain.test.ts,./packages/cactus-plugin-keychain-aws-sm/src/test/typescript/integration/plugin-factory-keychain.test.ts,./packages/cactus-plugin-keychain-aws-sm/src/test/typescript/integration/plugin-keychain-aws-sm.test.ts}'
       TAPE_TEST_RUNNER_DISABLED: false
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -641,7 +707,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  cactus-plugin-keychain-azure-kv:
+  keychain-azure-kv:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-keychain-azure-kv') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
@@ -649,7 +718,6 @@ jobs:
       JEST_TEST_RUNNER_DISABLED: false
       TAPE_TEST_PATTERN: ./packages/cactus-plugin-keychain-azure-kv/src/test/typescript/integration/plugin-keychain-azure-kv.test.ts
       TAPE_TEST_RUNNER_DISABLED: false
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -667,7 +735,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  cactus-plugin-keychain-google-sm:
+  keychain-google-sm:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-keychain-google-sm') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
@@ -675,7 +746,6 @@ jobs:
       JEST_TEST_RUNNER_DISABLED: false
       TAPE_TEST_PATTERN: '--files={./packages/cactus-plugin-keychain-google-sm/src/test/typescript/integration/openapi/openapi-validation.test.ts,./packages/cactus-plugin-keychain-google-sm/src/test/typescript/integration/plugin-factory-keychain.test.ts,./packages/cactus-plugin-keychain-google-sm/src/test/typescript/integration/plugin-keychain-google-sm.test.ts}'
       TAPE_TEST_RUNNER_DISABLED: false
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -693,14 +763,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  cactus-plugin-keychain-memory:
+  keychain-memory:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-keychain-memory') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
       JEST_TEST_PATTERN: packages/cactus-plugin-keychain-memory/src/test/typescript/(unit|integration|benchmark)/.*/*.test.ts
       JEST_TEST_RUNNER_DISABLED: false
       TAPE_TEST_RUNNER_DISABLED: true
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -718,7 +790,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  cactus-plugin-keychain-memory-wasm:
+  keychain-memory-wasm:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-keychain-memory-wasm') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
@@ -726,7 +801,6 @@ jobs:
       JEST_TEST_RUNNER_DISABLED: false
       TAPE_TEST_PATTERN: ./packages/cactus-plugin-keychain-memory-wasm/src/test/typescript/unit/plugin-keychain-memory-wasm.test.ts
       TAPE_TEST_RUNNER_DISABLED: false
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -744,7 +818,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  cactus-plugin-keychain-vault:
+  keychain-vault:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-keychain-vault') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
@@ -752,7 +829,6 @@ jobs:
       JEST_TEST_RUNNER_DISABLED: false
       TAPE_TEST_PATTERN: '--files={./packages/cactus-plugin-keychain-vault/src/test/typescript/integration/cactus-keychain-vault-server.test.ts,./packages/cactus-plugin-keychain-vault/src/test/typescript/integration/openapi/openapi-validation.test.ts,./packages/cactus-plugin-keychain-vault/src/test/typescript/integration/plugin-keychain-vault.test.ts}'
       TAPE_TEST_RUNNER_DISABLED: false
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -770,7 +846,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  cactus-plugin-ledger-connector-besu:
+  connector-besu:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-ledger-connector-besu') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
@@ -779,7 +858,6 @@ jobs:
       TAPE_TEST_PATTERN: >-
         --files={./packages/cactus-plugin-ledger-connector-besu/src/test/typescript/integration/plugin-ledger-connector-besu/deploy-contract/deploy-contract-from-json.test.ts,./packages/cactus-plugin-ledger-connector-besu/src/test/typescript/integration/plugin-ledger-connector-besu/deploy-contract/get-block.test.ts,./packages/cactus-plugin-ledger-connector-besu/src/test/typescript/integration/plugin-ledger-connector-besu/deploy-contract/get-past-logs.test.ts,./packages/cactus-plugin-ledger-connector-besu/src/test/typescript/integration/plugin-ledger-connector-besu/deploy-contract/get-record-locator.test.ts,./packages/cactus-plugin-ledger-connector-besu/src/test/typescript/integration/plugin-ledger-connector-besu/deploy-contract/private-deploy-contract-from-json-cactus.test.ts,./packages/cactus-plugin-ledger-connector-besu/src/test/typescript/integration/plugin-ledger-connector-besu/deploy-contract/private-deploy-contract-from-json-web3-eea.test.ts,./packages/cactus-plugin-ledger-connector-besu/src/test/typescript/integration/plugin-ledger-connector-besu/deploy-contract/v21-deploy-contract-from-json.test.ts,./packages/cactus-plugin-ledger-connector-besu/src/test/typescript/integration/plugin-ledger-connector-besu/deploy-contract/v21-get-balance.test.ts,./packages/cactus-plugin-ledger-connector-besu/src/test/typescript/integration/plugin-ledger-connector-besu/deploy-contract/v21-get-block.test.ts,./packages/cactus-plugin-ledger-connector-besu/src/test/typescript/integration/plugin-ledger-connector-besu/deploy-contract/v21-get-past-logs.test.ts,./packages/cactus-plugin-ledger-connector-besu/src/test/typescript/integration/plugin-ledger-connector-besu/deploy-contract/v21-get-record-locator.test.ts,./packages/cactus-plugin-ledger-connector-besu/src/test/typescript/integration/plugin-ledger-connector-besu/deploy-contract/v21-invoke-contract.test.ts,./packages/cactus-plugin-ledger-connector-besu/src/test/typescript/integration/plugin-ledger-connector-besu/lock-contract.test.ts,./packages/cactus-plugin-ledger-connector-besu/src/test/typescript/integration/plugin-ledger-connector-besu/openapi/openapi-validation.test.ts,./packages/cactus-plugin-ledger-connector-besu/src/test/typescript/integration/plugin-ledger-connector-besu/v21-besu-get-transaction.test.ts}
       TAPE_TEST_RUNNER_DISABLED: false
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -797,7 +875,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  cactus-plugin-ledger-connector-corda:
+  connector-corda:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-ledger-connector-corda') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
@@ -806,7 +887,6 @@ jobs:
       TAPE_TEST_PATTERN: >-
         --files={./packages/cactus-plugin-ledger-connector-corda/src/test/typescript/integration/deploy-cordapp-jars-to-nodes-v4.7.test.ts,./packages/cactus-plugin-ledger-connector-corda/src/test/typescript/integration/deploy-cordapp-jars-to-nodes-v4.8-express.test.ts,./packages/cactus-plugin-ledger-connector-corda/src/test/typescript/integration/deploy-cordapp-jars-to-nodes-v4.8.test.ts,./packages/cactus-plugin-ledger-connector-corda/src/test/typescript/integration/deploy-cordapp-jars-to-nodes.test.ts,./packages/cactus-plugin-ledger-connector-corda/src/test/typescript/integration/flow-database-access-v4.8.test.ts,./packages/cactus-plugin-ledger-connector-corda/src/test/typescript/integration/jvm-kotlin-spring-server-v4.7.test.ts,./packages/cactus-plugin-ledger-connector-corda/src/test/typescript/integration/jvm-kotlin-spring-server-v4.8.test.ts,./packages/cactus-plugin-ledger-connector-corda/src/test/typescript/integration/openapi/openapi-validation.test.ts}
       TAPE_TEST_RUNNER_DISABLED: false
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -825,7 +905,10 @@ jobs:
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
 
-  plugin-ledger-connector-fabric-0:
+  connector-fabric-0:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-ledger-connector-fabric') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       CACTI_NPM_PACKAGE_NAME: "@hyperledger/cactus-plugin-ledger-connector-fabric"
@@ -835,7 +918,6 @@ jobs:
       JEST_TEST_RUNNER_DISABLED: false
       TAPE_TEST_PATTERN: ""
       TAPE_TEST_RUNNER_DISABLED: true
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -854,7 +936,10 @@ jobs:
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
 
-  plugin-ledger-connector-fabric-1:
+  connector-fabric-1:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-ledger-connector-fabric') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       CACTI_NPM_PACKAGE_NAME: "@hyperledger/cactus-plugin-ledger-connector-fabric"
@@ -864,7 +949,6 @@ jobs:
       JEST_TEST_RUNNER_DISABLED: true
       TAPE_TEST_PATTERN: ""
       TAPE_TEST_RUNNER_DISABLED: true
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -884,7 +968,10 @@ jobs:
       - run: npm run configure
       - run: yarn ts-node ./packages/cactus-plugin-ledger-connector-fabric/src/test/typescript/integration/fabric-v2-2-x/deploy-cc-from-javascript-source.test.ts
 
-  plugin-ledger-connector-fabric-2:
+  connector-fabric-2:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-ledger-connector-fabric') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       CACTI_NPM_PACKAGE_NAME: "@hyperledger/cactus-plugin-ledger-connector-fabric"
@@ -894,7 +981,6 @@ jobs:
       JEST_TEST_RUNNER_DISABLED: true
       TAPE_TEST_PATTERN: ""
       TAPE_TEST_RUNNER_DISABLED: true
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -914,7 +1000,10 @@ jobs:
       - run: npm run configure
       - run: yarn ts-node ./packages/cactus-plugin-ledger-connector-fabric/src/test/typescript/integration/fabric-v2-2-x/deploy-cc-from-typescript-source.test.ts
 
-  plugin-ledger-connector-fabric-3:
+  connector-fabric-3:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-ledger-connector-fabric') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       CACTI_NPM_PACKAGE_NAME: "@hyperledger/cactus-plugin-ledger-connector-fabric"
@@ -924,7 +1013,6 @@ jobs:
       JEST_TEST_RUNNER_DISABLED: true
       TAPE_TEST_PATTERN: ""
       TAPE_TEST_RUNNER_DISABLED: true
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -944,7 +1032,10 @@ jobs:
       - run: npm run configure
       - run: yarn ts-node ./packages/cactus-plugin-ledger-connector-fabric/src/test/typescript/integration/fabric-v2-2-x/deploy-lock-asset.test.ts
 
-  plugin-ledger-connector-fabric-4:
+  connector-fabric-4:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-ledger-connector-fabric') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       CACTI_NPM_PACKAGE_NAME: "@hyperledger/cactus-plugin-ledger-connector-fabric"
@@ -954,7 +1045,6 @@ jobs:
       JEST_TEST_RUNNER_DISABLED: true
       TAPE_TEST_PATTERN: ""
       TAPE_TEST_RUNNER_DISABLED: true
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -974,7 +1064,10 @@ jobs:
       - run: npm run configure
       - run: yarn ts-node ./packages/cactus-plugin-ledger-connector-fabric/src/test/typescript/integration/openapi/openapi-validation.test.ts
 
-  plugin-ledger-connector-fabric-5:
+  connector-fabric-5:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-ledger-connector-fabric') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       CACTI_NPM_PACKAGE_NAME: "@hyperledger/cactus-plugin-ledger-connector-fabric"
@@ -984,7 +1077,6 @@ jobs:
       JEST_TEST_RUNNER_DISABLED: true
       TAPE_TEST_PATTERN: ""
       TAPE_TEST_RUNNER_DISABLED: true
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -1004,7 +1096,10 @@ jobs:
       - run: npm run configure
       - run: yarn ts-node ./packages/cactus-plugin-ledger-connector-fabric/src/test/typescript/integration/openapi/openapi-validation-go.test.ts
 
-  plugin-ledger-connector-fabric-6:
+  connector-fabric-6:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-ledger-connector-fabric') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       CACTI_NPM_PACKAGE_NAME: "@hyperledger/cactus-plugin-ledger-connector-fabric"
@@ -1014,7 +1109,6 @@ jobs:
       JEST_TEST_RUNNER_DISABLED: true
       TAPE_TEST_PATTERN: ""
       TAPE_TEST_RUNNER_DISABLED: true
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -1034,7 +1128,10 @@ jobs:
       - run: npm run configure
       - run: yarn ts-node ./packages/cactus-plugin-ledger-connector-fabric/src/test/typescript/unit/identity-internal-crypto-utils.test.ts
 
-  plugin-ledger-connector-fabric-7:
+  connector-fabric-7:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-ledger-connector-fabric') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       CACTI_NPM_PACKAGE_NAME: "@hyperledger/cactus-plugin-ledger-connector-fabric"
@@ -1044,7 +1141,6 @@ jobs:
       JEST_TEST_RUNNER_DISABLED: true
       TAPE_TEST_PATTERN: ""
       TAPE_TEST_RUNNER_DISABLED: true
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -1064,7 +1160,10 @@ jobs:
       - run: npm run configure
       - run: yarn ts-node ./packages/cactus-plugin-ledger-connector-fabric/src/test/typescript/integration/identity-client.test.ts
 
-  plugin-ledger-connector-fabric-8:
+  connector-fabric-8:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-ledger-connector-fabric') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       CACTI_NPM_PACKAGE_NAME: "@hyperledger/cactus-plugin-ledger-connector-fabric"
@@ -1074,7 +1173,6 @@ jobs:
       JEST_TEST_RUNNER_DISABLED: true
       TAPE_TEST_PATTERN: ""
       TAPE_TEST_RUNNER_DISABLED: true
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -1094,7 +1192,10 @@ jobs:
       - run: npm run configure
       - run: yarn ts-node ./packages/cactus-plugin-ledger-connector-fabric/src/test/typescript/integration/fabric-v2-2-x/run-transaction-with-identities.test.ts
 
-  plugin-ledger-connector-fabric-9:
+  connector-fabric-9:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-ledger-connector-fabric') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       CACTI_NPM_PACKAGE_NAME: "@hyperledger/cactus-plugin-ledger-connector-fabric"
@@ -1104,7 +1205,6 @@ jobs:
       JEST_TEST_RUNNER_DISABLED: true
       TAPE_TEST_PATTERN: ""
       TAPE_TEST_RUNNER_DISABLED: true
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -1124,7 +1224,10 @@ jobs:
       - run: npm run configure
       - run: yarn ts-node ./packages/cactus-plugin-ledger-connector-fabric/src/test/typescript/integration/fabric-v2-2-x/obtain-profiles.test.ts
 
-  plugin-ledger-connector-fabric-10:
+  connector-fabric-10:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-ledger-connector-fabric') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       CACTI_NPM_PACKAGE_NAME: "@hyperledger/cactus-plugin-ledger-connector-fabric"
@@ -1134,7 +1237,6 @@ jobs:
       JEST_TEST_RUNNER_DISABLED: true
       TAPE_TEST_PATTERN: ""
       TAPE_TEST_RUNNER_DISABLED: true
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -1154,7 +1256,10 @@ jobs:
       - run: npm run configure
       - run: yarn ts-node ./packages/cactus-plugin-ledger-connector-fabric/src/test/typescript/integration/fabric-v2-2-x/deploy-cc-from-golang-source.test.ts
 
-  plugin-ledger-connector-fabric-11:
+  connector-fabric-11:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-ledger-connector-fabric') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       CACTI_NPM_PACKAGE_NAME: "@hyperledger/cactus-plugin-ledger-connector-fabric"
@@ -1164,7 +1269,6 @@ jobs:
       JEST_TEST_RUNNER_DISABLED: true
       TAPE_TEST_PATTERN: ""
       TAPE_TEST_RUNNER_DISABLED: true
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -1184,7 +1288,10 @@ jobs:
       - run: npm run configure
       - run: yarn ts-node ./packages/cactus-plugin-ledger-connector-fabric/src/test/typescript/integration/fabric-v2-2-x/add-orgs.test.ts
 
-  plugin-ledger-connector-fabric-12:
+  connector-fabric-12:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-ledger-connector-fabric') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       CACTI_NPM_PACKAGE_NAME: "@hyperledger/cactus-plugin-ledger-connector-fabric"
@@ -1194,7 +1301,6 @@ jobs:
       JEST_TEST_RUNNER_DISABLED: true
       TAPE_TEST_PATTERN: ""
       TAPE_TEST_RUNNER_DISABLED: true
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -1214,14 +1320,16 @@ jobs:
       - run: npm run configure
       - run: yarn ts-node ./packages/cactus-plugin-ledger-connector-fabric/src/test/typescript/integration/fabric-v2-2-x/run-transaction-with-ws-ids.test.ts
 
-  cactus-plugin-ledger-connector-fabric-socketio:
+  connector-fabric-socketio:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-ledger-connector-fabric-socketio') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
       JEST_TEST_PATTERN: packages/cactus-plugin-ledger-connector-fabric-socketio/src/test/typescript/(unit|integration|benchmark)/.*/*.test.ts
       JEST_TEST_RUNNER_DISABLED: false
       TAPE_TEST_RUNNER_DISABLED: true
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -1241,7 +1349,10 @@ jobs:
       - run: yarn --version
       - run: yarn install
       - run: ./tools/ci.sh
-  cactus-plugin-ledger-connector-go-ethereum-socketio:
+  connector-go-ethereum-socketio:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-ledger-connector-go-ethereum-socketio') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       DEV_BUILD_DISABLED: false
@@ -1249,7 +1360,6 @@ jobs:
       JEST_TEST_PATTERN: packages/cactus-plugin-ledger-connector-go-ethereum-socketio/src/test/typescript/(unit|integration|benchmark)/.*/*.test.ts
       JEST_TEST_RUNNER_DISABLED: true
       TAPE_TEST_RUNNER_DISABLED: true
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -1267,7 +1377,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  cactus-plugin-ledger-connector-iroha:
+  connector-iroha:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-ledger-connector-iroha') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
@@ -1276,7 +1389,6 @@ jobs:
       TAPE_TEST_PATTERN: >-
         --files={./packages/cactus-plugin-ledger-connector-iroha/src/test/typescript/integration/iroha-iroha-transfer-example.test.ts,./packages/cactus-plugin-ledger-connector-iroha/src/test/typescript/integration/openapi/openapi-validation.test.ts,./packages/cactus-plugin-ledger-connector-iroha/src/test/typescript/integration/run-transaction-endpoint-v1.test.ts,./packages/cactus-plugin-ledger-connector-iroha/src/test/typescript/unit/iroha-test-ledger-parameters.test.ts,./packages/cactus-plugin-ledger-connector-iroha/src/test/typescript/unit/postgres-test-container-parameters.test.ts}
       TAPE_TEST_RUNNER_DISABLED: false
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -1294,14 +1406,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  cactus-plugin-ledger-connector-iroha2:
+  connector-iroha2:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-ledger-connector-iroha2') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
       JEST_TEST_PATTERN: packages/cactus-plugin-ledger-connector-iroha2/src/test/typescript/(unit|integration|benchmark)/.*/*.test.ts
       JEST_TEST_RUNNER_DISABLED: false
       TAPE_TEST_RUNNER_DISABLED: true
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -1319,7 +1433,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  cactus-plugin-ledger-connector-ethereum:
+  connector-ethereum:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-ledger-connector-ethereum') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
@@ -1328,7 +1445,6 @@ jobs:
       TAPE_TEST_PATTERN: >-
         --files={./packages/cactus-plugin-ledger-connector-ethereum/src/test/typescript/integration/plugin-ledger-connector-ethereum/deploy-contract/openapi/openapi-validation-no-keychain.test.ts,./packages/cactus-plugin-ledger-connector-ethereum/src/test/typescript/integration/plugin-ledger-connector-ethereum/deploy-contract/openapi/openapi-validation.test.ts,./packages/cactus-plugin-ledger-connector-ethereum/src/test/typescript/integration/plugin-ledger-connector-ethereum/deploy-contract/v2.3.0-deploy-contract-from-json-json-object-endpoints.test.ts,./packages/cactus-plugin-ledger-connector-ethereum/src/test/typescript/integration/plugin-ledger-connector-ethereum/deploy-contract/v2.3.0-deploy-contract-from-json-json-object.test.ts,./packages/cactus-plugin-ledger-connector-ethereum/src/test/typescript/integration/plugin-ledger-connector-ethereum/deploy-contract/v2.3.0-invoke-contract-json-object-endpoints.test.ts,./packages/cactus-plugin-ledger-connector-ethereum/src/test/typescript/integration/plugin-ledger-connector-ethereum/deploy-contract/v2.3.0-invoke-contract-json-object.test.ts,./packages/cactus-plugin-ledger-connector-ethereum/src/test/typescript/integration/plugin-ledger-connector-ethereum/deploy-contract/v21.4.1-deploy-contract-from-json-json-object-endpoints.test.ts,./packages/cactus-plugin-ledger-connector-ethereum/src/test/typescript/integration/plugin-ledger-connector-ethereum/deploy-contract/v21.4.1-deploy-contract-from-json-json-object.test.ts,./packages/cactus-plugin-ledger-connector-ethereum/src/test/typescript/integration/plugin-ledger-connector-ethereum/deploy-contract/v21.4.1-invoke-contract-json-object-endpoints.test.ts,./packages/cactus-plugin-ledger-connector-ethereum/src/test/typescript/integration/plugin-ledger-connector-ethereum/deploy-contract/v21.4.1-invoke-contract-json-object.test.ts}
       TAPE_TEST_RUNNER_DISABLED: false
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -1348,7 +1464,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - run: ./tools/ci.sh
-  cactus-plugin-ledger-connector-quorum:
+  connector-quorum:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-ledger-connector-quorum') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
@@ -1357,7 +1476,6 @@ jobs:
       TAPE_TEST_PATTERN: >-
         --files={./packages/cactus-plugin-ledger-connector-quorum/src/test/typescript/integration/plugin-ledger-connector-quorum/deploy-contract/openapi/openapi-validation-no-keychain.test.ts,./packages/cactus-plugin-ledger-connector-quorum/src/test/typescript/integration/plugin-ledger-connector-quorum/deploy-contract/openapi/openapi-validation.test.ts,./packages/cactus-plugin-ledger-connector-quorum/src/test/typescript/integration/plugin-ledger-connector-quorum/deploy-contract/v2.3.0-deploy-contract-from-json-json-object-endpoints.test.ts,./packages/cactus-plugin-ledger-connector-quorum/src/test/typescript/integration/plugin-ledger-connector-quorum/deploy-contract/v2.3.0-deploy-contract-from-json-json-object.test.ts,./packages/cactus-plugin-ledger-connector-quorum/src/test/typescript/integration/plugin-ledger-connector-quorum/deploy-contract/v2.3.0-invoke-contract-json-object-endpoints.test.ts,./packages/cactus-plugin-ledger-connector-quorum/src/test/typescript/integration/plugin-ledger-connector-quorum/deploy-contract/v2.3.0-invoke-contract-json-object.test.ts,./packages/cactus-plugin-ledger-connector-quorum/src/test/typescript/integration/plugin-ledger-connector-quorum/deploy-contract/v21.4.1-deploy-contract-from-json-json-object-endpoints.test.ts,./packages/cactus-plugin-ledger-connector-quorum/src/test/typescript/integration/plugin-ledger-connector-quorum/deploy-contract/v21.4.1-deploy-contract-from-json-json-object.test.ts,./packages/cactus-plugin-ledger-connector-quorum/src/test/typescript/integration/plugin-ledger-connector-quorum/deploy-contract/v21.4.1-invoke-contract-json-object-endpoints.test.ts,./packages/cactus-plugin-ledger-connector-quorum/src/test/typescript/integration/plugin-ledger-connector-quorum/deploy-contract/v21.4.1-invoke-contract-json-object.test.ts}
       TAPE_TEST_RUNNER_DISABLED: false
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -1375,7 +1493,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  cactus-plugin-ledger-connector-sawtooth-socketio:
+  connector-sawtooth-socketio:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-ledger-connector-sawtooth-socketio') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       DEV_BUILD_DISABLED: false
@@ -1383,7 +1504,6 @@ jobs:
       JEST_TEST_PATTERN: packages/cactus-plugin-ledger-connector-sawtooth-socketio/src/test/typescript/(unit|integration|benchmark)/.*/*.test.ts
       JEST_TEST_RUNNER_DISABLED: true
       TAPE_TEST_RUNNER_DISABLED: true
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -1401,7 +1521,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  cactus-plugin-ledger-connector-xdai:
+  connector-xdai:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-ledger-connector-xdai') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
@@ -1410,7 +1533,6 @@ jobs:
       TAPE_TEST_PATTERN: >-
         --files={./packages/cactus-plugin-ledger-connector-xdai/src/test/typescript/integration/deploy-contract-from-json-xdai-json-object.test.ts,./packages/cactus-plugin-ledger-connector-xdai/src/test/typescript/integration/invoke-contract-xdai-json-object.test.ts,./packages/cactus-plugin-ledger-connector-xdai/src/test/typescript/integration/openapi/openapi-validation-no-keychain.test.ts,./packages/cactus-plugin-ledger-connector-xdai/src/test/typescript/integration/openapi/openapi-validation.test.ts}
       TAPE_TEST_RUNNER_DISABLED: false
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -1428,14 +1550,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  cactus-plugin-persistence-ethereum:
+  persistence-ethereum:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-persistence-ethereum') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
       JEST_TEST_PATTERN: packages/cactus-plugin-persistence-ethereum/src/test/typescript/(unit|integration|benchmark)/.*/*.test.ts
       JEST_TEST_RUNNER_DISABLED: false
       TAPE_TEST_RUNNER_DISABLED: true
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -1453,7 +1577,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  cactus-plugin-object-store-ipfs:
+  object-store-ipfs:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-object-store-ipfs') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
@@ -1461,7 +1588,6 @@ jobs:
       JEST_TEST_RUNNER_DISABLED: false
       TAPE_TEST_PATTERN: '--files={./extensions/cactus-plugin-object-store-ipfs/src/test/typescript/integration/plugin-object-store-ipfs.test.ts,./extensions/cactus-plugin-object-store-ipfs/src/test/typescript/unit/plugin-object-store-ipfs.test.ts}'
       TAPE_TEST_RUNNER_DISABLED: false
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -1480,13 +1606,16 @@ jobs:
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
   # cactus-plugin-odap-hermes:
+  #   needs: [get-affected-packages-from-diff, build-dev]
+  #   if: |
+  #     contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-odap-hermes') \
+  #     && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
   #   continue-on-error: false
   #   env:
   #     FULL_BUILD_DISABLED: true
   #     JEST_TEST_PATTERN: packages/cactus-plugin-odap-hermes/src/test/typescript/(unit|integration|benchmark)/.*/*.test.ts
   #     JEST_TEST_RUNNER_DISABLED: false
   #     TAPE_TEST_RUNNER_DISABLED: true
-  #   needs: build-dev
   #   runs-on: ubuntu-20.04
   #   steps:
   #     - name: Use Node.js v16.14.2
@@ -1506,7 +1635,10 @@ jobs:
   #         restore-keys: |
   #           ${{ runner.os }}-yarn-
   #     - run: ./tools/ci.sh
-  cactus-plugin-connector-ubiquity:
+  connector-ubiquity:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-plugin-connector-ubiquity') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
@@ -1514,7 +1646,6 @@ jobs:
       JEST_TEST_RUNNER_DISABLED: false
       TAPE_TEST_RUNNER_DISABLED: true
       UBIQUITY_AUTH_TOKEN: ${{ secrets.UBIQUITY_AUTH_TOKEN }}
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -1534,14 +1665,16 @@ jobs:
       - run: ./tools/ci.sh
         env:
          UBIQUITY_AUTH_TOKEN: ${{ secrets.UBIQUITY_AUTH_TOKEN }}
-  cactus-test-api-client:
+  test-api-client:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-test-api-client') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
       JEST_TEST_PATTERN: packages/cactus-test-api-client/src/test/typescript/(unit|integration|benchmark)/.*/*.test.ts
       JEST_TEST_RUNNER_DISABLED: false
       TAPE_TEST_RUNNER_DISABLED: true
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -1559,7 +1692,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  cactus-test-cmd-api-server:
+  test-cmd-api-server:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-test-cmd-api-server') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
@@ -1567,7 +1703,6 @@ jobs:
       JEST_TEST_RUNNER_DISABLED: false
       TAPE_TEST_PATTERN: ./packages/cactus-test-cmd-api-server/src/test/typescript/integration/plugin-import-with-npm-install-version-selection.test.ts
       TAPE_TEST_RUNNER_DISABLED: false
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -1585,7 +1720,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  cactus-test-plugin-consortium-manual:
+  test-plugin-consortium-manual:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-test-plugin-consortium-manual') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
@@ -1593,7 +1731,6 @@ jobs:
       JEST_TEST_RUNNER_DISABLED: false
       TAPE_TEST_PATTERN: ./packages/cactus-test-plugin-consortium-manual/src/test/typescript/integration/plugin-consortium-manual/openapi/openapi-validation.test.ts
       TAPE_TEST_RUNNER_DISABLED: false
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -1611,7 +1748,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  cactus-test-plugin-htlc-eth-besu:
+  test-plugin-htlc-eth-besu:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-test-plugin-htlc-eth-besu') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
@@ -1619,7 +1759,6 @@ jobs:
       JEST_TEST_RUNNER_DISABLED: false
       TAPE_TEST_PATTERN: '--files={./packages/cactus-test-plugin-htlc-eth-besu/src/test/typescript/integration/plugin-htlc-eth-besu/get-single-status-endpoint.test.ts,./packages/cactus-test-plugin-htlc-eth-besu/src/test/typescript/integration/plugin-htlc-eth-besu/openapi/openapi-validation.test.ts}'
       TAPE_TEST_RUNNER_DISABLED: false
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -1644,7 +1783,10 @@ jobs:
       - name: Run solidity tests
         run: cd packages/cactus-plugin-htlc-eth-besu && forge test -vvvvv
               
-  cactus-test-plugin-htlc-eth-besu-erc20:
+  test-plugin-htlc-eth-besu-erc20:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-test-plugin-htlc-eth-besu-erc20') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
@@ -1653,7 +1795,6 @@ jobs:
       TAPE_TEST_PATTERN: >-
         --files={./packages/cactus-test-plugin-htlc-eth-besu-erc20/src/test/typescript/integration/plugin-htlc-eth-besu-erc20/get-status-endpoint.test.ts,./packages/cactus-test-plugin-htlc-eth-besu-erc20/src/test/typescript/integration/plugin-htlc-eth-besu-erc20/openapi/openapi-validation.test.ts,./packages/cactus-test-plugin-htlc-eth-besu-erc20/src/test/typescript/integration/plugin-htlc-eth-besu-erc20/refund-endpoint.test.ts}
       TAPE_TEST_RUNNER_DISABLED: false
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -1671,7 +1812,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  cactus-test-plugin-ledger-connector-besu:
+  test-plugin-ledger-connector-besu:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-test-plugin-ledger-connector-besu') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
@@ -1680,7 +1824,6 @@ jobs:
       TAPE_TEST_PATTERN: >-
         --files={./packages/cactus-test-plugin-ledger-connector-besu/src/test/typescript/integration/plugin-validator-besu/get-balance-endpoint.test.ts,./packages/cactus-test-plugin-ledger-connector-besu/src/test/typescript/integration/plugin-validator-besu/get-block-endpoint.test.ts,./packages/cactus-test-plugin-ledger-connector-besu/src/test/typescript/integration/plugin-validator-besu/get-past-logs-endpoint.test.ts,./packages/cactus-test-plugin-ledger-connector-besu/src/test/typescript/integration/plugin-validator-besu/get-transaction-endpoint.test.ts,./packages/cactus-test-plugin-ledger-connector-besu/src/test/typescript/integration/plugin-validator-besu/v21-get-balance-endpoint.test.ts,./packages/cactus-test-plugin-ledger-connector-besu/src/test/typescript/integration/plugin-validator-besu/v21-get-block-endpoint.test.ts,./packages/cactus-test-plugin-ledger-connector-besu/src/test/typescript/integration/plugin-validator-besu/v21-get-past-logs-endpoint.test.ts,./packages/cactus-test-plugin-ledger-connector-besu/src/test/typescript/integration/plugin-validator-besu/v21-get-transaction-endpoint.test.ts,./packages/cactus-test-plugin-ledger-connector-besu/src/test/typescript/integration/plugin-validator-besu/v21-sign-transaction-endpoint.test.ts}
       TAPE_TEST_RUNNER_DISABLED: false
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -1698,14 +1841,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  cactus-test-plugin-ledger-connector-quorum:
+  test-plugin-ledger-connector-quorum:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-test-plugin-ledger-connector-quorum') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
       JEST_TEST_PATTERN: packages/cactus-test-plugin-ledger-connector-quorum/src/test/typescript/(unit|integration|benchmark)/.*/*.test.ts
       JEST_TEST_RUNNER_DISABLED: false
       TAPE_TEST_RUNNER_DISABLED: true
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -1723,14 +1868,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  cactus-test-plugin-ledger-connector-ethereum:
+  test-plugin-ledger-connector-ethereum:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-test-plugin-ledger-connector-ethereum') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
       JEST_TEST_PATTERN: packages/cactus-test-plugin-ledger-connector-ethereum/src/test/typescript/(unit|integration|benchmark)/.*/*.test.ts
       JEST_TEST_RUNNER_DISABLED: false
       TAPE_TEST_RUNNER_DISABLED: true
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -1750,7 +1897,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - run: ./tools/ci.sh
-  cactus-test-tooling:
+  test-tooling:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-test-tooling') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
@@ -1759,7 +1909,6 @@ jobs:
       TAPE_TEST_PATTERN: >-
         --files={./packages/cactus-test-tooling/src/test/typescript/integration/besu/besu-test-ledger/constructor-validates-options.test.ts,./packages/cactus-test-tooling/src/test/typescript/integration/fabric/fabric-test-ledger-v1/constructor-validates-options.test.ts,./packages/cactus-test-tooling/src/test/typescript/integration/iroha/iroha-test-ledger/constructor-validates-options.test.ts,./packages/cactus-test-tooling/src/test/typescript/integration/postgres/postgres-test-container/constructor-validates-options.test.ts,./packages/cactus-test-tooling/src/test/typescript/integration/quorum/quorum-test-ledger/constructor-validates-options.test.ts,./packages/cactus-test-tooling/src/test/typescript/integration/rustc-container/rustc-container-target-bundler.test.ts,./packages/cactus-test-tooling/src/test/typescript/integration/substrate/substrate-test-ledger-constructor.test.ts,./packages/cactus-test-tooling/src/test/typescript/integration/substrate/substrate-test-ledger-multiple-concurrent.test.ts}
       TAPE_TEST_RUNNER_DISABLED: false
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -1777,14 +1926,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  cactus-verifier-client:
+  verifier-client:
+    needs: [get-affected-packages-from-diff, build-dev]
+    if: |
+      contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'cactus-verifier-client') && contains(needs.get-affected-packages-from-diff.outputs.AFFECTED_PACKAGES, 'true') 
     continue-on-error: false
     env:
       FULL_BUILD_DISABLED: true
       JEST_TEST_PATTERN: packages/cactus-verifier-client/src/test/typescript/(unit|integration|benchmark)/.*/*.test.ts
       JEST_TEST_RUNNER_DISABLED: false
       TAPE_TEST_RUNNER_DISABLED: true
-    needs: build-dev
     runs-on: ubuntu-20.04
     steps:
       - name: Use Node.js v16.14.2
@@ -1802,55 +1953,86 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
       - run: ./tools/ci.sh
-  ghcr-besu-all-in-one:
+
+  get-diff:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3.1.0
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v39  
+        with:
+          separator: ","
+    outputs:
+      all-changed-files: ${{ steps.changed-files.outputs.all_changed_files }}
+  ghcr-tools-besu-all-in-one:
+    needs: get-diff
+    if: contains(needs.get-diff.outputs.all-changed-files, 'tools/docker/besu-all-in-one')
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3.5.2
       - name: ghcr.io/hyperledger/cactus-besu-all-in-one
         run: DOCKER_BUILDKIT=1 docker build ./tools/docker/besu-all-in-one/ -f ./tools/docker/besu-all-in-one/Dockerfile
-  ghcr-cmd-api-server:
+  ghcr-packages-cactus-cmd-api-server:
+    needs: get-diff
+    if: contains(needs.get-diff.outputs.all-changed-files, 'packages/cactus-cmd-api-server')
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3.5.2
       - name: ghcr.io/hyperledger/cactus-cmd-api-server
         run: DOCKER_BUILDKIT=1 docker build . -f ./packages/cactus-cmd-api-server/Dockerfile
-  ghcr-connector-besu:
+  ghcr-packages-cactus-plugin-ledger-connector-besu:
+    needs: get-diff
+    if: contains(needs.get-diff.outputs.all-changed-files, 'packages/cactus-plugin-ledger-connector-besu')
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3.5.2
       - name: ghcr.io/hyperledger/cactus-connector-besu
         run: DOCKER_BUILDKIT=1 docker build ./packages/cactus-plugin-ledger-connector-besu/ -f ./packages/cactus-plugin-ledger-connector-besu/Dockerfile
-  ghcr-connector-corda-server:
+  ghcr-packages-cactus-plugin-ledger-connector-corda-server:
+    needs: get-diff
+    if: contains(needs.get-diff.outputs.all-changed-files, 'packages/cactus-plugin-ledger-connector-corda')
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3.5.2
       - name: ghcr.io/hyperledger/cactus-connector-corda-server
         run: DOCKER_BUILDKIT=1 docker build ./packages/cactus-plugin-ledger-connector-corda/src/main-server/ -f ./packages/cactus-plugin-ledger-connector-corda/src/main-server/Dockerfile
-  ghcr-connector-fabric:
+  ghcr-packages-cactus-plugin-ledger-connector-fabric:
+    needs: get-diff
+    if: contains(needs.get-diff.outputs.all-changed-files, 'packages/cactus-plugin-ledger-connector-fabric')
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3.5.2
       - name: ghcr.io/hyperledger/cactus-connector-fabric
         run: DOCKER_BUILDKIT=1 docker build ./packages/cactus-plugin-ledger-connector-fabric/ -f ./packages/cactus-plugin-ledger-connector-fabric/Dockerfile
-  ghcr-corda-all-in-one:
+  ghcr-tools-corda-all-in-one:
+    needs: get-diff
+    if: contains(needs.get-diff.outputs.all-changed-files, 'tools/docker/corda-all-in-one')
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3.5.2
       - name: ghcr.io/hyperledger/cactus-corda-all-in-one
         run: DOCKER_BUILDKIT=1 docker build ./tools/docker/corda-all-in-one/ -f ./tools/docker/corda-all-in-one/Dockerfile
   ghcr-corda-all-in-one-flowdb:
+    needs: get-diff
+    if: contains(needs.get-diff.outputs.all-changed-files, 'tools/docker/corda-all-in-one')
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3.5.2
       - name: ghcr.io/hyperledger/cactus-corda-all-in-one-flowdb
         run: DOCKER_BUILDKIT=1 docker build ./tools/docker/corda-all-in-one/corda-v4_8-flowdb/
-  ghcr-corda-all-in-one-obligation:
+  ghcr-tools-corda-all-in-one-obligation:
+    needs: get-diff
+    if: contains(needs.get-diff.outputs.all-changed-files, 'tools/docker/corda-all-in-one')
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3.5.2
       - name: ghcr.io/hyperledger/cactus-corda-all-in-one-obligation
         run: DOCKER_BUILDKIT=1 docker build ./tools/docker/corda-all-in-one/ -f ./tools/docker/corda-all-in-one/corda-v4_8/Dockerfile
   ghcr-dev-container-vscode:
+    needs: get-diff
+    if: contains(needs.get-diff.outputs.all-changed-files, '.devcontainer')
     runs-on: ubuntu-20.04
     env:
       IMAGE_NAME: cacti-dev-container-vscode
@@ -1863,68 +2045,90 @@ jobs:
       - name: npm_install_@devcontainers/cli@0.44.0
         run: npm install -g @devcontainers/cli@0.44.0
       - name: npx_yes_devcontainers_cli_build
-        run: npx --yes @devcontainers/cli@0.44.0 build --workspace-folder=./ --log-level=trace --push=false --config=./.devcontainer/devcontainer.json --image-name=$IMAGE_NAME
-  ghcr-example-carbon-accounting:
+        run: npx --yes @devcontainers/cli@0.44.0 build --workspace-folder=./ --log-level=trace --push=false --config=./.devcontainer/devcontainer.json --image-name="$IMAGE_NAME"
+  ghcr-examples-carbon-accounting:
+    needs: get-diff
+    if: contains(needs.get-diff.outputs.all-changed-files, 'examples/carbon-accounting')
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3.5.2
       - name: ghcr.io/hyperledger/cactus-example-carbon-accounting
         run: DOCKER_BUILDKIT=1 docker build . -f ./examples/carbon-accounting/Dockerfile
-  ghcr-example-supply-chain-app:
+  ghcr-examples-supply-chain-app:
+    needs: get-diff
+    if: contains(needs.get-diff.outputs.all-changed-files, 'examples/supply-chain-app')
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3.5.2
       - name: ghcr.io/hyperledger/cactus-example-supply-chain-app
         run: DOCKER_BUILDKIT=1 docker build . -f ./examples/supply-chain-app/Dockerfile
-  ghcr-fabric-all-in-one:
+  ghcr-tools-fabric-all-in-one:
+    needs: get-diff
+    if: contains(needs.get-diff.outputs.all-changed-files, 'tools/docker/fabric-all-in-one')
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3.5.2
       - name: ghcr.io/hyperledger/cactus-fabric-all-in-one
         run: DOCKER_BUILDKIT=1 docker build ./tools/docker/fabric-all-in-one/ -f ./tools/docker/fabric-all-in-one/Dockerfile_v1.4.x
-  ghcr-fabric2-all-in-one:
+  ghcr-tools-fabric2-all-in-one:
+    needs: get-diff
+    if: contains(needs.get-diff.outputs.all-changed-files, 'tools/docker/fabric-all-in-one')
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3.5.2
       - name: ghcr.io/hyperledger/cactus-fabric2-all-in-one
         run: DOCKER_BUILDKIT=1 docker build ./tools/docker/fabric-all-in-one/ -f ./tools/docker/fabric-all-in-one/Dockerfile_v2.x
-  ghcr-iroha-all-in-one:
+  ghcr-tools-iroha-all-in-one:
+    needs: get-diff
+    if: contains(needs.get-diff.outputs.all-changed-files, 'tools/docker/iroha-all-in-one')
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3.5.2
       - name: ghcr.io/hyperledger/cactus-iroha-all-in-one
         run: DOCKER_BUILDKIT=1 docker build ./tools/docker/iroha-all-in-one/ -f ./tools/docker/iroha-all-in-one/Dockerfile
-  ghcr-keychain-vault-server:
+  ghcr-packages-keychain-vault-server:
+    needs: get-diff
+    if: contains(needs.get-diff.outputs.all-changed-files, 'packages/cactus-plugin-keychain-vault/src/cactus-keychain-vault-server')
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3.5.2
       - name: ghcr.io/hyperledger/cactus-keychain-vault-server
         run: DOCKER_BUILDKIT=1 docker build ./packages/cactus-plugin-keychain-vault/src/cactus-keychain-vault-server/ -f ./packages/cactus-plugin-keychain-vault/src/cactus-keychain-vault-server/Dockerfile
-  ghcr-quorum-all-in-one:
+  ghcr-tools-quorum-all-in-one:
+    needs: get-diff
+    if: contains(needs.get-diff.outputs.all-changed-files, 'tools/docker/quorum-all-in-one')
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3.5.2
       - name: ghcr.io/hyperledger/cactus-quorum-all-in-one
         run: DOCKER_BUILDKIT=1 docker build ./tools/docker/quorum-all-in-one/ -f ./tools/docker/quorum-all-in-one/Dockerfile
-  ghcr-quorum-multi-party-all-in-one:
+  ghcr-tools-quorum-multi-party-all-in-one:
+    needs: get-diff
+    if: contains(needs.get-diff.outputs.all-changed-files, 'tools/docker/quorum-multi-party-all-in-one')
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3.5.2
       - name: ghcr.io/hyperledger/cactus-quorum-multi-party-all-in-one
         run: DOCKER_BUILDKIT=1 docker build ./tools/docker/quorum-multi-party-all-in-one/ -f ./tools/docker/quorum-multi-party-all-in-one/Dockerfile
-  ghcr-rust-compiler:
+  ghcr-tools-rust-compiler:
+    needs: get-diff
+    if: contains(needs.get-diff.outputs.all-changed-files, 'tools/docker/rust-compiler')
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3.5.2
       - name: ghcr.io/hyperledger/cactus-rust-compiler
         run: DOCKER_BUILDKIT=1 docker build ./tools/docker/rust-compiler/ -f ./tools/docker/rust-compiler/Dockerfile
-  ghcr-test-npm-registry:
+  ghcr-tools-test-npm-registry:
+    needs: get-diff
+    if: contains(needs.get-diff.outputs.all-changed-files, 'tools/docker/test-npm-registry')
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3.5.2
       - name: ghcr.io/hyperledger/cactus-test-npm-registry
         run: DOCKER_BUILDKIT=1 docker build ./tools/docker/test-npm-registry/ -f ./tools/docker/test-npm-registry/Dockerfile
   ghcr-whitepaper:
+    needs: get-diff
+    if: contains(needs.get-diff.outputs.all-changed-files, 'whitepaper/')
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3.5.2
