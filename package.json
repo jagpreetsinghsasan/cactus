@@ -259,5 +259,8 @@
       "built": false
     }
   },
-  "packageManager": "yarn@3.6.0"
+  "packageManager": "yarn@3.6.0",
+  "dependencies": {
+    "@h4ad/dependency-extractor": "^1.1.0"
+  }
 }
