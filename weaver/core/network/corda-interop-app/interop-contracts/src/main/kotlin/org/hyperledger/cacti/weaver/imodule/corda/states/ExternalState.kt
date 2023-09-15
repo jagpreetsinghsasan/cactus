@@ -11,7 +11,6 @@ import net.corda.core.contracts.BelongsToContract
 import net.corda.core.contracts.LinearState
 import net.corda.core.contracts.UniqueIdentifier
 import net.corda.core.identity.Party
-import net.corda.core.serialization.CordaSerializable
 
 /**
  * A representation of state and proof retrieved from an external network.
@@ -28,11 +27,3 @@ data class ExternalState(
         override val linearId: UniqueIdentifier = UniqueIdentifier(),
         override val participants: List<Party> = listOf()
 ) : LinearState
-
-@CordaSerializable
-data class InvocationSpec(
-    val disableInvocation: Boolean = true,
-    val invokeFlowName: String = "",
-    val invokeFlowArgs: List<Any> = listOf(),
-    val interopArgsIndex: Int = -1
-)
