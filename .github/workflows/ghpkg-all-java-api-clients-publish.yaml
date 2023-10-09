@@ -43,7 +43,9 @@ jobs:
         java-version: '8'
     
     - name: Setup maven for packaging jars
-      uses: s4u/setup-maven-action@2.8.0
+      uses: s4u/setup-maven-action@v1.10.0
+      with:
+        maven-version: 3.9.4
 
     - name: Set up NodeJS v16.9.1
       uses: actions/setup-node@v3.6.0
