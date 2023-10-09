@@ -47,10 +47,10 @@ jobs:
       with:
         maven-version: 3.9.4
 
-    - name: Set up NodeJS v16.9.1
+    - name: Set up NodeJS v16.14.2
       uses: actions/setup-node@v3.6.0
       with:
-        node-version: v16.9.1
+        node-version: v16.14.2
 
     - run: npm run configure
 
