@@ -1,0 +1,5 @@
+packages/**/src/main/typescript/generated/openapi/typescript-axios/docs/git_push.sh
+packages/**/src/main/typescript/generated/openapi/typescript-axios/docs/.npmignore
+packages/**/src/main/typescript/generated/openapi/typescript-axios/docs/.gitignore
+packages/**/src/main/kotlin/generated/openapi/kotlin-client/docs/**
+packages/**/src/main/kotlin/generated/openapi/kotlin-client/gradle/**
