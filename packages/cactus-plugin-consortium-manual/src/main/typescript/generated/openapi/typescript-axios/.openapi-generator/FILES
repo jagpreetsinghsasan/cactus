@@ -1,4 +1,4 @@
-.gitignore
+.openapi-generator-ignore
 api.ts
 base.ts
 common.ts

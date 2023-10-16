@@ -9,4 +9,3 @@ if (paths.length!=0){
     rm(paths[i], { recursive: true, force: true }, () => {})
   }
 }
-
