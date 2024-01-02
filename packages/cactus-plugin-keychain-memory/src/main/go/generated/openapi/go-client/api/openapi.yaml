@@ -1,0 +1,136 @@
+openapi: 3.0.3
+info:
+  description: Contains/describes the Hyperledger Cactus Keychain Memory plugin.
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  title: 'Hyperledger Cactus Plugin - Keychain Memory '
+  version: v2.0.0-alpha.2
+servers:
+- url: /
+paths:
+  /api/v1/plugins/@hyperledger/cactus-plugin-keychain-memory/get-prometheus-exporter-metrics:
+    get:
+      operationId: getPrometheusMetricsV1
+      parameters: []
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PrometheusExporterMetricsResponse'
+          description: OK
+      summary: Get the Prometheus Metrics
+      x-hyperledger-cactus:
+        http:
+          verbLowerCase: get
+          path: /api/v1/plugins/@hyperledger/cactus-plugin-keychain-memory/get-prometheus-exporter-metrics
+components:
+  requestBodies:
+    keychain_get_entry_request_body:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetKeychainEntryRequest'
+      description: Request body to obtain a keychain entry via its key
+      required: true
+    keychain_set_entry_request_body:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SetKeychainEntryRequest'
+      description: Request body to write/update a keychain entry via its key
+      required: true
+  responses:
+    keychain_get_entry_200:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetKeychainEntryResponse'
+      description: OK
+    keychain_get_entry_400:
+      description: "Bad request. Key must be a string and longer than 0, shorter than\
+        \ 1024 characters."
+    keychain_get_entry_401:
+      description: Authorization information is missing or invalid.
+    keychain_get_entry_404:
+      description: A keychain item with the specified key was not found.
+    keychain_get_entry_500:
+      description: Unexpected error.
+    keychain_set_entry_200:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SetKeychainEntryResponse'
+      description: OK
+    keychain_set_entry_400:
+      description: "Bad request. Key must be a string and longer than 0, shorter than\
+        \ 1024 characters."
+    keychain_set_entry_401:
+      description: Authorization information is missing or invalid.
+    keychain_set_entry_500:
+      description: Unexpected error.
+  schemas:
+    GetKeychainEntryRequest:
+      additionalProperties: false
+      properties:
+        key:
+          description: The key for the entry to get from the keychain.
+          maxLength: 1024
+          minLength: 1
+          nullable: false
+          type: string
+      required:
+      - key
+      type: object
+    GetKeychainEntryResponse:
+      properties:
+        key:
+          description: The key that was used to retrieve the value from the keychain.
+          maxLength: 1024
+          minLength: 1
+          nullable: false
+          type: string
+        value:
+          description: The value associated with the requested key on the keychain.
+          maxLength: 10485760
+          minLength: 0
+          nullable: false
+          type: string
+      required:
+      - key
+      - value
+      type: object
+    SetKeychainEntryRequest:
+      additionalProperties: false
+      properties:
+        key:
+          description: The key for the entry to set on the keychain.
+          maxLength: 1024
+          minLength: 1
+          nullable: false
+          type: string
+        value:
+          description: The value that will be associated with the key on the keychain.
+          maxLength: 10485760
+          minLength: 0
+          nullable: false
+          type: string
+      required:
+      - key
+      - value
+      type: object
+    SetKeychainEntryResponse:
+      properties:
+        key:
+          description: The key that was used to set the value on the keychain.
+          maxLength: 1024
+          minLength: 1
+          nullable: false
+          type: string
+      required:
+      - key
+      type: object
+    PrometheusExporterMetricsResponse:
+      nullable: false
+      type: string

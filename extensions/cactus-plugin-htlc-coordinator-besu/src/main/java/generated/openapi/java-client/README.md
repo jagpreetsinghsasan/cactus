@@ -1,8 +1,8 @@
 # openapi-java-client
 
 Hyperledger Cactus Plugin - HTLC Coordinator
-- API version: v2.0.0-alpha.1
-  - Build date: 2023-09-27T17:17:50.032855102+05:30[Asia/Kolkata]
+- API version: v2.0.0-alpha.2
+  - Build date: 2023-10-09T11:38:13.125091808+05:30[Asia/Kolkata]
 
 Can exchange assets between networks
 
@@ -40,7 +40,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>org.openapitools</groupId>
   <artifactId>openapi-java-client</artifactId>
-  <version>v2.0.0-alpha.1</version>
+  <version>v2.0.0-alpha.2</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -56,7 +56,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "org.openapitools:openapi-java-client:v2.0.0-alpha.1"
+     implementation "org.openapitools:openapi-java-client:v2.0.0-alpha.2"
   }
 ```
 
@@ -70,7 +70,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/openapi-java-client-v2.0.0-alpha.1.jar`
+* `target/openapi-java-client-v2.0.0-alpha.2.jar`
 * `target/lib/*.jar`
 
 ## Getting Started

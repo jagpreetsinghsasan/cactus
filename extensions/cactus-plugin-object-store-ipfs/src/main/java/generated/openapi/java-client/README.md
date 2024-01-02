@@ -1,8 +1,8 @@
 # openapi-java-client
 
 Hyperledger Cactus Plugin - Object Store - IPFS 
-- API version: v2.0.0-alpha.1
-  - Build date: 2023-09-27T17:16:57.037376743+05:30[Asia/Kolkata]
+- API version: v2.0.0-alpha.2
+  - Build date: 2023-10-09T11:37:02.377490787+05:30[Asia/Kolkata]
 
 Contains/describes the Hyperledger Cactus Object Store IPFS plugin.
 
@@ -40,7 +40,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>org.openapitools</groupId>
   <artifactId>openapi-java-client</artifactId>
-  <version>v2.0.0-alpha.1</version>
+  <version>v2.0.0-alpha.2</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -56,7 +56,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "org.openapitools:openapi-java-client:v2.0.0-alpha.1"
+     implementation "org.openapitools:openapi-java-client:v2.0.0-alpha.2"
   }
 ```
 
@@ -70,7 +70,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/openapi-java-client-v2.0.0-alpha.1.jar`
+* `target/openapi-java-client-v2.0.0-alpha.2.jar`
 * `target/lib/*.jar`
 
 ## Getting Started

@@ -38,8 +38,9 @@ src/main/java/org/openapitools/client/model/DeployContractSolidityBytecodeV1Resp
 src/main/java/org/openapitools/client/model/EthContractInvocationType.java
 src/main/java/org/openapitools/client/model/EthContractInvocationWeb3Method.java
 src/main/java/org/openapitools/client/model/EthereumTransactionConfig.java
-src/main/java/org/openapitools/client/model/EthereumTransactionConfigFrom.java
-src/main/java/org/openapitools/client/model/EthereumTransactionConfigTo.java
+src/main/java/org/openapitools/client/model/GasTransactionConfig.java
+src/main/java/org/openapitools/client/model/GasTransactionConfigEIP1559.java
+src/main/java/org/openapitools/client/model/GasTransactionConfigLegacy.java
 src/main/java/org/openapitools/client/model/InvokeContractJsonObjectV1Request.java
 src/main/java/org/openapitools/client/model/InvokeContractV1Request.java
 src/main/java/org/openapitools/client/model/InvokeContractV1Response.java
@@ -55,6 +56,7 @@ src/main/java/org/openapitools/client/model/SolidityContractJsonArtifactGasEstim
 src/main/java/org/openapitools/client/model/SolidityContractJsonArtifactGasEstimatesCreation.java
 src/main/java/org/openapitools/client/model/WatchBlocksV1.java
 src/main/java/org/openapitools/client/model/WatchBlocksV1BlockData.java
+src/main/java/org/openapitools/client/model/WatchBlocksV1BlockDataTimestamp.java
 src/main/java/org/openapitools/client/model/WatchBlocksV1Options.java
 src/main/java/org/openapitools/client/model/WatchBlocksV1Progress.java
 src/main/java/org/openapitools/client/model/Web3BlockHeader.java

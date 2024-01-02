@@ -1,8 +1,7 @@
 # openapi-java-client
 
 Hyperledger Cactus Plugin - Connector Ethereum
-- API version: v2.0.0-alpha.1
-  - Build date: 2023-09-27T17:17:17.535635551+05:30[Asia/Kolkata]
+- API version: v2.0.0-alpha.2
 
 Can perform basic tasks on a Ethereum ledger
 
@@ -40,7 +39,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>org.openapitools</groupId>
   <artifactId>openapi-java-client</artifactId>
-  <version>v2.0.0-alpha.1</version>
+  <version>v2.0.0-alpha.2</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -56,7 +55,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "org.openapitools:openapi-java-client:v2.0.0-alpha.1"
+     implementation "org.openapitools:openapi-java-client:v2.0.0-alpha.2"
   }
 ```
 
@@ -70,7 +69,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/openapi-java-client-v2.0.0-alpha.1.jar`
+* `target/openapi-java-client-v2.0.0-alpha.2.jar`
 * `target/lib/*.jar`
 
 ## Getting Started
@@ -117,8 +116,8 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**deployContractSolBytecodeJsonObjectV1**](docs/DefaultApi.md#deployContractSolBytecodeJsonObjectV1) | **POST** /api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-ethereum/deploy-contract-solidity-bytecode-json-object | Deploys the bytecode of a Solidity contract.
 *DefaultApi* | [**deployContractSolBytecodeV1**](docs/DefaultApi.md#deployContractSolBytecodeV1) | **POST** /api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-ethereum/deploy-contract-solidity-bytecode | Deploys the bytecode of a Solidity contract.
 *DefaultApi* | [**getPrometheusMetricsV1**](docs/DefaultApi.md#getPrometheusMetricsV1) | **GET** /api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-ethereum/get-prometheus-exporter-metrics | Get the Prometheus Metrics
-*DefaultApi* | [**invokeContractV1**](docs/DefaultApi.md#invokeContractV1) | **POST** /api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-ethereum/invoke-contract | Invokes a contract on a besu ledger
-*DefaultApi* | [**invokeContractV1NoKeychain**](docs/DefaultApi.md#invokeContractV1NoKeychain) | **POST** /api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-ethereum/invoke-contract-json-object | Invokes a contract on a besu ledger
+*DefaultApi* | [**invokeContractV1**](docs/DefaultApi.md#invokeContractV1) | **POST** /api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-ethereum/invoke-contract | Invokes a contract on an ethereum ledger
+*DefaultApi* | [**invokeContractV1NoKeychain**](docs/DefaultApi.md#invokeContractV1NoKeychain) | **POST** /api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-ethereum/invoke-contract-json-object | Invokes a contract on an ethereum ledger
 *DefaultApi* | [**invokeRawWeb3EthContractV1**](docs/DefaultApi.md#invokeRawWeb3EthContractV1) | **POST** /api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-ethereum/invoke-raw-web3eth-contract | Low-level endpoint to invoke a method on deployed contract.
 *DefaultApi* | [**invokeWeb3EthMethodV1**](docs/DefaultApi.md#invokeWeb3EthMethodV1) | **POST** /api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-ethereum/invoke-raw-web3eth-method | Invoke any method from web3.eth (low-level)
 *DefaultApi* | [**runTransactionV1**](docs/DefaultApi.md#runTransactionV1) | **POST** /api/v1/plugins/@hyperledger/cactus-plugin-ledger-connector-ethereum/run-transaction | Executes a transaction on a ethereum ledger
@@ -133,8 +132,9 @@ Class | Method | HTTP request | Description
  - [EthContractInvocationType](docs/EthContractInvocationType.md)
  - [EthContractInvocationWeb3Method](docs/EthContractInvocationWeb3Method.md)
  - [EthereumTransactionConfig](docs/EthereumTransactionConfig.md)
- - [EthereumTransactionConfigFrom](docs/EthereumTransactionConfigFrom.md)
- - [EthereumTransactionConfigTo](docs/EthereumTransactionConfigTo.md)
+ - [GasTransactionConfig](docs/GasTransactionConfig.md)
+ - [GasTransactionConfigEIP1559](docs/GasTransactionConfigEIP1559.md)
+ - [GasTransactionConfigLegacy](docs/GasTransactionConfigLegacy.md)
  - [InvokeContractJsonObjectV1Request](docs/InvokeContractJsonObjectV1Request.md)
  - [InvokeContractV1Request](docs/InvokeContractV1Request.md)
  - [InvokeContractV1Response](docs/InvokeContractV1Response.md)
@@ -150,6 +150,7 @@ Class | Method | HTTP request | Description
  - [SolidityContractJsonArtifactGasEstimatesCreation](docs/SolidityContractJsonArtifactGasEstimatesCreation.md)
  - [WatchBlocksV1](docs/WatchBlocksV1.md)
  - [WatchBlocksV1BlockData](docs/WatchBlocksV1BlockData.md)
+ - [WatchBlocksV1BlockDataTimestamp](docs/WatchBlocksV1BlockDataTimestamp.md)
  - [WatchBlocksV1Options](docs/WatchBlocksV1Options.md)
  - [WatchBlocksV1Progress](docs/WatchBlocksV1Progress.md)
  - [Web3BlockHeader](docs/Web3BlockHeader.md)

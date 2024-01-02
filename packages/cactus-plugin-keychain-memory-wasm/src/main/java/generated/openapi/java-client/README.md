@@ -1,8 +1,7 @@
 # openapi-java-client
 
 Hyperledger Cactus Plugin - Keychain Memory WASM
-- API version: v2.0.0-alpha.1
-  - Build date: 2023-09-27T17:16:56.360430586+05:30[Asia/Kolkata]
+- API version: v2.0.0-alpha.2
 
 Contains/describes the Hyperledger Cactus Keychain Memory WASM plugin which is designed to help with testing and development and is implemented in Rust instead of Typescript.
 
@@ -40,7 +39,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>org.openapitools</groupId>
   <artifactId>openapi-java-client</artifactId>
-  <version>v2.0.0-alpha.1</version>
+  <version>v2.0.0-alpha.2</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -56,7 +55,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "org.openapitools:openapi-java-client:v2.0.0-alpha.1"
+     implementation "org.openapitools:openapi-java-client:v2.0.0-alpha.2"
   }
 ```
 
@@ -70,7 +69,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/openapi-java-client-v2.0.0-alpha.1.jar`
+* `target/openapi-java-client-v2.0.0-alpha.2.jar`
 * `target/lib/*.jar`
 
 ## Getting Started

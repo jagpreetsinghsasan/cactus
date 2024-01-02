@@ -1,0 +1,16 @@
+.gitignore
+.travis.yml
+README.md
+api/openapi.yaml
+api_default.go
+client.go
+configuration.go
+git_push.sh
+go.mod
+go.sum
+model_get_keychain_entry_request.go
+model_get_keychain_entry_response.go
+model_set_keychain_entry_request.go
+model_set_keychain_entry_response.go
+response.go
+utils.go
