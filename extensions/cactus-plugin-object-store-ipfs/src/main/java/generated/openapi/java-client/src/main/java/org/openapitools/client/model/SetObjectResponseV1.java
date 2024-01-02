@@ -50,7 +50,7 @@ import org.openapitools.client.JSON;
 /**
  * SetObjectResponseV1
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-10-09T11:37:02.377490787+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-10-09T12:07:29.787819166+05:30[Asia/Kolkata]")
 public class SetObjectResponseV1 {
   public static final String SERIALIZED_NAME_KEY = "key";
   @SerializedName(SERIALIZED_NAME_KEY)

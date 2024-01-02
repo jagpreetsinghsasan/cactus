@@ -39,7 +39,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>org.openapitools</groupId>
   <artifactId>openapi-java-client</artifactId>
-  <version>v2.0.0-alpha.2</version>
+  <version>1</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -55,7 +55,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "org.openapitools:openapi-java-client:v2.0.0-alpha.2"
+     implementation "org.openapitools:openapi-java-client:1"
   }
 ```
 
@@ -69,7 +69,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/openapi-java-client-v2.0.0-alpha.2.jar`
+* `target/openapi-java-client-1.jar`
 * `target/lib/*.jar`
 
 ## Getting Started

@@ -55,7 +55,7 @@ import org.openapitools.client.JSON;
 /**
  * OwnHTLCRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-10-09T11:38:13.125091808+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-10-09T12:08:44.709600333+05:30[Asia/Kolkata]")
 public class OwnHTLCRequest {
   public static final String SERIALIZED_NAME_HTLC_PACKAGE = "htlcPackage";
   @SerializedName(SERIALIZED_NAME_HTLC_PACKAGE)

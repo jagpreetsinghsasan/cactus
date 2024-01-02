@@ -2,7 +2,7 @@
 
 Hyperledger Cactus Plugin - Object Store - IPFS 
 - API version: v2.0.0-alpha.2
-  - Build date: 2023-10-09T11:37:02.377490787+05:30[Asia/Kolkata]
+  - Build date: 2023-10-09T12:07:29.787819166+05:30[Asia/Kolkata]
 
 Contains/describes the Hyperledger Cactus Object Store IPFS plugin.
 
