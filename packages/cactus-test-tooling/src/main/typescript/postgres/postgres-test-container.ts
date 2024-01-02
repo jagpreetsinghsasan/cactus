@@ -287,7 +287,7 @@ export class PostgresTestContainer implements ITestLedger {
   private pullContainerImage(containerNameAndTag: string): Promise<unknown[]> {
     return new Promise((resolve, reject) => {
       const docker = new Docker();
-      docker.pull(containerNameAndTag, (pullError: unknown, stream: Stream) => {
+      docker.pull(containerNameAndTag, (pullError: unknown, stream: NodeJS.ReadableStream) => {
         if (pullError) {
           reject(pullError);
         } else {

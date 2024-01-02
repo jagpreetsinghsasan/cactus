@@ -443,7 +443,7 @@ export class Containers {
         log.debug(JSON.stringify(msg.progress || msg.status));
       }, 1000);
 
-      const pullStreamStartedHandler = (pullError: unknown, stream: Stream) => {
+      const pullStreamStartedHandler = (pullError: unknown, stream: NodeJS.ReadableStream) => {
         if (pullError) {
           log.error(`Could not even start ${imageFqn} pull:`, pullError);
           reject(pullError);
