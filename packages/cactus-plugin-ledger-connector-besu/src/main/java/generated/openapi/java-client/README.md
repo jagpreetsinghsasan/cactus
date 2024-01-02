@@ -2,7 +2,7 @@
 
 Hyperledger Cactus Plugin - Connector Besu
 - API version: v2.0.0-alpha.1
-  - Build date: 2023-09-27T17:03:27.847578276+05:30[Asia/Kolkata]
+  - Build date: 2023-09-27T17:17:18.448110410+05:30[Asia/Kolkata]
 
 Can perform basic tasks on a Besu ledger
 

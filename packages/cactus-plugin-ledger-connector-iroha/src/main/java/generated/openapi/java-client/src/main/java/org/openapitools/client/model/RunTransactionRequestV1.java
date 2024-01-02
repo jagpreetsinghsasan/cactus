@@ -52,7 +52,7 @@ import org.openapitools.client.JSON;
 /**
  * RunTransactionRequestV1
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:27.945505986+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:17:16.656230954+05:30[Asia/Kolkata]")
 public class RunTransactionRequestV1 {
   public static final String SERIALIZED_NAME_COMMAND_NAME = "commandName";
   @SerializedName(SERIALIZED_NAME_COMMAND_NAME)

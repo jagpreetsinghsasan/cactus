@@ -50,7 +50,7 @@ import org.openapitools.client.JSON;
 /**
  * Private/Public key JSON containing payload and digest function.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:31.706650294+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:17:23.145061454+05:30[Asia/Kolkata]")
 public class Iroha2KeyJson {
   public static final String SERIALIZED_NAME_DIGEST_FUNCTION = "digestFunction";
   @SerializedName(SERIALIZED_NAME_DIGEST_FUNCTION)

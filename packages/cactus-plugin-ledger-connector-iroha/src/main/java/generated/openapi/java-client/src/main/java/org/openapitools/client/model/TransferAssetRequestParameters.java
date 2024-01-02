@@ -51,7 +51,7 @@ import org.openapitools.client.JSON;
 /**
  * The list of arguments to pass in to the transaction request to Transfer Asset.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:27.945505986+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:17:16.656230954+05:30[Asia/Kolkata]")
 public class TransferAssetRequestParameters {
   public static final String SERIALIZED_NAME_SRC_ACCOUNT_ID = "srcAccountId";
   @SerializedName(SERIALIZED_NAME_SRC_ACCOUNT_ID)

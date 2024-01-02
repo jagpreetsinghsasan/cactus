@@ -2,7 +2,7 @@
 
 Hyperledger Cactus Plugin - Ubiquity
 - API version: v2.0.0-alpha.1
-  - Build date: 2023-09-27T17:02:54.128349046+05:30[Asia/Kolkata]
+  - Build date: 2023-09-27T17:16:44.915680834+05:30[Asia/Kolkata]
 
 Ubiquity wrapper for Hyperledger Cactus
 

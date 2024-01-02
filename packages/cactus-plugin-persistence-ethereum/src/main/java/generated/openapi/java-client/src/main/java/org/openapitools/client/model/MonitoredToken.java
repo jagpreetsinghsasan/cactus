@@ -51,7 +51,7 @@ import org.openapitools.client.JSON;
 /**
  * Ethereum tokens that are being monitored by the persistence plugin.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:07.813869606+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:16:53.349737593+05:30[Asia/Kolkata]")
 public class MonitoredToken {
   public static final String SERIALIZED_NAME_TYPE = "type";
   @SerializedName(SERIALIZED_NAME_TYPE)

@@ -52,7 +52,7 @@ import org.openapitools.client.JSON;
 /**
  * InvokeContractV1Response
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:48.449296164+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:17:36.715728497+05:30[Asia/Kolkata]")
 public class InvokeContractV1Response {
   public static final String SERIALIZED_NAME_TRANSACTION_RECEIPT = "transactionReceipt";
   @SerializedName(SERIALIZED_NAME_TRANSACTION_RECEIPT)

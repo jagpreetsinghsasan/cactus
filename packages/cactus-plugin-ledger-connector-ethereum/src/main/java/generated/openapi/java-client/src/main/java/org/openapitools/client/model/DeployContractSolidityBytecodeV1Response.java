@@ -47,7 +47,7 @@ import org.openapitools.client.JSON;
 /**
  * DeployContractSolidityBytecodeV1Response
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:33.851032436+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:17:17.535635551+05:30[Asia/Kolkata]")
 public class DeployContractSolidityBytecodeV1Response {
   public static final String SERIALIZED_NAME_TRANSACTION_RECEIPT = "transactionReceipt";
   @SerializedName(SERIALIZED_NAME_TRANSACTION_RECEIPT)

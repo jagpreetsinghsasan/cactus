@@ -50,7 +50,7 @@ import org.openapitools.client.JSON;
 /**
  * DeleteKeychainEntryRequestV1
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:08.088885368+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:16:56.360430586+05:30[Asia/Kolkata]")
 public class DeleteKeychainEntryRequestV1 {
   public static final String SERIALIZED_NAME_KEY = "key";
   @SerializedName(SERIALIZED_NAME_KEY)

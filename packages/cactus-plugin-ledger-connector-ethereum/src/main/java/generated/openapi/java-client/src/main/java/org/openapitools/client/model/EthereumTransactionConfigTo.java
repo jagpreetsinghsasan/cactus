@@ -49,7 +49,7 @@ import com.google.gson.JsonParseException;
 
 import org.openapitools.client.JSON;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:33.851032436+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:17:17.535635551+05:30[Asia/Kolkata]")
 public class EthereumTransactionConfigTo extends AbstractOpenApiSchema {
     private static final Logger log = Logger.getLogger(EthereumTransactionConfigTo.class.getName());
 

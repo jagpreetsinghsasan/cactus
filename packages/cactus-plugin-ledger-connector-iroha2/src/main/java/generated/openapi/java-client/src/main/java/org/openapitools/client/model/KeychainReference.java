@@ -50,7 +50,7 @@ import org.openapitools.client.JSON;
 /**
  * Reference to entry stored in Cactus keychain plugin.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:31.706650294+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:17:23.145061454+05:30[Asia/Kolkata]")
 public class KeychainReference {
   public static final String SERIALIZED_NAME_KEYCHAIN_ID = "keychainId";
   @SerializedName(SERIALIZED_NAME_KEYCHAIN_ID)

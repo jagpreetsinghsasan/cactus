@@ -52,7 +52,7 @@ import org.openapitools.client.JSON;
 /**
  * A Cactus node can be a single server, or a set of servers behind a load balancer acting as one.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:02:24.426454313+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:16:15.708308621+05:30[Asia/Kolkata]")
 public class CactusNode {
   public static final String SERIALIZED_NAME_NODE_API_HOST = "nodeApiHost";
   @SerializedName(SERIALIZED_NAME_NODE_API_HOST)

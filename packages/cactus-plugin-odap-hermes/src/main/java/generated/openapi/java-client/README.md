@@ -2,7 +2,7 @@
 
 Hyperledger Cactus Plugin - Odap Hermes
 - API version: v2.0.0-alpha.1
-  - Build date: 2023-09-27T17:03:57.051152560+05:30[Asia/Kolkata]
+  - Build date: 2023-09-27T17:17:45.935760317+05:30[Asia/Kolkata]
 
 Implementation for Odap and Hermes
 

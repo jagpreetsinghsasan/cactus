@@ -54,7 +54,7 @@ import org.openapitools.client.JSON;
 /**
  * SolidityContractJsonArtifact
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:30.446635272+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:17:19.073379765+05:30[Asia/Kolkata]")
 public class SolidityContractJsonArtifact {
   public static final String SERIALIZED_NAME_CONTRACT_NAME = "contractName";
   @SerializedName(SERIALIZED_NAME_CONTRACT_NAME)

@@ -54,7 +54,7 @@ import org.openapitools.client.JSON;
 /**
  * InitializeRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:48.418445234+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:17:36.929605031+05:30[Asia/Kolkata]")
 public class InitializeRequest {
   public static final String SERIALIZED_NAME_CONNECTOR_ID = "connectorId";
   @SerializedName(SERIALIZED_NAME_CONNECTOR_ID)

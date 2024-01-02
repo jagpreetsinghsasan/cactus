@@ -48,7 +48,7 @@ import org.openapitools.client.JSON;
 /**
  * WatchBlocksV1Progress
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:33.851032436+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:17:17.535635551+05:30[Asia/Kolkata]")
 public class WatchBlocksV1Progress {
   public static final String SERIALIZED_NAME_BLOCK_HEADER = "blockHeader";
   @SerializedName(SERIALIZED_NAME_BLOCK_HEADER)

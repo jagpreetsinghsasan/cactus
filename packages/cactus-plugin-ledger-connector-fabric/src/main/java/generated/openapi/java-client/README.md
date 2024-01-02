@@ -2,7 +2,7 @@
 
 Hyperledger Cactus Plugin - Connector Fabric
 - API version: v2.0.0-alpha.1
-  - Build date: 2023-09-27T17:03:35.195240170+05:30[Asia/Kolkata]
+  - Build date: 2023-09-27T17:17:24.077334429+05:30[Asia/Kolkata]
 
 Can perform basic tasks on a fabric ledger
 

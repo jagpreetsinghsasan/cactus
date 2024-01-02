@@ -2,7 +2,7 @@
 
 Hyperledger Cactus Plugin - Keychain Memory 
 - API version: v2.0.0-alpha.1
-  - Build date: 2023-09-27T17:03:05.317858255+05:30[Asia/Kolkata]
+  - Build date: 2023-09-27T17:16:53.449684435+05:30[Asia/Kolkata]
 
 Contains/describes the Hyperledger Cactus Keychain Memory plugin.
 

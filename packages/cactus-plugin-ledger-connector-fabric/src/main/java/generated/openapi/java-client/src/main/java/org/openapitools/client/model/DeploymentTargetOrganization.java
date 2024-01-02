@@ -50,7 +50,7 @@ import org.openapitools.client.JSON;
 /**
  * DeploymentTargetOrganization
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:35.195240170+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:17:24.077334429+05:30[Asia/Kolkata]")
 public class DeploymentTargetOrganization {
   public static final String SERIALIZED_NAME_C_O_R_E_P_E_E_R_L_O_C_A_L_M_S_P_I_D = "CORE_PEER_LOCALMSPID";
   @SerializedName(SERIALIZED_NAME_C_O_R_E_P_E_E_R_L_O_C_A_L_M_S_P_I_D)

@@ -50,7 +50,7 @@ import org.openapitools.client.JSON;
 /**
  * Response that corresponds to Fabric SDK &#39;private&#39; EventType.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:35.195240170+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:17:24.077334429+05:30[Asia/Kolkata]")
 public class WatchBlocksPrivateResponseV1 {
   public static final String SERIALIZED_NAME_PRIVATE_BLOCK = "privateBlock";
   @SerializedName(SERIALIZED_NAME_PRIVATE_BLOCK)

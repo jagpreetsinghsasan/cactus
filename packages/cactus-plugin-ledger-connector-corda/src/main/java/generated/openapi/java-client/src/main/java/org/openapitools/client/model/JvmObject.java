@@ -54,7 +54,7 @@ import org.openapitools.client.JSON;
 /**
  * Can represent JVM primitive and reference types as well. The jvmTypeKind field indicates which one is being stored. If the jvmTypeKind field is set to REFERENCE then the jvmCtorArgs array is expected to be filled, otherwise (e.g. PRIMITIVE jvmTypeKind) it is expected that the primitiveValue property is filled with a primitive data type supported by the JSON standard such as strings, booleans, numbers, etc.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:11.202432183+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:17:01.211238693+05:30[Asia/Kolkata]")
 public class JvmObject {
   public static final String SERIALIZED_NAME_JVM_TYPE_KIND = "jvmTypeKind";
   @SerializedName(SERIALIZED_NAME_JVM_TYPE_KIND)

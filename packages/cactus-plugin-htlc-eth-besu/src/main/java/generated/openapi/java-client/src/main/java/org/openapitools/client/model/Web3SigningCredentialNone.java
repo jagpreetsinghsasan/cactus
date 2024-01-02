@@ -51,7 +51,7 @@ import org.openapitools.client.JSON;
 /**
  * Using this denotes that there is no signing required because the transaction is pre-signed.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:48.418445234+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:17:36.929605031+05:30[Asia/Kolkata]")
 public class Web3SigningCredentialNone {
   public static final String SERIALIZED_NAME_TYPE = "type";
   @SerializedName(SERIALIZED_NAME_TYPE)

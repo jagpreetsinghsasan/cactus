@@ -53,7 +53,7 @@ import org.openapitools.client.JSON;
 /**
  * IrohaBlockResponse
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:27.945505986+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:17:16.656230954+05:30[Asia/Kolkata]")
 public class IrohaBlockResponse {
   public static final String SERIALIZED_NAME_PAYLOAD = "payload";
   @SerializedName(SERIALIZED_NAME_PAYLOAD)

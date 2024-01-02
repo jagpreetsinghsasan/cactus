@@ -2,7 +2,7 @@
 
 Hyperledger Cactus Plugin - HTLC Coordinator
 - API version: v2.0.0-alpha.1
-  - Build date: 2023-09-27T17:04:02.091108361+05:30[Asia/Kolkata]
+  - Build date: 2023-09-27T17:17:50.032855102+05:30[Asia/Kolkata]
 
 Can exchange assets between networks
 

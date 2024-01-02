@@ -2,7 +2,7 @@
 
 Hyperledger Cactus Plugin - Connector Quorum
 - API version: v2.0.0-alpha.1
-  - Build date: 2023-09-27T17:03:30.446635272+05:30[Asia/Kolkata]
+  - Build date: 2023-09-27T17:17:19.073379765+05:30[Asia/Kolkata]
 
 Can perform basic tasks on a Quorum ledger
 

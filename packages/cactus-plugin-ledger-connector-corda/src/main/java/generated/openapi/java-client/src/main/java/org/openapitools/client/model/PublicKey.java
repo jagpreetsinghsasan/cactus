@@ -50,7 +50,7 @@ import org.openapitools.client.JSON;
 /**
  * An instance of a java.security.PublicKey (which is an interface) implementation such as org.hyperledger.cactus.plugin.ledger.connector.corda.server.impl.PublicKeyImpl
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:11.202432183+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:17:01.211238693+05:30[Asia/Kolkata]")
 public class PublicKey {
   public static final String SERIALIZED_NAME_ALGORITHM = "algorithm";
   @SerializedName(SERIALIZED_NAME_ALGORITHM)

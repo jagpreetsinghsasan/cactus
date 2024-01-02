@@ -57,7 +57,7 @@ import com.google.gson.JsonParseException;
 
 import org.openapitools.client.JSON;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:35.195240170+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:17:24.077334429+05:30[Asia/Kolkata]")
 public class GetBlockResponseV1 extends AbstractOpenApiSchema {
     private static final Logger log = Logger.getLogger(GetBlockResponseV1.class.getName());
 

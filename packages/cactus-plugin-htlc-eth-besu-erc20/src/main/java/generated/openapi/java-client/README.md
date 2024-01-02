@@ -2,7 +2,7 @@
 
 Hyperledger Cactus Plugin - HTLC ETH BESU ERC20
 - API version: v2.0.0-alpha.1
-  - Build date: 2023-09-27T17:03:48.449296164+05:30[Asia/Kolkata]
+  - Build date: 2023-09-27T17:17:36.715728497+05:30[Asia/Kolkata]
 
 Allows Cactus nodes to interact with HTLC contracts with ERC-20 Tokens
 

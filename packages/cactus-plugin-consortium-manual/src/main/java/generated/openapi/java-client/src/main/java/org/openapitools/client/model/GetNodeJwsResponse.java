@@ -51,7 +51,7 @@ import org.openapitools.client.JSON;
 /**
  * GetNodeJwsResponse
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:05.984194544+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:16:56.382618367+05:30[Asia/Kolkata]")
 public class GetNodeJwsResponse {
   public static final String SERIALIZED_NAME_JWS = "jws";
   @SerializedName(SERIALIZED_NAME_JWS)

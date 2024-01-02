@@ -50,7 +50,7 @@ import org.openapitools.client.JSON;
 /**
  * Represents a file-system file that has a name and a body which holds the file contents as a Base64 encoded string
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:35.195240170+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:17:24.077334429+05:30[Asia/Kolkata]")
 public class FileBase64 {
   public static final String SERIALIZED_NAME_BODY = "body";
   @SerializedName(SERIALIZED_NAME_BODY)

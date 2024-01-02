@@ -2,7 +2,7 @@
 
 Hyperledger Cactus Plugin - Connector Corda
 - API version: v2.0.0-alpha.1
-  - Build date: 2023-09-27T17:03:11.202432183+05:30[Asia/Kolkata]
+  - Build date: 2023-09-27T17:17:01.211238693+05:30[Asia/Kolkata]
 
 Can perform basic tasks on a Corda ledger
 

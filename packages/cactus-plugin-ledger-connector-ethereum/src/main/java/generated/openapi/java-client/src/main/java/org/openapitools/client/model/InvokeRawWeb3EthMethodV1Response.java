@@ -48,7 +48,7 @@ import org.openapitools.client.JSON;
 /**
  * InvokeRawWeb3EthMethodV1Response
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:33.851032436+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:17:17.535635551+05:30[Asia/Kolkata]")
 public class InvokeRawWeb3EthMethodV1Response {
   public static final String SERIALIZED_NAME_STATUS = "status";
   @SerializedName(SERIALIZED_NAME_STATUS)

@@ -48,7 +48,7 @@ import org.openapitools.client.JSON;
 /**
  * Web3BlockHeader
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:33.851032436+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:17:17.535635551+05:30[Asia/Kolkata]")
 public class Web3BlockHeader {
   public static final String SERIALIZED_NAME_NUMBER = "number";
   @SerializedName(SERIALIZED_NAME_NUMBER)

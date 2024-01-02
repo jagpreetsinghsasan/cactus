@@ -56,7 +56,7 @@ import org.openapitools.client.JSON;
 /**
  * DeployContractGoSourceV1Request
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:35.195240170+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:17:24.077334429+05:30[Asia/Kolkata]")
 public class DeployContractGoSourceV1Request {
   public static final String SERIALIZED_NAME_POLICY_DSL_SOURCE = "policyDslSource";
   @SerializedName(SERIALIZED_NAME_POLICY_DSL_SOURCE)

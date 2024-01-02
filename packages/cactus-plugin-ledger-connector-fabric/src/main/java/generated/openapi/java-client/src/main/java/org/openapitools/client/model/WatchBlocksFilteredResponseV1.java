@@ -50,7 +50,7 @@ import org.openapitools.client.JSON;
 /**
  * Response that corresponds to Fabric SDK &#39;filtered&#39; EventType.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:35.195240170+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:17:24.077334429+05:30[Asia/Kolkata]")
 public class WatchBlocksFilteredResponseV1 {
   public static final String SERIALIZED_NAME_FILTERED_BLOCK = "filteredBlock";
   @SerializedName(SERIALIZED_NAME_FILTERED_BLOCK)

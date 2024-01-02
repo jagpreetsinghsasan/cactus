@@ -50,7 +50,7 @@ import org.openapitools.client.JSON;
 /**
  * SetKeychainEntryResponseV1
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:02:59.356430306+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:16:47.093140151+05:30[Asia/Kolkata]")
 public class SetKeychainEntryResponseV1 {
   public static final String SERIALIZED_NAME_KEY = "key";
   @SerializedName(SERIALIZED_NAME_KEY)

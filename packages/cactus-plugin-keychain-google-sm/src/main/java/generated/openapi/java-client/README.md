@@ -2,7 +2,7 @@
 
 Hyperledger Cactus - Keychain API
 - API version: v2.0.0-alpha.1
-  - Build date: 2023-09-27T17:02:58.028887455+05:30[Asia/Kolkata]
+  - Build date: 2023-09-27T17:16:49.671287962+05:30[Asia/Kolkata]
 
 Contains/describes the Keychain API types/paths for Hyperledger Cactus.
 

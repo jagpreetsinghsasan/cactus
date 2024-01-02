@@ -50,7 +50,7 @@ import org.openapitools.client.JSON;
 /**
  * When skipDecode is false (default) then decoded block object is returned.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:35.195240170+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:17:24.077334429+05:30[Asia/Kolkata]")
 public class GetBlockResponseDecodedV1 {
   public static final String SERIALIZED_NAME_DECODED_BLOCK = "decodedBlock";
   @SerializedName(SERIALIZED_NAME_DECODED_BLOCK)

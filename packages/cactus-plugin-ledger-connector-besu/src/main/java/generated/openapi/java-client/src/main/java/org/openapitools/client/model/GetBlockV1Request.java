@@ -50,7 +50,7 @@ import org.openapitools.client.JSON;
 /**
  * GetBlockV1Request
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:27.847578276+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:17:18.448110410+05:30[Asia/Kolkata]")
 public class GetBlockV1Request {
   public static final String SERIALIZED_NAME_BLOCK_HASH_OR_BLOCK_NUMBER = "blockHashOrBlockNumber";
   @SerializedName(SERIALIZED_NAME_BLOCK_HASH_OR_BLOCK_NUMBER)

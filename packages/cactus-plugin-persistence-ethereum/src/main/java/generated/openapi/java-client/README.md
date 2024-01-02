@@ -2,7 +2,7 @@
 
 Hyperledger Cactus Plugin - Persistence Ethereum
 - API version: v2.0.0-alpha.1
-  - Build date: 2023-09-27T17:03:07.813869606+05:30[Asia/Kolkata]
+  - Build date: 2023-09-27T17:16:53.349737593+05:30[Asia/Kolkata]
 
 Synchronizes state of an ethereum ledger into a DB that can later be viewed in GUI
 

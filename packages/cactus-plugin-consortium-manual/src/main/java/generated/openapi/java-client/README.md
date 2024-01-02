@@ -2,7 +2,7 @@
 
 Hyperledger Cactus Plugin - Consortium Web Service
 - API version: v2.0.0-alpha.1
-  - Build date: 2023-09-27T17:03:05.984194544+05:30[Asia/Kolkata]
+  - Build date: 2023-09-27T17:16:56.382618367+05:30[Asia/Kolkata]
 
 Manage a Cactus consortium through the APIs. Needs administrative privileges.
 

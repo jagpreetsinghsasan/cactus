@@ -2,7 +2,7 @@
 
 Hyperledger Cactus Plugin - Block Fabrick PErsistance
 - API version: v2.0.0-alpha.1
-  - Build date: 2023-09-27T17:03:52.387981988+05:30[Asia/Kolkata]
+  - Build date: 2023-09-27T17:17:40.948939198+05:30[Asia/Kolkata]
 
 Scrap fabric ledger into database. Needs administrative privileges.
 

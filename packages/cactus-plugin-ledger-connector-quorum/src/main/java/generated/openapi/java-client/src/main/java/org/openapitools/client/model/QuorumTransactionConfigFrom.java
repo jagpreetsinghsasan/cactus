@@ -50,7 +50,7 @@ import com.google.gson.JsonParseException;
 
 import org.openapitools.client.JSON;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:30.446635272+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:17:19.073379765+05:30[Asia/Kolkata]")
 public class QuorumTransactionConfigFrom extends AbstractOpenApiSchema {
     private static final Logger log = Logger.getLogger(QuorumTransactionConfigFrom.class.getName());
 

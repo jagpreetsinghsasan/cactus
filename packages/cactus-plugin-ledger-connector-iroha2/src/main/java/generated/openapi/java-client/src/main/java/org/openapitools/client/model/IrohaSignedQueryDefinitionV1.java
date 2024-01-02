@@ -51,7 +51,7 @@ import org.openapitools.client.JSON;
 /**
  * Iroha V2 signed query definition
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:31.706650294+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:17:23.145061454+05:30[Asia/Kolkata]")
 public class IrohaSignedQueryDefinitionV1 {
   public static final String SERIALIZED_NAME_QUERY = "query";
   @SerializedName(SERIALIZED_NAME_QUERY)

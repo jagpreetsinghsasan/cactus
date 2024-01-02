@@ -50,7 +50,7 @@ import org.openapitools.client.JSON;
 /**
  * SolidityContractJsonArtifactCompiler
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:30.446635272+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:17:19.073379765+05:30[Asia/Kolkata]")
 public class SolidityContractJsonArtifactCompiler {
   public static final String SERIALIZED_NAME_NAME = "name";
   @SerializedName(SERIALIZED_NAME_NAME)

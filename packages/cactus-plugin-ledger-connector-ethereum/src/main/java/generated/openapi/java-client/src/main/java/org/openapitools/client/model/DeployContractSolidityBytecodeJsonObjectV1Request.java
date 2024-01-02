@@ -51,7 +51,7 @@ import org.openapitools.client.JSON;
 /**
  * DeployContractSolidityBytecodeJsonObjectV1Request
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:33.851032436+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:17:17.535635551+05:30[Asia/Kolkata]")
 public class DeployContractSolidityBytecodeJsonObjectV1Request {
   public static final String SERIALIZED_NAME_WEB3_SIGNING_CREDENTIAL = "web3SigningCredential";
   @SerializedName(SERIALIZED_NAME_WEB3_SIGNING_CREDENTIAL)

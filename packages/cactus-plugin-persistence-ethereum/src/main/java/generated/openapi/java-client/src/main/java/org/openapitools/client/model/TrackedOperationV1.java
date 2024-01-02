@@ -50,7 +50,7 @@ import org.openapitools.client.JSON;
 /**
  * Persistence plugin operation that is tracked and returned in status report.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:07.813869606+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:16:53.349737593+05:30[Asia/Kolkata]")
 public class TrackedOperationV1 {
   public static final String SERIALIZED_NAME_START_AT = "startAt";
   @SerializedName(SERIALIZED_NAME_START_AT)

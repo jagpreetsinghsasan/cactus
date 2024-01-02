@@ -50,7 +50,7 @@ import org.openapitools.client.JSON;
 /**
  * vault key details for signing fabric message with private key stored with transit engine.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:35.195240170+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:17:24.077334429+05:30[Asia/Kolkata]")
 public class VaultTransitKey {
   public static final String SERIALIZED_NAME_KEY_NAME = "keyName";
   @SerializedName(SERIALIZED_NAME_KEY_NAME)

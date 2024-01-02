@@ -51,7 +51,7 @@ import org.openapitools.client.JSON;
 /**
  * IrohaBlockProgress
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:27.945505986+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:17:16.656230954+05:30[Asia/Kolkata]")
 public class IrohaBlockProgress {
   public static final String SERIALIZED_NAME_TRANSACTION_RECEIPT = "transactionReceipt";
   @SerializedName(SERIALIZED_NAME_TRANSACTION_RECEIPT)

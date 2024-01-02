@@ -2,7 +2,7 @@
 
 Hyperledger Cactus Plugin - Connector Iroha V2
 - API version: v2.0.0-alpha.1
-  - Build date: 2023-09-27T17:03:31.706650294+05:30[Asia/Kolkata]
+  - Build date: 2023-09-27T17:17:23.145061454+05:30[Asia/Kolkata]
 
 Can perform basic tasks on a Iroha V2 ledger
 

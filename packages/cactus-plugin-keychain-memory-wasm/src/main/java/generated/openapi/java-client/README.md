@@ -2,7 +2,7 @@
 
 Hyperledger Cactus Plugin - Keychain Memory WASM
 - API version: v2.0.0-alpha.1
-  - Build date: 2023-09-27T17:03:08.088885368+05:30[Asia/Kolkata]
+  - Build date: 2023-09-27T17:16:56.360430586+05:30[Asia/Kolkata]
 
 Contains/describes the Hyperledger Cactus Keychain Memory WASM plugin which is designed to help with testing and development and is implemented in Rust instead of Typescript.
 

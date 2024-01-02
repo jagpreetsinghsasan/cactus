@@ -59,7 +59,7 @@ import com.google.gson.JsonParseException;
 
 import org.openapitools.client.JSON;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:04:02.091108361+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:17:50.032855102+05:30[Asia/Kolkata]")
 public class Web3SigningCredential extends AbstractOpenApiSchema {
     private static final Logger log = Logger.getLogger(Web3SigningCredential.class.getName());
 

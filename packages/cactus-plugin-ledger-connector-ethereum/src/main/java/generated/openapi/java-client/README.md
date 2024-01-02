@@ -2,7 +2,7 @@
 
 Hyperledger Cactus Plugin - Connector Ethereum
 - API version: v2.0.0-alpha.1
-  - Build date: 2023-09-27T17:03:33.851032436+05:30[Asia/Kolkata]
+  - Build date: 2023-09-27T17:17:17.535635551+05:30[Asia/Kolkata]
 
 Can perform basic tasks on a Ethereum ledger
 

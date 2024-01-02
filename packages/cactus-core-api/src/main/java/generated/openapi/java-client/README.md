@@ -2,7 +2,7 @@
 
 Hyperledger Core API
 - API version: v2.0.0-alpha.1
-  - Build date: 2023-09-27T17:02:24.426454313+05:30[Asia/Kolkata]
+  - Build date: 2023-09-27T17:16:15.708308621+05:30[Asia/Kolkata]
 
 Contains/describes the core API types for Cactus. Does not describe actual endpoints on its own as this is left to the implementing plugins who can import and re-use commonly needed type definitions from this specification. One example of said commonly used type definitions would be the types related to consortium management, cactus nodes, ledgers, etc..
 

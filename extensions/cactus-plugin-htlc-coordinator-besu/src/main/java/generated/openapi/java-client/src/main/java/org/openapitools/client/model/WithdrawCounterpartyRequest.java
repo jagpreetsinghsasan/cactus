@@ -53,7 +53,7 @@ import org.openapitools.client.JSON;
 /**
  * WithdrawCounterpartyRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:04:02.091108361+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:17:50.032855102+05:30[Asia/Kolkata]")
 public class WithdrawCounterpartyRequest {
   public static final String SERIALIZED_NAME_HTLC_PACKAGE = "htlcPackage";
   @SerializedName(SERIALIZED_NAME_HTLC_PACKAGE)

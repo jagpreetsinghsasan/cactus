@@ -50,7 +50,7 @@ import org.openapitools.client.JSON;
 /**
  * Gets transactions that an address was involved with, from newest to oldest. This call uses pagination. Source: https://ubiquity.docs.blockdaemon.com/swagger-ui/#/Accounts/GetTxsByAddress
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:02:54.128349046+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:16:44.915680834+05:30[Asia/Kolkata]")
 public class GetTransactionsByAddressEndpoint {
   public static final String SERIALIZED_NAME_PROTOCOL = "protocol";
   @SerializedName(SERIALIZED_NAME_PROTOCOL)

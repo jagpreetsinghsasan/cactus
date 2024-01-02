@@ -52,7 +52,7 @@ import org.openapitools.client.JSON;
 /**
  * AssetProfile
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:03:57.051152560+05:30[Asia/Kolkata]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-27T17:17:45.935760317+05:30[Asia/Kolkata]")
 public class AssetProfile {
   public static final String SERIALIZED_NAME_ISSUER = "issuer";
   @SerializedName(SERIALIZED_NAME_ISSUER)
