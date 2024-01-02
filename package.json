@@ -280,6 +280,6 @@
   },
   "packageManager": "yarn@3.6.0",
   "dependencies": {
-    "replace": "^1.2.2"
+    "replace": "1.2.2"
   }
 }

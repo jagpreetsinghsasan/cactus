@@ -8394,7 +8394,7 @@ __metadata:
     openapi-types: 12.1.3
     prettier: 3.0.3
     protoc-gen-ts: 0.8.6
-    replace: ^1.2.2
+    replace: 1.2.2
     run-time-error: 1.4.0
     run-time-error-cjs: 1.4.0
     secp256k1: 4.0.3
@@ -41407,7 +41407,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"replace@npm:^1.2.2":
+"replace@npm:1.2.2":
   version: 1.2.2
   resolution: "replace@npm:1.2.2"
   dependencies:
