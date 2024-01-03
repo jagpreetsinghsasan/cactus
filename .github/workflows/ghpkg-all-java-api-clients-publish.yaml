@@ -51,3 +51,257 @@ jobs:
       with:
         name: cactus-cmd-api-server-java-client-${{ env.GITVERSION }}.jar
         path: packages/cactus-cmd-api-server/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
+
+    - name: build-cactus-core-api-java-client
+      run: |
+        WDIR=`pwd`
+        cd ${WDIR}/packages/cactus-core-api/src/main/java/generated/openapi/java-client
+        mvn clean package
+    - name: publish-cactus-core-api-java-client
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: cactus-core-api-java-client-${{ env.GITVERSION }}.jar
+        path: packages/cactus-core-api/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
+
+    - name: build-cactus-consortium-manual-java-client
+      run: |
+        WDIR=`pwd`
+        cd ${WDIR}/packages/cactus-consortium-manual/src/main/java/generated/openapi/java-client
+        mvn clean package
+    - name: publish-cactus-consortium-manual-java-client
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: cactus-consortium-manual-java-client-${{ env.GITVERSION }}.jar
+        path: packages/cactus-consortium-manual/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
+
+    - name: build-cactus-plugin-htlc-eth-besu-java-client
+      run: |
+        WDIR=`pwd`
+        cd ${WDIR}/packages/cactus-plugin-htlc-eth-besu/src/main/java/generated/openapi/java-client
+        mvn clean package
+    - name: publish-cactus-plugin-htlc-eth-besu-java-client
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: cactus-plugin-htlc-eth-besu-java-client-${{ env.GITVERSION }}.jar
+        path: packages/cactus-plugin-htlc-eth-besu/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
+
+    - name: build-cactus-plugin-htlc-eth-besu-erc20-java-client
+      run: |
+        WDIR=`pwd`
+        cd ${WDIR}/packages/cactus-plugin-htlc-eth-besu-erc20/src/main/java/generated/openapi/java-client
+        mvn clean package
+    - name: publish-cactus-plugin-htlc-eth-besu-erc20-java-client
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: cactus-plugin-htlc-eth-besu-erc20java-client-${{ env.GITVERSION }}.jar
+        path: packages/cactus-plugin-htlc-eth-besu-erc20/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
+
+    - name: build-cactus-plugin-keychain-aws-sm-java-client
+      run: |
+        WDIR=`pwd`
+        cd ${WDIR}/packages/cactus-plugin-keychain-aws-sm/src/main/java/generated/openapi/java-client
+        mvn clean package
+    - name: publish-cactus-plugin-keychain-aws-sm-java-client
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: cactus-plugin-keychain-aws-sm-java-client-${{ env.GITVERSION }}.jar
+        path: packages/cactus-plugin-keychain-aws-sm/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
+
+    - name: build-cactus-plugin-keychain-azure-kv-java-client
+      run: |
+        WDIR=`pwd`
+        cd ${WDIR}/packages/cactus-plugin-keychain-azure-kv/src/main/java/generated/openapi/java-client
+        mvn clean package
+    - name: publish-cactus-plugin-keychain-azure-kv-java-client
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: cactus-plugin-keychain-azure-kv-java-client-${{ env.GITVERSION }}.jar
+        path: packages/cactus-plugin-keychain-azure-kv/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
+
+    - name: build-cactus-plugin-keychain-google-sm-java-client
+      run: |
+        WDIR=`pwd`
+        cd ${WDIR}/packages/cactus-plugin-keychain-google-sm/src/main/java/generated/openapi/java-client
+        mvn clean package
+    - name: publish-cactus-plugin-keychain-google-sm-java-client
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: cactus-plugin-keychain-google-sm-java-client-${{ env.GITVERSION }}.jar
+        path: packages/cactus-plugin-keychain-google-sm/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
+
+    - name: build-cactus-plugin-keychain-memory-java-client
+      run: |
+        WDIR=`pwd`
+        cd ${WDIR}/packages/cactus-plugin-keychain-memory/src/main/java/generated/openapi/java-client
+        mvn clean package
+    - name: publish-cactus-plugin-keychain-memory-java-client
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: cactus-plugin-keychain-memory-java-client-${{ env.GITVERSION }}.jar
+        path: packages/cactus-plugin-keychain-memory/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
+
+    - name: build-cactus-plugin-keychain-memory-wasm-java-client
+      run: |
+        WDIR=`pwd`
+        cd ${WDIR}/packages/cactus-plugin-keychain-memory-wasm/src/main/java/generated/openapi/java-client
+        mvn clean package
+    - name: publish-cactus-plugin-keychain-memory-wasm-java-client
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: cactus-plugin-keychain-memory-wasm-java-client-${{ env.GITVERSION }}.jar
+        path: packages/cactus-plugin-keychain-memory-wasm/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
+
+    - name: build-cactus-plugin-keychain-vault-java-client
+      run: |
+        WDIR=`pwd`
+        cd ${WDIR}/packages/cactus-plugin-keychain-vault/src/main/java/generated/openapi/java-client
+        mvn clean package
+    - name: publish-cactus-plugin-keychain-vault-java-client
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: cactus-plugin-keychain-vault-java-client-${{ env.GITVERSION }}.jar
+        path: packages/cactus-plugin-keychain-vault/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
+
+    - name: build-cactus-plugin-ledger-connector-besu-java-client
+      run: |
+        WDIR=`pwd`
+        cd ${WDIR}/packages/cactus-plugin-ledger-connector-besu/src/main/java/generated/openapi/java-client
+        mvn clean package
+    - name: publish-cactus-plugin-ledger-connector-besu-java-client
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: cactus-plugin-ledger-connector-besu-java-client-${{ env.GITVERSION }}.jar
+        path: packages/cactus-plugin-ledger-connector-besu/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
+
+    - name: build-cactus-plugin-ledger-connector-corda-java-client
+      run: |
+        WDIR=`pwd`
+        cd ${WDIR}/packages/cactus-plugin-ledger-connector-corda/src/main/java/generated/openapi/java-client
+        mvn clean package
+    - name: publish-cactus-plugin-ledger-connector-corda-java-client
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: cactus-plugin-ledger-connector-corda-java-client-${{ env.GITVERSION }}.jar
+        path: packages/cactus-plugin-ledger-connector-corda/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
+
+    - name: build-cactus-plugin-ledger-connector-ethereum-java-client
+      run: |
+        WDIR=`pwd`
+        cd ${WDIR}/packages/cactus-plugin-ledger-connector-ethereum/src/main/java/generated/openapi/java-client
+        mvn clean package
+    - name: publish-cactus-plugin-ledger-connector-ethereum-java-client
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: cactus-plugin-ledger-connector-ethereum-java-client-${{ env.GITVERSION }}.jar
+        path: packages/cactus-plugin-ledger-connector-ethereum/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
+
+    - name: build-cactus-plugin-ledger-connector-fabric-java-client
+      run: |
+        WDIR=`pwd`
+        cd ${WDIR}/packages/cactus-plugin-ledger-connector-fabric/src/main/java/generated/openapi/java-client
+        mvn clean package
+    - name: publish-cactus-plugin-ledger-connector-fabric-java-client
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: cactus-plugin-ledger-connector-fabric-java-client-${{ env.GITVERSION }}.jar
+        path: packages/cactus-plugin-ledger-connector-fabric/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
+
+    - name: build-cactus-plugin-ledger-connector-iroha-java-client
+      run: |
+        WDIR=`pwd`
+        cd ${WDIR}/packages/cactus-plugin-ledger-connector-iroha/src/main/java/generated/openapi/java-client
+        mvn clean package
+    - name: publish-cactus-plugin-ledger-connector-iroha-java-client
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: cactus-plugin-ledger-connector-iroha-java-client-${{ env.GITVERSION }}.jar
+        path: packages/cactus-plugin-ledger-connector-iroha/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
+
+    - name: build-cactus-plugin-ledger-connector-iroha2-java-client
+      run: |
+        WDIR=`pwd`
+        cd ${WDIR}/packages/cactus-plugin-ledger-connector-iroha2/src/main/java/generated/openapi/java-client
+        mvn clean package
+    - name: publish-cactus-plugin-ledger-connector-iroha2-java-client
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: cactus-plugin-ledger-connector-iroha2-java-client-${{ env.GITVERSION }}.jar
+        path: packages/cactus-plugin-ledger-connector-iroha2/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
+
+    - name: build-cactus-plugin-ledger-connector-quorum-java-client
+      run: |
+        WDIR=`pwd`
+        cd ${WDIR}/packages/cactus-plugin-ledger-connector-quorum/src/main/java/generated/openapi/java-client
+        mvn clean package
+    - name: publish-cactus-plugin-ledger-connector-quorum-java-client
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: cactus-plugin-ledger-connector-quorum-java-client-${{ env.GITVERSION }}.jar
+        path: packages/cactus-plugin-ledger-connector-quorum/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
+
+    - name: build-cactus-plugin-ledger-connector-sawtooth-java-client
+      run: |
+        WDIR=`pwd`
+        cd ${WDIR}/packages/cactus-plugin-ledger-connector-sawtooth/src/main/java/generated/openapi/java-client
+        mvn clean package
+    - name: publish-cactus-plugin-ledger-connector-sawtooth-java-client
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: cactus-plugin-ledger-connector-sawtooth-java-client-${{ env.GITVERSION }}.jar
+        path: packages/cactus-plugin-ledger-connector-sawtooth/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
+
+    - name: build-cactus-plugin-ledger-connector-ubiquity-java-client
+      run: |
+        WDIR=`pwd`
+        cd ${WDIR}/packages/cactus-plugin-ledger-connector-ubiquity/src/main/java/generated/openapi/java-client
+        mvn clean package
+    - name: publish-cactus-plugin-ledger-connector-ubiquity-java-client
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: cactus-plugin-ledger-connector-ubiquity-java-client-${{ env.GITVERSION }}.jar
+        path: packages/cactus-plugin-ledger-connector-ubiquity/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
+
+    - name: build-cactus-plugin-ledger-connector-xdai-java-client
+      run: |
+        WDIR=`pwd`
+        cd ${WDIR}/packages/cactus-plugin-ledger-connector-xdai/src/main/java/generated/openapi/java-client
+        mvn clean package
+    - name: publish-cactus-plugin-ledger-connector-xdai-java-client
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: cactus-plugin-ledger-connector-xdai-java-client-${{ env.GITVERSION }}.jar
+        path: packages/cactus-plugin-ledger-connector-xdai/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
+
+    - name: build-cactus-plugin-odap-hermes-java-client
+      run: |
+        WDIR=`pwd`
+        cd ${WDIR}/packages/cactus-plugin-odap-hermes/src/main/java/generated/openapi/java-client
+        mvn clean package
+    - name: publish-cactus-plugin-odap-hermes-java-client
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: cactus-plugin-odap-hermes-java-client-${{ env.GITVERSION }}.jar
+        path: packages/cactus-plugin-odap-hermes/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
+
+    - name: build-cactus-plugin-persistence-ethereum-java-client
+      run: |
+        WDIR=`pwd`
+        cd ${WDIR}/packages/cactus-plugin-persistence-ethereum/src/main/java/generated/openapi/java-client
+        mvn clean package
+    - name: publish-cactus-plugin-persistence-ethereum-java-client
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: cactus-plugin-persistence-ethereum-java-client-${{ env.GITVERSION }}.jar
+        path: packages/cactus-plugin-persistence-ethereum/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
+
+    - name: build-cactus-plugin-persistence-fabric-java-client
+      run: |
+        WDIR=`pwd`
+        cd ${WDIR}/packages/cactus-plugin-persistence-fabric/src/main/java/generated/openapi/java-client
+        mvn clean package
+    - name: publish-cactus-plugin-persistence-fabric-java-client
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: cactus-plugin-persistence-fabric-java-client-${{ env.GITVERSION }}.jar
+        path: packages/cactus-plugin-persistence-fabric/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
+
