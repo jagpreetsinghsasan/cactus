@@ -52,16 +52,16 @@ jobs:
         name: cactus-cmd-api-server-java-client-${{ env.GITVERSION }}.jar
         path: packages/cactus-cmd-api-server/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
 
-    - name: build-cactus-core-api-java-client
-      run: |
-        WDIR=`pwd`
-        cd ${WDIR}/packages/cactus-core-api/src/main/java/generated/openapi/java-client
-        mvn clean package
-    - name: publish-cactus-core-api-java-client
-      uses: actions/upload-artifact@v3.0.0
-      with:
-        name: cactus-core-api-java-client-${{ env.GITVERSION }}.jar
-        path: packages/cactus-core-api/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
+    # - name: build-cactus-core-api-java-client
+    #   run: |
+    #     WDIR=`pwd`
+    #     cd ${WDIR}/packages/cactus-core-api/src/main/java/generated/openapi/java-client
+    #     mvn clean package
+    # - name: publish-cactus-core-api-java-client
+    #   uses: actions/upload-artifact@v3.0.0
+    #   with:
+    #     name: cactus-core-api-java-client-${{ env.GITVERSION }}.jar
+    #     path: packages/cactus-core-api/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
 
     - name: build-cactus-consortium-manual-java-client
       run: |
