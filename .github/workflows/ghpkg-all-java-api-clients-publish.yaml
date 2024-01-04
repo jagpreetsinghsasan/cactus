@@ -184,16 +184,16 @@ jobs:
         name: cactus-plugin-ledger-connector-corda-java-client-${{ env.GITVERSION }}.jar
         path: packages/cactus-plugin-ledger-connector-corda/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
 
-    - name: build-cactus-plugin-ledger-connector-ethereum-java-client
-      run: |
-        WDIR=`pwd`
-        cd ${WDIR}/packages/cactus-plugin-ledger-connector-ethereum/src/main/java/generated/openapi/java-client
-        mvn clean package
-    - name: publish-cactus-plugin-ledger-connector-ethereum-java-client
-      uses: actions/upload-artifact@v3.0.0
-      with:
-        name: cactus-plugin-ledger-connector-ethereum-java-client-${{ env.GITVERSION }}.jar
-        path: packages/cactus-plugin-ledger-connector-ethereum/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
+    # - name: build-cactus-plugin-ledger-connector-ethereum-java-client
+    #   run: |
+    #     WDIR=`pwd`
+    #     cd ${WDIR}/packages/cactus-plugin-ledger-connector-ethereum/src/main/java/generated/openapi/java-client
+    #     mvn clean package
+    # - name: publish-cactus-plugin-ledger-connector-ethereum-java-client
+    #   uses: actions/upload-artifact@v3.0.0
+    #   with:
+    #     name: cactus-plugin-ledger-connector-ethereum-java-client-${{ env.GITVERSION }}.jar
+    #     path: packages/cactus-plugin-ledger-connector-ethereum/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
 
     - name: build-cactus-plugin-ledger-connector-fabric-java-client
       run: |
