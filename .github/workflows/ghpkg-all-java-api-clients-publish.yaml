@@ -74,16 +74,16 @@ jobs:
     #     name: cactus-plugin-consortium-manual-java-client-${{ env.GITVERSION }}.jar
     #     path: packages/cactus-plugin-consortium-manual/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
 
-    - name: build-cactus-plugin-htlc-eth-besu-java-client
-      run: |
-        WDIR=`pwd`
-        cd ${WDIR}/packages/cactus-plugin-htlc-eth-besu/src/main/java/generated/openapi/java-client
-        mvn clean package
-    - name: publish-cactus-plugin-htlc-eth-besu-java-client
-      uses: actions/upload-artifact@v3.0.0
-      with:
-        name: cactus-plugin-htlc-eth-besu-java-client-${{ env.GITVERSION }}.jar
-        path: packages/cactus-plugin-htlc-eth-besu/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
+    # - name: build-cactus-plugin-htlc-eth-besu-java-client
+    #   run: |
+    #     WDIR=`pwd`
+    #     cd ${WDIR}/packages/cactus-plugin-htlc-eth-besu/src/main/java/generated/openapi/java-client
+    #     mvn clean package
+    # - name: publish-cactus-plugin-htlc-eth-besu-java-client
+    #   uses: actions/upload-artifact@v3.0.0
+    #   with:
+    #     name: cactus-plugin-htlc-eth-besu-java-client-${{ env.GITVERSION }}.jar
+    #     path: packages/cactus-plugin-htlc-eth-besu/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
 
     - name: build-cactus-plugin-htlc-eth-besu-erc20-java-client
       run: |
