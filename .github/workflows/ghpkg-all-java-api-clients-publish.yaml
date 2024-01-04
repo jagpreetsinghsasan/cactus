@@ -162,16 +162,16 @@ jobs:
         name: cactus-plugin-keychain-vault-java-client-${{ env.GITVERSION }}.jar
         path: packages/cactus-plugin-keychain-vault/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
 
-    - name: build-cactus-plugin-ledger-connector-besu-java-client
-      run: |
-        WDIR=`pwd`
-        cd ${WDIR}/packages/cactus-plugin-ledger-connector-besu/src/main/java/generated/openapi/java-client
-        mvn clean package
-    - name: publish-cactus-plugin-ledger-connector-besu-java-client
-      uses: actions/upload-artifact@v3.0.0
-      with:
-        name: cactus-plugin-ledger-connector-besu-java-client-${{ env.GITVERSION }}.jar
-        path: packages/cactus-plugin-ledger-connector-besu/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
+    # - name: build-cactus-plugin-ledger-connector-besu-java-client
+    #   run: |
+    #     WDIR=`pwd`
+    #     cd ${WDIR}/packages/cactus-plugin-ledger-connector-besu/src/main/java/generated/openapi/java-client
+    #     mvn clean package
+    # - name: publish-cactus-plugin-ledger-connector-besu-java-client
+    #   uses: actions/upload-artifact@v3.0.0
+    #   with:
+    #     name: cactus-plugin-ledger-connector-besu-java-client-${{ env.GITVERSION }}.jar
+    #     path: packages/cactus-plugin-ledger-connector-besu/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
 
     - name: build-cactus-plugin-ledger-connector-corda-java-client
       run: |
