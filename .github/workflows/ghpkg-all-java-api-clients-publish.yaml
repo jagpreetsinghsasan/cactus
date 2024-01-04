@@ -206,27 +206,27 @@ jobs:
         name: cactus-plugin-ledger-connector-fabric-java-client-${{ env.GITVERSION }}.jar
         path: packages/cactus-plugin-ledger-connector-fabric/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
 
-    - name: build-cactus-plugin-ledger-connector-iroha-java-client
-      run: |
-        WDIR=`pwd`
-        cd ${WDIR}/packages/cactus-plugin-ledger-connector-iroha/src/main/java/generated/openapi/java-client
-        mvn clean package
-    - name: publish-cactus-plugin-ledger-connector-iroha-java-client
-      uses: actions/upload-artifact@v3.0.0
-      with:
-        name: cactus-plugin-ledger-connector-iroha-java-client-${{ env.GITVERSION }}.jar
-        path: packages/cactus-plugin-ledger-connector-iroha/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
+    # - name: build-cactus-plugin-ledger-connector-iroha-java-client
+    #   run: |
+    #     WDIR=`pwd`
+    #     cd ${WDIR}/packages/cactus-plugin-ledger-connector-iroha/src/main/java/generated/openapi/java-client
+    #     mvn clean package
+    # - name: publish-cactus-plugin-ledger-connector-iroha-java-client
+    #   uses: actions/upload-artifact@v3.0.0
+    #   with:
+    #     name: cactus-plugin-ledger-connector-iroha-java-client-${{ env.GITVERSION }}.jar
+    #     path: packages/cactus-plugin-ledger-connector-iroha/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
 
-    - name: build-cactus-plugin-ledger-connector-iroha2-java-client
-      run: |
-        WDIR=`pwd`
-        cd ${WDIR}/packages/cactus-plugin-ledger-connector-iroha2/src/main/java/generated/openapi/java-client
-        mvn clean package
-    - name: publish-cactus-plugin-ledger-connector-iroha2-java-client
-      uses: actions/upload-artifact@v3.0.0
-      with:
-        name: cactus-plugin-ledger-connector-iroha2-java-client-${{ env.GITVERSION }}.jar
-        path: packages/cactus-plugin-ledger-connector-iroha2/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
+    # - name: build-cactus-plugin-ledger-connector-iroha2-java-client
+    #   run: |
+    #     WDIR=`pwd`
+    #     cd ${WDIR}/packages/cactus-plugin-ledger-connector-iroha2/src/main/java/generated/openapi/java-client
+    #     mvn clean package
+    # - name: publish-cactus-plugin-ledger-connector-iroha2-java-client
+    #   uses: actions/upload-artifact@v3.0.0
+    #   with:
+    #     name: cactus-plugin-ledger-connector-iroha2-java-client-${{ env.GITVERSION }}.jar
+    #     path: packages/cactus-plugin-ledger-connector-iroha2/src/main/java/generated/openapi/java-client/target/openapi-java-client-1.jar
 
     - name: build-cactus-plugin-ledger-connector-quorum-java-client
       run: |
