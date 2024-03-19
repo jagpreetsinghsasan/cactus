@@ -43,8 +43,8 @@ func main(){
 	fabricNetworkYamlReq.GitUsertoken = bevelConfig.GitToken
 	fabricNetworkYamlReq.GitUseremail = bevelConfig.GitUserEmail
 	
-	// configure.DownloadBevelRepo(bevelConfig.GitUrl, bevelConfig.GitUserName, bevelConfig.GitToken, logger)
-	// configure.CreateBranchFromBevelRemote(logger)
+	configure.DownloadBevelRepo(bevelConfig.GitUrl, bevelConfig.GitUserName, bevelConfig.GitToken, logger)
+	configure.CreateBranchFromBevelRemote(logger)
 	prequisites.InstallDocker(logger)
 	prequisites.SetupKind(logger)
 	prequisites.KindConfig(logger)
