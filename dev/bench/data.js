@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1718345973329,
+  "lastUpdate": 1718602456793,
   "repoUrl": "https://github.com/jagpreetsinghsasan/cactus",
   "entries": {
     "Benchmark": [
@@ -136,6 +136,44 @@ window.BENCHMARK_DATA = {
             "name": "plugin-ledger-connector-besu_HTTP_GET_getOpenApiSpecV1",
             "value": 744,
             "range": "±2.82%",
+            "unit": "ops/sec",
+            "extra": "180 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "peter.somogyvari@accenture.com",
+            "name": "Peter Somogyvari",
+            "username": "petermetz"
+          },
+          "committer": {
+            "email": "petermetz@users.noreply.github.com",
+            "name": "Peter Somogyvari",
+            "username": "petermetz"
+          },
+          "distinct": true,
+          "id": "092d4501ccf0e43001f2cefb0860b1bcbb0f1485",
+          "message": "ci(github): add workflow for DCO check\n\nSigned-off-by: Peter Somogyvari <peter.somogyvari@accenture.com>",
+          "timestamp": "2024-06-14T08:52:05-07:00",
+          "tree_id": "e59a83c4ef3ce206b28d85053c8bca7119a4c82d",
+          "url": "https://github.com/jagpreetsinghsasan/cactus/commit/092d4501ccf0e43001f2cefb0860b1bcbb0f1485"
+        },
+        "date": 1718602454846,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "cmd-api-server_HTTP_GET_getOpenApiSpecV1",
+            "value": 588,
+            "range": "±1.64%",
+            "unit": "ops/sec",
+            "extra": "177 samples"
+          },
+          {
+            "name": "cmd-api-server_gRPC_GetOpenApiSpecV1",
+            "value": 355,
+            "range": "±1.42%",
             "unit": "ops/sec",
             "extra": "180 samples"
           }
