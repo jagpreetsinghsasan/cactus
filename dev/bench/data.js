@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1718603341750,
+  "lastUpdate": 1720502589384,
   "repoUrl": "https://github.com/jagpreetsinghsasan/cactus",
   "entries": {
     "Benchmark": [
@@ -205,6 +205,44 @@ window.BENCHMARK_DATA = {
             "name": "plugin-ledger-connector-besu_HTTP_GET_getOpenApiSpecV1",
             "value": 719,
             "range": "±3.14%",
+            "unit": "ops/sec",
+            "extra": "180 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "peter.somogyvari@accenture.com",
+            "name": "Peter Somogyvari",
+            "username": "petermetz"
+          },
+          "committer": {
+            "email": "petermetz@users.noreply.github.com",
+            "name": "Peter Somogyvari",
+            "username": "petermetz"
+          },
+          "distinct": true,
+          "id": "997ee75725989e02b0e83a71bb06812c1f621b31",
+          "message": "docs(examples): migrate supply chain app to XDai connector\n\n1. We are in the process of decomissioning the Quorum connector and this\nis a pre-requisite to that end.\n\nDepends on #3379\n> test(test-tooling): fix BesuTestLedger start cfg: publish all ports)\n\nFixes #3272\n\nSigned-off-by: Peter Somogyvari <peter.somogyvari@accenture.com>",
+          "timestamp": "2024-07-08T10:00:45-07:00",
+          "tree_id": "917ab21bf7f842d66833db2d171e9fd9f26c2020",
+          "url": "https://github.com/jagpreetsinghsasan/cactus/commit/997ee75725989e02b0e83a71bb06812c1f621b31"
+        },
+        "date": 1720502588004,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "cmd-api-server_HTTP_GET_getOpenApiSpecV1",
+            "value": 573,
+            "range": "±1.61%",
+            "unit": "ops/sec",
+            "extra": "178 samples"
+          },
+          {
+            "name": "cmd-api-server_gRPC_GetOpenApiSpecV1",
+            "value": 349,
+            "range": "±1.34%",
             "unit": "ops/sec",
             "extra": "180 samples"
           }
