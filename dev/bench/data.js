@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1720502589384,
+  "lastUpdate": 1721045139215,
   "repoUrl": "https://github.com/jagpreetsinghsasan/cactus",
   "entries": {
     "Benchmark": [
@@ -245,6 +245,44 @@ window.BENCHMARK_DATA = {
             "range": "±1.34%",
             "unit": "ops/sec",
             "extra": "180 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "aldousss.alvarez@gmail.com",
+            "name": "aldousalvarez",
+            "username": "aldousalvarez"
+          },
+          "committer": {
+            "email": "petermetz@users.noreply.github.com",
+            "name": "Peter Somogyvari",
+            "username": "petermetz"
+          },
+          "distinct": false,
+          "id": "c7fce889866f0cbfd8868d5c8293c9c3ade54ef3",
+          "message": "ci(coverage): add total typescript code coverage statistics\n\nPrimary Changes\n----------------\n1. Updated the ci.yaml and ci.sh to introduce total typescript code coverage\n   statistics using jest and istanbul-merge\n2. Added Codecov to cspell.json\n\nFixes #2661\n\nSigned-off-by: aldousalvarez <aldousss.alvarez@gmail.com>",
+          "timestamp": "2024-07-13T11:29:03-07:00",
+          "tree_id": "518091d13dd3d4010c8db1d0a6c07d89072c7edf",
+          "url": "https://github.com/jagpreetsinghsasan/cactus/commit/c7fce889866f0cbfd8868d5c8293c9c3ade54ef3"
+        },
+        "date": 1721045137312,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "cmd-api-server_HTTP_GET_getOpenApiSpecV1",
+            "value": 562,
+            "range": "±1.74%",
+            "unit": "ops/sec",
+            "extra": "178 samples"
+          },
+          {
+            "name": "cmd-api-server_gRPC_GetOpenApiSpecV1",
+            "value": 345,
+            "range": "±1.51%",
+            "unit": "ops/sec",
+            "extra": "181 samples"
           }
         ]
       }
