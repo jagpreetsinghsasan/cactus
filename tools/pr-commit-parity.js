@@ -1,4 +1,4 @@
-export async function getCommitMessageStringArray(url) {
+export async function getPrMetadata(url) {
   const commitMessagesJsonResponse = await fetch(url);
   return commitMessagesJsonResponse.json();
 }
@@ -6,5 +6,8 @@ export async function getCommitMessageStringArray(url) {
 const args = process.argv.slice(2);
 const pullReqUrl = args[0];
 
-const res = await getCommitMessageStringArray(pullReqUrl);
-console.log(encodeURIComponent(JSON.stringify(res.body)));
+const prMetaData = await getCommitMessageStringArray(pullReqUrl);
+const prBodyRaw = JSON.stringify(prMetaData.body);
+const prBodyStriped = prBodyRaw.replace(/\r\n/g);
+
+console.log(prBodyStriped);
