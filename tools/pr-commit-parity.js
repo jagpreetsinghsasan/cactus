@@ -1,6 +1,6 @@
 export async function getCommitMessageStringArray(url) {
-  const commitMessagesJson = await fetch(url);
-  return commitMessagesJson;
+  const commitMessagesJsonResponse = await fetch(url);
+  return commitMessagesJsonResponse.text();
 }
 
 const args = process.argv.slice(2);
