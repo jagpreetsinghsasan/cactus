@@ -6,7 +6,7 @@ export async function getPrMetadata(url) {
 const args = process.argv.slice(2);
 const pullReqUrl = args[0];
 
-const prMetaData = await getCommitMessageStringArray(pullReqUrl);
+const prMetaData = await getPrMetadata(pullReqUrl);
 const prBodyRaw = JSON.stringify(prMetaData.body);
 const prBodyStriped = prBodyRaw.replace(/\r\n/g);
 
