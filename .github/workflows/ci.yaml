@@ -27,7 +27,7 @@ jobs:
     - name: Execute script
       id: execute-script
       run: |
-         PR_COMMIT_PARITY_OUTPUT=$(node tools/pr-commit-parity.js ${{ github.event.pull_request.url }} ${{ github.event.pull_request.title }} "${github.event.pull_request.body}")
+         PR_COMMIT_PARITY_OUTPUT=$(node tools/pr-commit-parity.js ${{ github.event.pull_request.url }})
          echo "PR_COMMIT_PARITY_OUTPUT=$PR_COMMIT_PARITY_OUTPUT" >> "$GITHUB_OUTPUT"
 
     - name: List output

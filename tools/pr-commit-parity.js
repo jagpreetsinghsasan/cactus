@@ -1,16 +1,10 @@
-export async function getCommitMessageStringArray(url: string) {
+export async function getCommitMessageStringArray(url) {
   const commitMessagesJson = await fetch(url);
   return commitMessagesJson;
 }
 
 const args = process.argv.slice(2);
+const pullReqUrl = args[0];
 
-// const pullReqUrl = args[0];
-// const pullReqTitle = args[1];
-const pullReqBody = args[2];
-const githubApiCommitIdsRef = pullReqBody + "/commits";
-// console.log(pullReqUrl);
-// console.log(pullReqTitle);
-// console.log(githubApiCommitIdsRef);
-const res = await getCommitMessageStringArray(githubApiCommitIdsRef);
+const res = await getCommitMessageStringArray(pullReqUrl);
 console.log(JSON.stringify(res));
