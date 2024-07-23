@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1721045139215,
+  "lastUpdate": 1721741960541,
   "repoUrl": "https://github.com/jagpreetsinghsasan/cactus",
   "entries": {
     "Benchmark": [
@@ -281,6 +281,44 @@ window.BENCHMARK_DATA = {
             "name": "cmd-api-server_gRPC_GetOpenApiSpecV1",
             "value": 345,
             "range": "±1.51%",
+            "unit": "ops/sec",
+            "extra": "181 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "vramakr2@in.ibm.com",
+            "name": "VRamakrishna",
+            "username": "VRamakrishna"
+          },
+          "committer": {
+            "email": "vramakr2@in.ibm.com",
+            "name": "VRamakrishna",
+            "username": "VRamakrishna"
+          },
+          "distinct": true,
+          "id": "81482ae7cf0c3b58e62a1e4acf63611038569503",
+          "message": "chore(cleanup-docs): deleted last-remaining deprecated files and folders\n\nReflected pending changes to the new docs folder.\nUpdated com.jfrog.artifactory versions to fix missing dependency.\n\nSigned-off-by: VRamakrishna <vramakr2@in.ibm.com>",
+          "timestamp": "2024-07-23T14:12:54+05:30",
+          "tree_id": "57807bf092f668e20c2e16d28feab8ede8b8a24d",
+          "url": "https://github.com/jagpreetsinghsasan/cactus/commit/81482ae7cf0c3b58e62a1e4acf63611038569503"
+        },
+        "date": 1721741958454,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "cmd-api-server_HTTP_GET_getOpenApiSpecV1",
+            "value": 571,
+            "range": "±1.75%",
+            "unit": "ops/sec",
+            "extra": "176 samples"
+          },
+          {
+            "name": "cmd-api-server_gRPC_GetOpenApiSpecV1",
+            "value": 340,
+            "range": "±1.41%",
             "unit": "ops/sec",
             "extra": "181 samples"
           }
