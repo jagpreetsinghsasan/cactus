@@ -1,0 +1,14 @@
+#!/bin/bash
+
+PULL_REQ_NUMBER=$(echo "$2" | grep -oP '\d+$')
+GITHUB_API_COMMIT_IDS_URL="https://api.github.com/repos/$1/pulls/${PULL_REQ_NUMBER}/commits"
+curl $GITHUB_API_COMMIT_IDS_URL -o COMMITS_MESSAGE_DATA.json
+echo $(cat COMMITS_MESSAGE_DATA.json | jq '.[] | .commit.message | split("\n\n")[0]') > COMMIT_MESSAGE_STRIPED.txt
+# cat COMMIT_MESSAGE_STRIPED.txt
+
+PULL_REQ_TITLE=$(echo -e "$3")
+PULL_REQ_BODY=$(echo -e "$4")
+echo "$PULL_REQ_BODY" | sed -e 's/\\r//'g > PULL_REQ_BODY_WITHOUT_MANDATORY_STRING_INFO.txt
+# sed -e 's/**Pull.*/ /g' PULL_REQ_BODY_WITHOUT_MANDATORY_STRING_INFO.txt > PULL_REQ_BODY_WITHOUT_MANDATORY_STRING_INFO.txt
+echo -e $(cat PULL_REQ_BODY_WITHOUT_MANDATORY_STRING_INFO.txt) > PULL_REQ_BODY_WITHOUT_MANDATORY_STRING_INFO.txt
+cat PULL_REQ_BODY_WITHOUT_MANDATORY_STRING_INFO.txt
