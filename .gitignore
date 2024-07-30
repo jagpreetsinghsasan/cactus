@@ -75,3 +75,4 @@ packages/cactus-plugin-ledger-connector-fabric/src/test/typescript/fixtures/go/a
 
 examples/bevel/bevel
 examples/bevel/log/**
+examples/bevel/repo/**

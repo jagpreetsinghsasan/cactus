@@ -21,7 +21,7 @@ func patchStorageClass(logger *zap.Logger){
 	}
 
 	outputScFileBytes := bytes.Replace(inputScFileBytes, []byte("minikube"), []byte("kind"),-1)
-	outputScFileBytes = bytes.Replace(outputScFileBytes, []byte("k8s.io/minikube-hostpath"), []byte("rancher.io/local-path"),-1)
+	outputScFileBytes = bytes.Replace(outputScFileBytes, []byte("k8s.io/kind-hostpath"), []byte("rancher.io/local-path"),-1)
 
 	outputScFileErr := os.WriteFile(SC_FILE_PATH, outputScFileBytes, 0666)
 	if outputScFileErr != nil {
@@ -46,7 +46,7 @@ func patchNetworkSchema(logger *zap.Logger){
 func PatchBevelCode(logger *zap.Logger) {
 	patchStorageClass(logger)
 	patchNetworkSchema(logger)
-	
+
 	utils.ExecuteCmd([]string{"git", "-C", "./repo/", "add", "."}, true, logger)
 	utils.ExecuteCmd([]string{"git", "-C", "./repo/", "commit", "-s", "-m", "Patching bevel code"}, true, logger)
 	utils.ExecuteCmd([]string{"git", "-C", "./repo/", "push"}, true, logger)
