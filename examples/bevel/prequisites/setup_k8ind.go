@@ -24,7 +24,7 @@ func KindConfig(logger *zap.Logger) {
 	if err != nil {
 		logger.Fatal("Error during parsing the kind config file", zap.Any("ERROR", err))
 	}
-	err = kindTemplate.Execute(&KindConfigFile, KindClusterConfig{ControlPlaneCount: 1, WorkerNodeCount: 3})
+	err = kindTemplate.Execute(&KindConfigFile, KindClusterConfig{ControlPlaneCount: 1, WorkerNodeCount: 7})
 	if err != nil {
 		logger.Fatal("Error during executing the tpl file with vars", zap.Any("ERROR", err))
 	}
