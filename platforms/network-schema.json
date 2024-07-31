@@ -389,7 +389,7 @@
             "none",
             "istio"
           ],
-          "description": "Choice of the Cluster Ingress controller. 'none' only minikube does not use a proxy"
+          "description": "Choice of the Cluster Ingress controller. 'none' only kind does not use a proxy"
         },
         "retry_count": {
           "type": "integer",
@@ -678,12 +678,12 @@
             "aws-baremetal",
             "azure",
             "gcp",
-            "minikube"
+            "kind"
           ]
         },
         "gcp": {},
         "azure": {},
-        "minikube": {},
+        "kind": {},
         "name": {
           "type": "string",
           "pattern": "^[a-z0-9-]{1,30}$"
@@ -1781,7 +1781,7 @@
         },
         "peerAddress": {
           "type": "string",
-          "description": "External address of this peer. Must be the HAProxy qualified address. If using minikube, this can be internal address."
+          "description": "External address of this peer. Must be the HAProxy qualified address. If using kind, this can be internal address."
         },
         "peerstatus": {
           "type": "string",

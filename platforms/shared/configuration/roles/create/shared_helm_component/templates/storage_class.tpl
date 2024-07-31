@@ -7,8 +7,8 @@ volumeBindingMode: Immediate
 provisioner: kubernetes.io/aws-ebs
 {% elif cloud_provider == "gcp" %}
 provisioner: pd.csi.storage.gke.io
-{% elif cloud_provider == "minikube" %}
-provisioner: k8s.io/minikube-hostpath
+{% elif cloud_provider == "kind" %}
+provisioner: rancher.io/local-path
 {% endif %}
 {% if cloud_provider == "aws" %}
 allowedTopologies:
