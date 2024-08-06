@@ -46,8 +46,9 @@ func main(){
 	configure.DownloadBevelRepo(bevelConfig.GitUrl, bevelConfig.GitUserName, bevelConfig.GitToken, logger)
 	configure.CreateBranchFromBevelRemote(logger)
 	prequisites.InstallDocker(logger)
-	prequisites.SetupKind(logger)
-	prequisites.KindConfig(logger)
+	// prequisites.SetupKind(logger)
+	// prequisites.KindConfig(logger)
+	prequisites.SetupMicrok8s(logger)
 	vaultConfig := prequisites.SetupVault(logger)
 
 	fabricNetworkYamlReq.VaultUrl = vaultConfig.VaultUrl
