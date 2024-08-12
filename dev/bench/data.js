@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1723457536951,
+  "lastUpdate": 1723458735343,
   "repoUrl": "https://github.com/jagpreetsinghsasan/cactus",
   "entries": {
     "Benchmark": [
@@ -390,6 +390,37 @@ window.BENCHMARK_DATA = {
             "range": "±2.19%",
             "unit": "ops/sec",
             "extra": "179 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "michal.bajer@fujitsu.com",
+            "name": "Michal Bajer",
+            "username": "outSH"
+          },
+          "committer": {
+            "email": "9387513+outSH@users.noreply.github.com",
+            "name": "Michal Bajer",
+            "username": "outSH"
+          },
+          "distinct": true,
+          "id": "b160c52f1a99f8019beb8af9d4f8c0b46cf1953c",
+          "message": "feat(persistence-ethereum): migrate to separate db schema\n- Move all database entities relating to ethereum persistence plugin to\n  a seprate schema. Adjust all the files the test to work as expected after\n  that change.\n- Remove sample SQL data from GUI package, one from persistence packages should\n  be used instead.\n- Upgrade web3-utils in persistence-ethereum to fix a bug when running the\n  standalone script.\n\nDepends on #3340\n\nSigned-off-by: Michal Bajer <michal.bajer@fujitsu.com>",
+          "timestamp": "2024-08-12T10:11:45+02:00",
+          "tree_id": "94b091ee900c5443eb401d300d521121e6a1f15d",
+          "url": "https://github.com/jagpreetsinghsasan/cactus/commit/b160c52f1a99f8019beb8af9d4f8c0b46cf1953c"
+        },
+        "date": 1723458733310,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "plugin-ledger-connector-besu_HTTP_GET_getOpenApiSpecV1",
+            "value": 664,
+            "range": "±3.58%",
+            "unit": "ops/sec",
+            "extra": "180 samples"
           }
         ]
       }
