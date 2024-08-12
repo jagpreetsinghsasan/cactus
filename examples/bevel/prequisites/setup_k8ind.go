@@ -43,8 +43,8 @@ func KindConfig(logger *zap.Logger) {
 	if utils.CheckCluster(logger) {
 		logger.Fatal("Exiting...")
 	} else {
-		utils.ExecuteCmd([]string{"bash", "-c", "kind create cluster --config repo/build/kindconfig.yaml --name bevelcluster"}, false, logger)
-		utils.ExecuteCmd([]string{"bash", "-c", "kind export kubeconfig --name bevelcluster"},false,logger)
+		utils.ExecuteCmd([]string{"bash", "-c", "kind create cluster --config repo/build/kindconfig.yaml --name microk8s"}, false, logger)
+		utils.ExecuteCmd([]string{"bash", "-c", "kind export kubeconfig --name microk8s"},false,logger)
 		utils.ExecuteCmd([]string{"bash", "-c", "kubectl config view --raw > repo/build/config"},false,logger)
 	}
 }

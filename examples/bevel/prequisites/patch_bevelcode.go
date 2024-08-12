@@ -9,19 +9,18 @@ import (
 )
 
 const (
-	SC_FILE_PATH = "repo/platforms/shared/configuration/roles/create/shared_helm_component/templates/storage_class.tpl"
+	SC_FILE_PATH             = "repo/platforms/shared/configuration/roles/create/shared_helm_component/templates/storage_class.tpl"
 	NETWORK_SCHEMA_FILE_PATH = "repo/platforms/network-schema.json"
 )
 
-
-func patchStorageClass(logger *zap.Logger){
+func patchStorageClass(logger *zap.Logger) {
 	inputScFileBytes, inputScFileErr := os.ReadFile(SC_FILE_PATH)
 	if inputScFileErr != nil {
 		logger.Fatal(inputScFileErr.Error())
 	}
 
-	outputScFileBytes := bytes.Replace(inputScFileBytes, []byte("minikube"), []byte("kind"),-1)
-	outputScFileBytes = bytes.Replace(outputScFileBytes, []byte("k8s.io/kind-hostpath"), []byte("rancher.io/local-path"),-1)
+	outputScFileBytes := bytes.Replace(inputScFileBytes, []byte("minikube"), []byte("microk8s"), -1)
+	outputScFileBytes = bytes.Replace(outputScFileBytes, []byte("k8s.io/microk8s-hostpath"), []byte("microk8s.io/hostpath"), -1)
 
 	outputScFileErr := os.WriteFile(SC_FILE_PATH, outputScFileBytes, 0666)
 	if outputScFileErr != nil {
@@ -29,13 +28,13 @@ func patchStorageClass(logger *zap.Logger){
 	}
 }
 
-func patchNetworkSchema(logger *zap.Logger){
+func patchNetworkSchema(logger *zap.Logger) {
 	inputNsFileBytes, inputNsFileErr := os.ReadFile(NETWORK_SCHEMA_FILE_PATH)
 	if inputNsFileErr != nil {
 		logger.Fatal(inputNsFileErr.Error())
 	}
 
-	outputNsFileBytes := bytes.Replace(inputNsFileBytes, []byte("minikube"), []byte("kind"),-1)
+	outputNsFileBytes := bytes.Replace(inputNsFileBytes, []byte("minikube"), []byte("kind"), -1)
 
 	outputNsFileErr := os.WriteFile(NETWORK_SCHEMA_FILE_PATH, outputNsFileBytes, 0666)
 	if outputNsFileErr != nil {

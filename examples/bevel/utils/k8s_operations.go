@@ -191,3 +191,16 @@ func KubectlExecCmd(k8sRestConfig *rest.Config, podName string, containerName st
 		return ""
 	}
 }
+
+func CreateNs(kubeClient *kubernetes.Clientset, namespace string, logger *zap.Logger) {
+	nsName := &v1.Namespace{
+		ObjectMeta: metav1.ObjectMeta{
+			Name: namespace,
+		},
+	}
+
+	_, err := kubeClient.CoreV1().Namespaces().Create(context.TODO(), nsName, metav1.CreateOptions{})
+	if err != nil {
+		logger.Fatal("Could not create the Namespace: " + namespace, zap.Any("ERROR", err))
+	}
+}

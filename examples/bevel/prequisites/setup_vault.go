@@ -18,7 +18,7 @@ const (
 	OLD_VAULT_FULL_LABEL = "app.kubernetes.io/name=vault"
 	NEW_VAULT_LABEL_KEY = "bevelabel"
 	NEW_VAULT_LABEL_VALUE = "bevelvault"
-	CLUSTER_CONTEXT = "kind-bevelcluster"
+	CLUSTER_CONTEXT = "microk8s"
 )
 
 type VaultConfig struct {
@@ -100,10 +100,10 @@ func SetupVault(logger *zap.Logger) VaultConfig {
 	CreateVaultConfig(logger)
 	utils.ExecuteCmd([]string{"bash", "-c", "helm repo add hashicorp https://helm.releases.hashicorp.com"}, false, logger)
 	utils.ExecuteCmd([]string{"bash", "-c", "helm install vault hashicorp/vault --version 0.25.0 -f build/vaultconfig.yaml"}, false, logger)
-	kubeClient := utils.GetKubeClient(os.Getenv("HOME")+"/.kube/config", CLUSTER_CONTEXT, logger)
+	kubeClient := utils.GetKubeClient("repo/build/config", CLUSTER_CONTEXT, logger)
 	utils.WaitForPodToRun(kubeClient, "default", OLD_VAULT_FULL_LABEL, logger)
 	utils.AddLabelToARunningPod(kubeClient, "default", "app.kubernetes.io/name=vault", NEW_VAULT_LABEL_KEY, NEW_VAULT_LABEL_VALUE, logger)
-	restConfig := utils.GetK8sRestConfig(os.Getenv("HOME")+"/.kube/config", "kind-bevelcluster", logger)
+	restConfig := utils.GetK8sRestConfig("repo/build/config", "microk8s", logger)
 	vaultConfigString := utils.KubectlExecCmd(restConfig, "vault-0", "vault", "default", "vault operator init -key-shares=1 -key-threshold=1 -format=table", logger)
 	rootToken := storeVaultCredsInFile(vaultConfigString, logger)
 	vaultEnvVarsString := `export VAULT_ADDR=http://` + utils.GetK8sNodeIP(kubeClient, logger)[0] + `:` + strconv.FormatInt(int64(utils.GetK8sServicePort(kubeClient, "default", "vault-ui", logger)[0].NodePort), 10) + `; export VAULT_TOKEN=` + getInitalRootToken(vaultConfigString) + `; `
