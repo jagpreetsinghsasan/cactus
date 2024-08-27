@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1723458735343,
+  "lastUpdate": 1724737720605,
   "repoUrl": "https://github.com/jagpreetsinghsasan/cactus",
   "entries": {
     "Benchmark": [
@@ -421,6 +421,44 @@ window.BENCHMARK_DATA = {
             "range": "±3.58%",
             "unit": "ops/sec",
             "extra": "180 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "ashnashahgrover777@gmail.com",
+            "name": "ashnashahgrover",
+            "username": "ashnashahgrover"
+          },
+          "committer": {
+            "email": "9387513+outSH@users.noreply.github.com",
+            "name": "Michal Bajer",
+            "username": "outSH"
+          },
+          "distinct": true,
+          "id": "bf357621fa0851b353bc112c1473332915289604",
+          "message": "test(aries): refactor jest test negative test cases\n\nPrimary Changes\n----------------\n1. Refactored all the negative test case exception assertions for\ncactus-plugin-ledger-connector-aries. Removed try-catch blocks,\nreplaced with declarations through jest-extended's own API.\n\nFixes #3473\n\nSigned-off-by: ashnashahgrover <ashnashahgrover777@gmail.com>",
+          "timestamp": "2024-08-22T19:33:07+02:00",
+          "tree_id": "18326f08b3792932a186bddbc84ddd384eb643ee",
+          "url": "https://github.com/jagpreetsinghsasan/cactus/commit/bf357621fa0851b353bc112c1473332915289604"
+        },
+        "date": 1724737719390,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "cmd-api-server_HTTP_GET_getOpenApiSpecV1",
+            "value": 600,
+            "range": "±1.59%",
+            "unit": "ops/sec",
+            "extra": "179 samples"
+          },
+          {
+            "name": "cmd-api-server_gRPC_GetOpenApiSpecV1",
+            "value": 348,
+            "range": "±2.10%",
+            "unit": "ops/sec",
+            "extra": "182 samples"
           }
         ]
       }
