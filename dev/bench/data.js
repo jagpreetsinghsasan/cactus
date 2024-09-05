@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1725510112104,
+  "lastUpdate": 1725511022206,
   "repoUrl": "https://github.com/jagpreetsinghsasan/cactus",
   "entries": {
     "Benchmark": [
@@ -666,6 +666,37 @@ window.BENCHMARK_DATA = {
             "range": "±2.05%",
             "unit": "ops/sec",
             "extra": "181 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "michal.bajer@fujitsu.com",
+            "name": "Michal Bajer",
+            "username": "outSH"
+          },
+          "committer": {
+            "email": "petermetz@users.noreply.github.com",
+            "name": "Peter Somogyvari",
+            "username": "petermetz"
+          },
+          "distinct": true,
+          "id": "bdc5cd79be7a3d1d0130bb2471cd787503b93731",
+          "message": "docs(ledger-browser): add initial GUI documentation and fix some bugs\n\n- Add new documentation section to project docs. New pages can be found under\n    `Cactus` -> `Ledger Browser` category. Documentation include GUI setup\n    instructions, application overviews, developer guide and tutorial\n    on developing new app plugin for the GUI.\n- Do some minor quality of life improvements and bug fixes.\n- Add missing GUI database schema file.\n- Remove dead code from GUI that still used `getAppList`.\n- Add documentation links to the GUI. For now, most links are empty and they\n    will be set once this PR is merged and the docs URLs are confirmed.\n- Add sample tutorial application (the same that is created step-by-step in\n    the tutorial in the documentation)\n- Improve plugin app URL regex to allow more valid paths.\n- Expose ethereum and fabric schemas in supabase-all-in-one\n- Extend persistence plugin init SQL with code for exposing custom schemas.\n- Improve supabase-all-in-one readme documentation.\n- Fix persistence sample setup scripts ports so that both scripts can be run\n    at the same time.\n\nDepends on #3448\nDepends on #3449\n\nSigned-off-by: Michal Bajer <michal.bajer@fujitsu.com>",
+          "timestamp": "2024-09-04T15:57:23-07:00",
+          "tree_id": "8972fe7261443d25dc771b497dd7090c1b795497",
+          "url": "https://github.com/jagpreetsinghsasan/cactus/commit/bdc5cd79be7a3d1d0130bb2471cd787503b93731"
+        },
+        "date": 1725511019723,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "plugin-ledger-connector-besu_HTTP_GET_getOpenApiSpecV1",
+            "value": 661,
+            "range": "±3.09%",
+            "unit": "ops/sec",
+            "extra": "178 samples"
           }
         ]
       }
