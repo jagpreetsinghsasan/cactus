@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1726025603889,
+  "lastUpdate": 1726026389703,
   "repoUrl": "https://github.com/jagpreetsinghsasan/cactus",
   "entries": {
     "Benchmark": [
@@ -771,6 +771,36 @@ window.BENCHMARK_DATA = {
             "range": "±2.21%",
             "unit": "ops/sec",
             "extra": "180 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "jagpreetsinghsasan@accenture.com",
+            "name": "jagpreetsinghsasan"
+          },
+          "committer": {
+            "email": "petermetz@users.noreply.github.com",
+            "name": "Peter Somogyvari",
+            "username": "petermetz"
+          },
+          "distinct": true,
+          "id": "4f58866f3b6e9509cf846ce402ce7605c7a7ac25",
+          "message": "ci(github): fix commit parity running outside PR\n\n    Primary Changes\n    ---------------\n    1. Updated the workflow to run only on Pull Requests\n\nFixes #3515\n\nSigned-off-by: jagpreetsinghsasan <jagpreetsinghsasan@accenture.com>",
+          "timestamp": "2024-09-10T14:20:03-07:00",
+          "tree_id": "a641cdc19ab5188220156fc06e7a8502981e7656",
+          "url": "https://github.com/jagpreetsinghsasan/cactus/commit/4f58866f3b6e9509cf846ce402ce7605c7a7ac25"
+        },
+        "date": 1726026387488,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "plugin-ledger-connector-besu_HTTP_GET_getOpenApiSpecV1",
+            "value": 693,
+            "range": "±3.00%",
+            "unit": "ops/sec",
+            "extra": "177 samples"
           }
         ]
       }
