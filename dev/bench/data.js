@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1726026389703,
+  "lastUpdate": 1726544741708,
   "repoUrl": "https://github.com/jagpreetsinghsasan/cactus",
   "entries": {
     "Benchmark": [
@@ -801,6 +801,44 @@ window.BENCHMARK_DATA = {
             "range": "±3.00%",
             "unit": "ops/sec",
             "extra": "177 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "peter.somogyvari@accenture.com",
+            "name": "Peter Somogyvari",
+            "username": "petermetz"
+          },
+          "committer": {
+            "email": "petermetz@users.noreply.github.com",
+            "name": "Peter Somogyvari",
+            "username": "petermetz"
+          },
+          "distinct": false,
+          "id": "3172fc68d93ff90a69c0651d60dac6da25122da0",
+          "message": "test(connector-fabric): combine 3 tests into connector-fabric-baseline\n\n1. This is making the test case harder to read but shaves off easily\n10 to 15 minutes from one of our slowest CI jobs which can take up to an\nhour to run when the GitHub runners are feeling lazy.\n2. That above is my only justification for it. The test cases I'm consolidating\nare relatively stable at this point (took us years to get here but now they\nare passing with a high ratio and the false negatives have pretty much\ndisappeared).\n3. We are downloading and launching the fabirc AIO ledger 10+ times which\nis very resource intensive and this could help make a dent in it.\n\nRunning this test right now looks like this on my machine:\n\n PASS  packages/cactus-plugin-ledger-connector-fabric/src/test/typescript/\n integration/fabric-v2-2-x/connector-fabric-baseline.test.ts (277.062 s, 638 MB heap size)\n\n  PluginLedgerConnectorFabric\n    ✓ getBlockV1() -Get first block by it's number - decoded. (1216 ms)\n    ✓ getBlockV1() - Get first block by it's number - encoded. (1084 ms)\n    ✓ getBlockV1() - Get a block by transactionId it contains (4534 ms)\n    ✓ getBlockV1() - Get a block by transactionId it contains - cacti transactions (4535 ms)\n    ✓ getBlockV1() - Get a block by transactionId it contains - cacti full block (4559 ms)\n    ✓ getBlockV1() - Get block by it's hash. (6727 ms)\n    ✓ getBlockV1() - Reading block with invalid number returns an error. (1 ms)\n    ✓ GetChainInfoV1() - Get test ledger chain info. (2134 ms)\n    ✓ deployContractV1() - deploys Fabric 2.x contract from go source (38351 ms)\n    ✓ deployContractV1() - deploys contract and performs transactions (40840 ms)\n\nTest Suites: 1 passed, 1 total\nTests:       10 passed, 10 total\nSnapshots:   0 total\nTime:        277.117 s\n\nSigned-off-by: Peter Somogyvari <peter.somogyvari@accenture.com>",
+          "timestamp": "2024-09-15T21:38:05-07:00",
+          "tree_id": "2dbc7a0d94082e48aba6b8f90a75d6251aa05523",
+          "url": "https://github.com/jagpreetsinghsasan/cactus/commit/3172fc68d93ff90a69c0651d60dac6da25122da0"
+        },
+        "date": 1726544739259,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "cmd-api-server_HTTP_GET_getOpenApiSpecV1",
+            "value": 555,
+            "range": "±1.65%",
+            "unit": "ops/sec",
+            "extra": "176 samples"
+          },
+          {
+            "name": "cmd-api-server_gRPC_GetOpenApiSpecV1",
+            "value": 667,
+            "range": "±3.42%",
+            "unit": "ops/sec",
+            "extra": "180 samples"
           }
         ]
       }
