@@ -10098,7 +10098,7 @@ __metadata:
     "@types/fs-extra": "npm:11.0.4"
     "@types/tape": "npm:4.13.4"
     "@types/uuid": "npm:10.0.0"
-    axios: "npm:1.7.9"
+    axios: "npm:>=1.7.9"
     body-parser: "npm:1.20.3"
     express: "npm:4.21.2"
     fabric-network: "npm:2.5.0-snapshot.23"
@@ -10110,8 +10110,8 @@ __metadata:
     socket.io: "npm:4.6.2"
     typescript-optional: "npm:2.0.1"
     uuid: "npm:10.0.0"
-    web3: "npm:4.4.0"
-    web3-core: "npm:4.1.1"
+    web3: "npm:1.6.1"
+    web3-core: "npm:1.6.1"
   languageName: unknown
   linkType: soft
 
@@ -11096,9 +11096,11 @@ __metadata:
     temp: "npm:0.9.4"
     typescript-optional: "npm:2.0.1"
     uuid: "npm:10.0.0"
-    web3: "npm:1.6.1"
-    web3-core: "npm:1.6.1"
-    web3-utils: "npm:1.6.1"
+    web3: "npm:4.4.0"
+    web3-core: "npm:4.1.1"
+    web3-eth-accounts: "npm:4.1.1"
+    web3-types: "npm:1.10.0"
+    web3-utils: "npm:4.1.1"
   languageName: unknown
   linkType: soft
 
@@ -55282,6 +55284,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"web3-types@npm:1.10.0":
+  version: 1.10.0
+  resolution: "web3-types@npm:1.10.0"
+  checksum: 10/849f05a001896b27082c5b5c46c62b65a28f463366eeec7223802418a61db6d3487ebfb73d1fe6dcad3f0849a76e20706098819cb4e266df4f75ca24617e62a1
+  languageName: node
+  linkType: hard
+
 "web3-types@npm:^1.0.2":
   version: 1.0.2
   resolution: "web3-types@npm:1.0.2"
@@ -55411,6 +55420,18 @@ __metadata:
     randombytes: "npm:^2.1.0"
     utf8: "npm:3.0.0"
   checksum: 10/56b9d1ab2494ee632ca8f10ab1c9ede701b8f3fca5231b0de02a08b1aba414d24b7bca1468454c7d661b19d0c7bb06341c09b186191e2db5736005193cfe884b
+  languageName: node
+  linkType: hard
+
+"web3-utils@npm:4.1.1":
+  version: 4.1.1
+  resolution: "web3-utils@npm:4.1.1"
+  dependencies:
+    ethereum-cryptography: "npm:^2.0.0"
+    web3-errors: "npm:^1.1.4"
+    web3-types: "npm:^1.3.1"
+    web3-validator: "npm:^2.0.4"
+  checksum: 10/c4bdc9e98a87f5eb4a6b4a5f29f1ea340935f4295fc3ad7fff69a9d8944e455657d02bb6ef401a5819dd70e07e621b6f65dc769ea64cb7eddb8ac1c0797000e4
   languageName: node
   linkType: hard
 
