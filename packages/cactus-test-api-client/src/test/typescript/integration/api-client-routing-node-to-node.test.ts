@@ -37,7 +37,7 @@ import {
   IPluginConsortiumManualOptions,
   PluginConsortiumManual,
 } from "@hyperledger/cactus-plugin-consortium-manual";
-import { Account } from "web3-core";
+import { Web3Account } from "web3-eth-accounts";
 
 const logLevel: LogLevelDesc = "TRACE";
 const testCase = "Routes to correct node based on ledger ID";
@@ -62,7 +62,7 @@ describe(testCase, () => {
 
   let apiServer1: ApiServer;
   let apiServer2: ApiServer;
-  let testEthAccount1: Account;
+  let testEthAccount1: Web3Account;
 
   const ledger1: Ledger = {
     id: "my_cool_ledger_that_i_want_to_transact_on",

@@ -71,6 +71,7 @@
     "typescript-optional": "2.0.1",
     "uuid": "10.0.0",
     "web3-core": "1.6.1",
+    "web3-eth-accounts": "4.1.1",
     "web3-utils": "1.6.1"
   },
   "devDependencies": {

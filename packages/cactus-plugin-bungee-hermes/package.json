@@ -76,7 +76,8 @@
     "typescript-optional": "2.0.1",
     "uuid": "10.0.0",
     "web3": "4.4.0",
-    "web3-core": "4.1.1"
+    "web3-core": "4.1.1",
+    "web3-eth-accounts": "4.1.1"
   },
   "devDependencies": {
     "@hyperledger/cactus-test-geth-ledger": "2.1.0",

@@ -9750,6 +9750,7 @@ __metadata:
     typescript-optional: "npm:2.0.1"
     uuid: "npm:10.0.0"
     web3-core: "npm:1.6.1"
+    web3-eth-accounts: "npm:4.1.1"
     web3-utils: "npm:1.6.1"
   languageName: unknown
   linkType: soft
@@ -10005,6 +10006,7 @@ __metadata:
     typescript-optional: "npm:2.0.1"
     uuid: "npm:10.0.0"
     web3-core: "npm:1.6.1"
+    web3-eth-accounts: "npm:4.1.1"
   languageName: unknown
   linkType: soft
 
@@ -10098,7 +10100,7 @@ __metadata:
     "@types/fs-extra": "npm:11.0.4"
     "@types/tape": "npm:4.13.4"
     "@types/uuid": "npm:10.0.0"
-    axios: "npm:>=1.7.9"
+    axios: "npm:1.7.9"
     body-parser: "npm:1.20.3"
     express: "npm:4.21.2"
     fabric-network: "npm:2.5.0-snapshot.23"
@@ -10110,8 +10112,9 @@ __metadata:
     socket.io: "npm:4.6.2"
     typescript-optional: "npm:2.0.1"
     uuid: "npm:10.0.0"
-    web3: "npm:1.6.1"
-    web3-core: "npm:1.6.1"
+    web3: "npm:4.4.0"
+    web3-core: "npm:4.1.1"
+    web3-eth-accounts: "npm:4.1.1"
   languageName: unknown
   linkType: soft
 
@@ -10458,7 +10461,7 @@ __metadata:
     web3: "npm:1.6.1"
     web3-core: "npm:1.6.1"
     web3-eth: "npm:1.6.1"
-    web3-eth-accounts: "patch:web3-eth-accounts@npm%3A1.6.1#~/.yarn/patches/web3-eth-accounts-npm-1.6.1-c95f31ca81.patch"
+    web3-eth-accounts: "npm:4.1.1"
     web3-eth-contract: "npm:1.6.1"
     web3-utils: "npm:1.6.1"
     web3js-quorum: "npm:22.4.0"
@@ -10882,6 +10885,7 @@ __metadata:
     jose: "npm:4.15.5"
     uuid: "npm:10.0.0"
     web3: "npm:1.6.1"
+    web3-eth-accounts: "npm:4.1.1"
   languageName: unknown
   linkType: soft
 
@@ -11023,6 +11027,7 @@ __metadata:
     uuid: "npm:10.0.0"
     web3: "npm:1.6.1"
     web3-core: "npm:1.6.1"
+    web3-eth-accounts: "npm:4.1.1"
     web3js-quorum: "npm:22.4.0"
   languageName: unknown
   linkType: soft
@@ -11099,7 +11104,6 @@ __metadata:
     web3: "npm:4.4.0"
     web3-core: "npm:4.1.1"
     web3-eth-accounts: "npm:4.1.1"
-    web3-types: "npm:1.10.0"
     web3-utils: "npm:4.1.1"
   languageName: unknown
   linkType: soft
@@ -55281,13 +55285,6 @@ __metadata:
     web3-core-subscriptions: "npm:1.8.1"
     web3-net: "npm:1.8.1"
   checksum: 10/fa6659b14ef7ebae17eecf08ada9f0a1e1559b690f4764c23472ec2fa3b141585e3173c6e0963868c2c4b8973ae5158db9968973e06582ed7c0048dbdc3fbac3
-  languageName: node
-  linkType: hard
-
-"web3-types@npm:1.10.0":
-  version: 1.10.0
-  resolution: "web3-types@npm:1.10.0"
-  checksum: 10/849f05a001896b27082c5b5c46c62b65a28f463366eeec7223802418a61db6d3487ebfb73d1fe6dcad3f0849a76e20706098819cb4e266df4f75ca24617e62a1
   languageName: node
   linkType: hard
 

@@ -43,7 +43,7 @@ import { BesuApiClientOptions } from "../../../../../main/typescript/api-client/
 
 import { installOpenapiValidationMiddleware } from "@hyperledger/cactus-core";
 import OAS from "../../../../../main/json/openapi.json";
-import { Account } from "web3-core";
+import { Web3Account } from "web3-eth-accounts";
 
 const logLevel: LogLevelDesc = "TRACE";
 const testCase = "able to validate OpenAPI requests";
@@ -73,10 +73,10 @@ describe("PluginLedgerConnectorBesu", () => {
   const keychainRefForUnsigned = uuidv4();
 
   let besuTestLedger: BesuTestLedger;
-  let testEthAccount2: Account;
+  let testEthAccount2: Web3Account;
   let firstHighNetWorthAccount: string;
   let apiClient: BesuApiClient;
-  let testEthAccount1: Account;
+  let testEthAccount1: Web3Account;
   let httpServer: http.Server;
 
   beforeAll(async () => {

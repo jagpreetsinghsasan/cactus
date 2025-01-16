@@ -48,7 +48,6 @@ import {
   DefaultApi as EthereumApi,
   Web3SigningCredential,
 } from "@hyperledger/cactus-plugin-ledger-connector-ethereum";
-import { Account } from "web3-core";
 import {
   IPluginBungeeHermesOptions,
   PluginBungeeHermes,
@@ -57,6 +56,7 @@ import {
   EthereumNetworkDetails,
   StrategyEthereum,
 } from "../../../main/typescript/strategy/strategy-ethereum";
+import { Web3Account } from "web3-eth-accounts";
 
 const log: Logger = LoggerProvider.getOrCreate({
   label: "geth-invoke-web3-contract-v1.test",
@@ -69,7 +69,7 @@ const containerImageVersion = "2023-07-27-2a8c48ed6";
 
 describe("Ethereum contract deploy and invoke using keychain", () => {
   const keychainEntryKey = uuidV4();
-  let testEthAccount: Account,
+  let testEthAccount: Web3Account,
     web3: InstanceType<typeof Web3>,
     addressInfo,
     address: string,
