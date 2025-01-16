@@ -1,4 +1,3 @@
-import { Account } from "web3-core";
 import { v4 as uuidv4 } from "uuid";
 import { DiscoveryOptions } from "fabric-network";
 import {
@@ -38,6 +37,7 @@ import BambooHarvestRepositoryJSON from "../../json/generated/BambooHarvestRepos
 import BookshelfRepositoryJSON from "../../json/generated/BookshelfRepository.json";
 import { SHIPMENT_CONTRACT_GO_SOURCE } from "../../go/shipment";
 import { SHIPMENT_GOLANG_CONTRACT_PINNED_DEPENDENCIES } from "./shipment-golang-contract-pinned-dependencies";
+import { Web3Account } from "web3-eth-accounts";
 
 export interface ISupplyChainAppDummyInfrastructureOptions {
   logLevel?: LogLevelDesc;
@@ -72,10 +72,10 @@ export class SupplyChainAppDummyInfrastructure {
   public readonly fabric: FabricTestLedgerV1;
   public readonly keychain: IPluginKeychain;
   private readonly log: Logger;
-  private _xdaiAccount?: Account;
-  private _besuAccount?: Account;
+  private _xdaiAccount?: Web3Account;
+  private _besuAccount?: Web3Account;
 
-  public get xdaiAccount(): Account {
+  public get xdaiAccount(): Web3Account {
     if (!this._xdaiAccount) {
       throw new Error(`Must call deployContracts() first.`);
     } else {
@@ -83,7 +83,7 @@ export class SupplyChainAppDummyInfrastructure {
     }
   }
 
-  public get besuAccount(): Account {
+  public get besuAccount(): Web3Account {
     if (!this._besuAccount) {
       throw new Error(`Must call deployContracts() first.`);
     } else {

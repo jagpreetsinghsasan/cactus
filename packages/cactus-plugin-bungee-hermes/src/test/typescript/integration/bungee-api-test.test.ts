@@ -39,7 +39,6 @@ import {
   Web3SigningCredential,
 } from "@hyperledger/cactus-plugin-ledger-connector-besu";
 import Web3 from "web3";
-import { Account } from "web3-core";
 import {
   PluginBungeeHermes,
   IPluginBungeeHermesOptions,
@@ -68,6 +67,7 @@ import {
 import { StrategyEthereum } from "../../../main/typescript/strategy/strategy-ethereum";
 import { StrategyFabric } from "../../../main/typescript/strategy/strategy-fabric";
 import { StrategyBesu } from "../../../main/typescript/strategy/strategy-besu";
+import { Web3Account } from "web3-eth-accounts";
 
 interface BesuNetworkDetails {
   connectorApiPath: string;
@@ -101,7 +101,7 @@ let besuPath: string;
 let besuServer: Server;
 let besuConnector: PluginLedgerConnectorBesu;
 let besuKeyPair: { privateKey: string };
-let testEthAccount: Account;
+let testEthAccount: Web3Account;
 let firstHighNetWorthAccount: string;
 let besuKeychainPlugin: PluginKeychainMemory;
 let besuSigningCredential: Web3SigningCredential;
@@ -672,7 +672,7 @@ async function setupBesuTestLedger(): Promise<string> {
   });
   const balance = await web3.eth.getBalance(testEthAccount.address);
   expect(balance).toBeTruthy();
-  expect(parseInt(balance, 10)).toBeGreaterThan(10e9);
+  expect(parseInt(balance.toString(), 10)).toBeGreaterThan(10e9);
 
   const deployOut = await besuConnector.deployContract({
     keychainId: besuKeychainPlugin.getKeychainId(),

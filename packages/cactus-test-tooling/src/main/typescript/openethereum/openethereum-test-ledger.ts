@@ -1,10 +1,7 @@
 import { EventEmitter } from "events";
 import Docker, { Container } from "dockerode";
 import { v4 as internalIpV4 } from "internal-ip";
-import Web3 from "web3";
-import { AbiItem } from "web3-utils";
-import { Account, TransactionReceipt } from "web3-core";
-import { v4 as uuidv4 } from "uuid";
+import Web3, { TransactionReceipt } from "web3";
 
 import {
   Logger,
@@ -16,6 +13,7 @@ import {
 
 import { Containers } from "../common/containers";
 import { RuntimeError } from "run-time-error-cjs";
+import { Web3Account } from "web3-eth-accounts";
 
 export interface IOpenEthereumTestLedgerOptions {
   envVars?: string[];
@@ -207,8 +205,8 @@ export class OpenEthereumTestLedger {
    *
    * @param [seedMoney=10e8] The amount of money to seed the new test account with.
    */
-  public async createEthTestAccount(seedMoney = 10e8): Promise<Account> {
-    const ethTestAccount = this.web3.eth.accounts.create(uuidv4());
+  public async createEthTestAccount(seedMoney = 10e8): Promise<Web3Account> {
+    const ethTestAccount = this.web3.eth.accounts.create();
 
     const receipt = await this.transferAssetFromCoinbase(
       ethTestAccount.address,
@@ -285,9 +283,9 @@ export class OpenEthereumTestLedger {
    * @returns Contract deployment `TransactionReceipt`
    */
   public async deployContract(
-    abi: AbiItem | AbiItem[],
+    abi: any,
     bytecode: string,
-    args?: any[],
+    args?: [],
   ): Promise<TransactionReceipt> {
     // Encode ABI
     const contractProxy = new this.web3.eth.Contract(abi);

@@ -8,7 +8,6 @@ import "jest-extended";
 import { StatusCodes } from "http-status-codes";
 import { v4 as uuidv4 } from "uuid";
 import KeyEncoder from "key-encoder";
-import { Account } from "web3-core";
 
 import {
   ApiServer,
@@ -35,6 +34,7 @@ import {
 } from "@hyperledger/cactus-plugin-ledger-connector-besu";
 import { PluginRegistry } from "@hyperledger/cactus-core";
 import { PluginKeychainMemory } from "@hyperledger/cactus-plugin-keychain-memory";
+import { Web3Account } from "web3-eth-accounts";
 
 describe("PluginLedgerConnectorBesu", () => {
   const logLevel: LogLevelDesc = "INFO";
@@ -62,7 +62,7 @@ describe("PluginLedgerConnectorBesu", () => {
 
   let ledger: BesuTestLedger;
   let apiServer: ApiServer;
-  let testAccount: Account;
+  let testAccount: Web3Account;
   let node1Host: string;
 
   beforeAll(async () => {

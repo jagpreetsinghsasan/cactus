@@ -1,7 +1,6 @@
 import path from "path";
 import fs from "fs-extra";
 import { Optional } from "typescript-optional";
-import { Account } from "web3-core";
 import {
   Logger,
   Checks,
@@ -32,6 +31,7 @@ import {
   ICarbonAccountingFabricContractDeploymentInfo,
   ICarbonAccountingXdaiContractDeploymentInfo,
 } from "@hyperledger/cactus-example-carbon-accounting-business-logic-plugin";
+import { Web3Account } from "web3-eth-accounts";
 
 export interface ICarbonAccountingAppDummyInfrastructureOptions {
   logLevel?: LogLevelDesc;
@@ -58,9 +58,9 @@ export class CarbonAccountingAppDummyInfrastructure {
   public readonly fabric: FabricTestLedgerV1;
   private readonly log: Logger;
   private readonly keychain: PluginKeychainMemory;
-  private _xdaiAccount: Account | undefined;
+  private _xdaiAccount: Web3Account | undefined;
 
-  public get xdaiAccount(): Optional<Account> {
+  public get xdaiAccount(): Optional<Web3Account> {
     return Optional.ofNullable(this._xdaiAccount);
   }
 

@@ -49,7 +49,6 @@ import {
   pruneDockerAllIfGithubAction,
 } from "@hyperledger/cactus-test-tooling";
 import Web3 from "web3";
-import { Account } from "web3-core";
 import express from "express";
 import { AddressInfo } from "net";
 import { v4 as uuidv4 } from "uuid";
@@ -57,6 +56,7 @@ import { CcModelHephaestus } from "../../../main/typescript/plugin-ccmodel-hepha
 import { IPluginCcModelHephaestusOptions } from "../../../main/typescript";
 import LockAssetContractJson from "../../solidity/lock-asset-contract/LockAsset.json";
 import { CrossChainModelType } from "../../../main/typescript/models/crosschain-model";
+import { Web3Account } from "web3-eth-accounts";
 
 const logLevel: LogLevelDesc = "INFO";
 
@@ -72,7 +72,7 @@ let fabricConnector: PluginLedgerConnectorFabric;
 const containerImageName = "ghcr.io/hyperledger/cacti-geth-all-in-one";
 const containerImageVersion = "2023-07-27-2a8c48ed6";
 const keychainEntryKey = uuidv4();
-let testEthAccount: Account;
+let testEthAccount: Web3Account;
 let web3Eth: InstanceType<typeof Web3>;
 let addressInfo;
 let address: string;

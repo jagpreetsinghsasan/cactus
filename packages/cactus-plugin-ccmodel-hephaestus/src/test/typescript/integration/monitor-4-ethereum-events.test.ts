@@ -45,10 +45,10 @@ import {
   DefaultApi as EthereumApi,
 } from "@hyperledger/cactus-plugin-ledger-connector-ethereum";
 import { PluginKeychainMemory } from "@hyperledger/cactus-plugin-keychain-memory";
-import { Account } from "web3-core";
 import LockAssetContractJson from "../../solidity/lock-asset-contract/LockAsset.json";
 import { IPluginCcModelHephaestusOptions } from "../../../main/typescript";
 import { CcModelHephaestus } from "../../../main/typescript/plugin-ccmodel-hephaestus";
+import { Web3Account } from "web3-eth-accounts";
 
 const log: Logger = LoggerProvider.getOrCreate({
   label: "monitor-4-ethereum-events.test",
@@ -61,7 +61,7 @@ const containerImageVersion = "2023-07-27-2a8c48ed6";
 
 describe("Ethereum contract deploy and invoke while monitoring", () => {
   const keychainEntryKey = uuidv4();
-  let testEthAccount: Account,
+  let testEthAccount: Web3Account,
     web3: InstanceType<typeof Web3>,
     addressInfo,
     address: string,
