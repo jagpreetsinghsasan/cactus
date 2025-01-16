@@ -9241,6 +9241,7 @@ __metadata:
     typescript-optional: "npm:2.0.1"
     uuid: "npm:10.0.0"
     web3: "npm:1.6.1"
+    web3-eth-accounts: "npm:4.1.1"
   languageName: unknown
   linkType: soft
 
