@@ -72,7 +72,8 @@
     "run-time-error-cjs": "1.4.0",
     "rxjs": "7.8.1",
     "typescript-optional": "2.0.1",
-    "uuid": "10.0.0"
+    "uuid": "10.0.0",
+    "web3-eth-accounts": "4.1.1"
   },
   "devDependencies": {
     "@hyperledger/cactus-plugin-keychain-memory": "2.1.0",
@@ -84,8 +85,7 @@
     "fabric-network": "2.2.20",
     "socket.io": "4.6.2",
     "uuid": "10.0.0",
-    "web3": "1.6.1",
-    "web3-core": "1.6.1"
+    "web3": "4.4.0"
   },
   "engines": {
     "node": ">=18",

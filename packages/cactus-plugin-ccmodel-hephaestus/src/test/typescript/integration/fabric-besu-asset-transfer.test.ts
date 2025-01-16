@@ -42,7 +42,6 @@ import {
   pruneDockerAllIfGithubAction,
 } from "@hyperledger/cactus-test-tooling";
 import Web3 from "web3";
-import { Account } from "web3-core";
 import express from "express";
 import { AddressInfo } from "net";
 import { v4 as uuidv4 } from "uuid";
@@ -50,6 +49,7 @@ import { CcModelHephaestus } from "../../../main/typescript/plugin-ccmodel-hepha
 import { IPluginCcModelHephaestusOptions } from "../../../main/typescript";
 import LockAssetContractJson from "../../solidity/lock-asset-contract/LockAsset.json";
 import { CrossChainModelType } from "../../../main/typescript/models/crosschain-model";
+import { Web3Account } from "web3-eth-accounts";
 
 const logLevel: LogLevelDesc = "INFO";
 
@@ -70,7 +70,7 @@ let web3Besu: Web3;
 let firstHighNetWorthAccount: string;
 let besuConnector: PluginLedgerConnectorBesu;
 let besuKeyPair: { privateKey: string };
-let testEthAccountBesu: Account;
+let testEthAccountBesu: Web3Account;
 let keychainPluginBesu: PluginKeychainMemory;
 
 let hephaestus: CcModelHephaestus;
@@ -367,7 +367,7 @@ beforeAll(async () => {
     });
     const balance = await web3Besu.eth.getBalance(testEthAccountBesu.address);
     expect(balance).toBeTruthy();
-    expect(parseInt(balance, 10)).toBeGreaterThan(10e9);
+    expect(parseInt(balance.toString(), 10)).toBeGreaterThan(10e9);
 
     log.info("Connector initialized");
 

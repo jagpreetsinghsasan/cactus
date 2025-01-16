@@ -17,11 +17,11 @@ import {
   IPluginLedgerConnectorBesuOptions,
 } from "@hyperledger/cactus-plugin-ledger-connector-besu";
 import Web3 from "web3";
-import { Account } from "web3-core";
 
 import { CcModelHephaestus } from "../../../main/typescript/plugin-ccmodel-hephaestus";
 import { IPluginCcModelHephaestusOptions } from "../../../main/typescript";
 import { LedgerType } from "@hyperledger/cactus-core-api";
+import { Web3Account } from "web3-eth-accounts";
 
 const logLevel: LogLevelDesc = "INFO";
 
@@ -34,7 +34,7 @@ let web3: Web3;
 let firstHighNetWorthAccount: string;
 let connector: PluginLedgerConnectorBesu;
 let besuKeyPair: { privateKey: string };
-let testEthAccount: Account;
+let testEthAccount: Web3Account;
 let keychainPlugin: PluginKeychainMemory;
 const BESU_ASSET_ID = uuidv4();
 
@@ -120,7 +120,7 @@ beforeAll(async () => {
     });
     const balance = await web3.eth.getBalance(testEthAccount.address);
     expect(balance).toBeTruthy();
-    expect(parseInt(balance, 10)).toBeGreaterThan(10e9);
+    expect(parseInt(balance.toString(), 10)).toBeGreaterThan(10e9);
 
     log.info("Connector initialized");
 
