@@ -10464,6 +10464,7 @@ __metadata:
     web3-eth: "npm:4.1.1"
     web3-eth-accounts: "npm:4.1.1"
     web3-eth-contract: "npm:4.1.1"
+    web3-types: "npm:1.10.0"
     web3-utils: "npm:4.1.1"
     web3js-quorum: "npm:22.4.0"
     websocket-event-codes: "npm:1.1.0"
@@ -55429,6 +55430,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"web3-types@npm:1.10.0, web3-types@npm:^1.10.0":
+  version: 1.10.0
+  resolution: "web3-types@npm:1.10.0"
+  checksum: 10/849f05a001896b27082c5b5c46c62b65a28f463366eeec7223802418a61db6d3487ebfb73d1fe6dcad3f0849a76e20706098819cb4e266df4f75ca24617e62a1
+  languageName: node
+  linkType: hard
+
 "web3-types@npm:^1.0.2":
   version: 1.0.2
   resolution: "web3-types@npm:1.0.2"
@@ -55440,13 +55448,6 @@ __metadata:
   version: 1.1.1
   resolution: "web3-types@npm:1.1.1"
   checksum: 10/46c497edefb621734d98d303f92edda8117c8c1a35afdb89e6964dca0894fb81a0ae557a1277ec323f043ffc42b54eabe70618798364c19245ed6ac4e4841423
-  languageName: node
-  linkType: hard
-
-"web3-types@npm:^1.10.0":
-  version: 1.10.0
-  resolution: "web3-types@npm:1.10.0"
-  checksum: 10/849f05a001896b27082c5b5c46c62b65a28f463366eeec7223802418a61db6d3487ebfb73d1fe6dcad3f0849a76e20706098819cb4e266df4f75ca24617e62a1
   languageName: node
   linkType: hard
 

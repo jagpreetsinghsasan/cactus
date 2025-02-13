@@ -344,6 +344,31 @@
           }
         }
       },
+      "Numbers": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "string",
+            "format": "bigint"
+          }
+        ]
+      },
+      "Bytes": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "format": "Uint8Array"
+          }
+        ]
+      },
       "Web3TransactionReceipt": {
         "type": "object",
         "required": [
@@ -359,18 +384,13 @@
         "additionalProperties": true,
         "properties": {
           "status": {
-            "type": "boolean",
-            "nullable": false
+            "$ref": "#/components/schemas/Numbers"
           },
           "transactionHash": {
-            "type": "string",
-            "minLength": 66,
-            "maxLength": 66,
-            "pattern": "^0x([A-Fa-f0-9]{64})$"
+            "$ref": "#/components/schemas/Bytes"
           },
           "transactionIndex": {
-            "type": "number",
-            "nullable": false
+            "$ref": "#/components/schemas/Numbers"
           },
           "blockHash": {
             "type": "string",

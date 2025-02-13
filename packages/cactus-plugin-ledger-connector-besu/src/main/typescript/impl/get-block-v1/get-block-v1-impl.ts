@@ -1,5 +1,4 @@
-import Web3 from "web3";
-import { BlockNumber } from "web3-core";
+import Web3, { BlockNumberOrTag } from "web3";
 
 import {
   LoggerProvider,
@@ -7,12 +6,10 @@ import {
   Strings,
 } from "@hyperledger/cactus-common";
 
-import { EvmBlock } from "../../public-api";
-
 export async function getBlockV1Impl(
   ctx: { readonly web3: Web3; readonly logLevel: LogLevelDesc },
-  blockHashOrBlockNumber: BlockNumber,
-): Promise<EvmBlock> {
+  blockHashOrBlockNumber: BlockNumberOrTag,
+): Promise<any> {
   const log = LoggerProvider.getOrCreate({
     label: "getBlockV1Impl()",
     level: ctx.logLevel,
@@ -30,7 +27,7 @@ export async function getBlockV1Impl(
 }
 
 //string | number | BN | BigNumber | 'latest' | 'pending' | 'earliest' | 'genesis'
-export function isBlockNumber(x: unknown): x is BlockNumber {
+export function isBlockNumber(x: unknown): x is BlockNumberOrTag {
   return (
     Strings.isString(x) ||
     (typeof x === "number" && isFinite(x)) ||

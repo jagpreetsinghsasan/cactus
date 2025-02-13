@@ -529,21 +529,10 @@
             "nullable": false
           },
           "from": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ]
+            "type": "string"
           },
           "to": {
-            "oneOf": [
-              {
-                "type": "string"
-              }
-            ]
+            "type": "string"
           },
           "value": {
             "oneOf": [
@@ -603,6 +592,31 @@
           }
         }
       },
+      "Bytes": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string",
+            "format": "Uint8Array"
+          }
+        ]
+      },
+      "Numbers": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "string",
+            "format": "bigint"
+          }
+        ]
+      },
       "Web3TransactionReceipt": {
         "type": "object",
         "required": [
@@ -618,36 +632,25 @@
         "additionalProperties": true,
         "properties": {
           "status": {
-            "type": "boolean",
-            "nullable": false
+            "$ref": "#/components/schemas/Numbers"
           },
           "transactionHash": {
-            "type": "string",
-            "minLength": 66,
-            "maxLength": 66,
-            "pattern": "^0x([A-Fa-f0-9]{64})$"
+            "$ref": "#/components/schemas/Bytes"
           },
           "transactionIndex": {
-            "type": "number",
-            "nullable": false
+            "$ref": "#/components/schemas/Numbers"
           },
           "blockHash": {
-            "type": "string",
-            "minLength": 66,
-            "maxLength": 66,
-            "pattern": "^0x([A-Fa-f0-9]{64})$"
+            "$ref": "#/components/schemas/Bytes"
           },
           "blockNumber": {
-            "type": "number",
-            "nullable": false
+            "$ref": "#/components/schemas/Numbers"
           },
           "gasUsed": {
-            "type": "number",
-            "nullable": false
+            "$ref": "#/components/schemas/Numbers"
           },
           "contractAddress": {
-            "type": "string",
-            "nullable": true
+            "$ref": "#/components/schemas/Bytes"
           },
           "from": {
             "type": "string",

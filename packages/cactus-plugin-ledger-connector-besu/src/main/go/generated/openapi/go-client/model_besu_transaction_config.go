@@ -20,13 +20,13 @@ var _ MappedNullable = &BesuTransactionConfig{}
 // BesuTransactionConfig struct for BesuTransactionConfig
 type BesuTransactionConfig struct {
 	RawTransaction *string `json:"rawTransaction,omitempty"`
-	From *Web3BlockHeaderTimestamp `json:"from,omitempty"`
-	To *BesuTransactionConfigTo `json:"to,omitempty"`
+	From *string `json:"from,omitempty"`
+	To *string `json:"to,omitempty"`
 	Value *Web3BlockHeaderTimestamp `json:"value,omitempty"`
 	Gas *Web3BlockHeaderTimestamp `json:"gas,omitempty"`
 	GasPrice *Web3BlockHeaderTimestamp `json:"gasPrice,omitempty"`
 	Nonce *float32 `json:"nonce,omitempty"`
-	Data *BesuTransactionConfigTo `json:"data,omitempty"`
+	Data *BesuTransactionConfigData `json:"data,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -82,9 +82,9 @@ func (o *BesuTransactionConfig) SetRawTransaction(v string) {
 }
 
 // GetFrom returns the From field value if set, zero value otherwise.
-func (o *BesuTransactionConfig) GetFrom() Web3BlockHeaderTimestamp {
+func (o *BesuTransactionConfig) GetFrom() string {
 	if o == nil || IsNil(o.From) {
-		var ret Web3BlockHeaderTimestamp
+		var ret string
 		return ret
 	}
 	return *o.From
@@ -92,7 +92,7 @@ func (o *BesuTransactionConfig) GetFrom() Web3BlockHeaderTimestamp {
 
 // GetFromOk returns a tuple with the From field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BesuTransactionConfig) GetFromOk() (*Web3BlockHeaderTimestamp, bool) {
+func (o *BesuTransactionConfig) GetFromOk() (*string, bool) {
 	if o == nil || IsNil(o.From) {
 		return nil, false
 	}
@@ -108,15 +108,15 @@ func (o *BesuTransactionConfig) HasFrom() bool {
 	return false
 }
 
-// SetFrom gets a reference to the given Web3BlockHeaderTimestamp and assigns it to the From field.
-func (o *BesuTransactionConfig) SetFrom(v Web3BlockHeaderTimestamp) {
+// SetFrom gets a reference to the given string and assigns it to the From field.
+func (o *BesuTransactionConfig) SetFrom(v string) {
 	o.From = &v
 }
 
 // GetTo returns the To field value if set, zero value otherwise.
-func (o *BesuTransactionConfig) GetTo() BesuTransactionConfigTo {
+func (o *BesuTransactionConfig) GetTo() string {
 	if o == nil || IsNil(o.To) {
-		var ret BesuTransactionConfigTo
+		var ret string
 		return ret
 	}
 	return *o.To
@@ -124,7 +124,7 @@ func (o *BesuTransactionConfig) GetTo() BesuTransactionConfigTo {
 
 // GetToOk returns a tuple with the To field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BesuTransactionConfig) GetToOk() (*BesuTransactionConfigTo, bool) {
+func (o *BesuTransactionConfig) GetToOk() (*string, bool) {
 	if o == nil || IsNil(o.To) {
 		return nil, false
 	}
@@ -140,8 +140,8 @@ func (o *BesuTransactionConfig) HasTo() bool {
 	return false
 }
 
-// SetTo gets a reference to the given BesuTransactionConfigTo and assigns it to the To field.
-func (o *BesuTransactionConfig) SetTo(v BesuTransactionConfigTo) {
+// SetTo gets a reference to the given string and assigns it to the To field.
+func (o *BesuTransactionConfig) SetTo(v string) {
 	o.To = &v
 }
 
@@ -274,9 +274,9 @@ func (o *BesuTransactionConfig) SetNonce(v float32) {
 }
 
 // GetData returns the Data field value if set, zero value otherwise.
-func (o *BesuTransactionConfig) GetData() BesuTransactionConfigTo {
+func (o *BesuTransactionConfig) GetData() BesuTransactionConfigData {
 	if o == nil || IsNil(o.Data) {
-		var ret BesuTransactionConfigTo
+		var ret BesuTransactionConfigData
 		return ret
 	}
 	return *o.Data
@@ -284,7 +284,7 @@ func (o *BesuTransactionConfig) GetData() BesuTransactionConfigTo {
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BesuTransactionConfig) GetDataOk() (*BesuTransactionConfigTo, bool) {
+func (o *BesuTransactionConfig) GetDataOk() (*BesuTransactionConfigData, bool) {
 	if o == nil || IsNil(o.Data) {
 		return nil, false
 	}
@@ -300,8 +300,8 @@ func (o *BesuTransactionConfig) HasData() bool {
 	return false
 }
 
-// SetData gets a reference to the given BesuTransactionConfigTo and assigns it to the Data field.
-func (o *BesuTransactionConfig) SetData(v BesuTransactionConfigTo) {
+// SetData gets a reference to the given BesuTransactionConfigData and assigns it to the Data field.
+func (o *BesuTransactionConfig) SetData(v BesuTransactionConfigData) {
 	o.Data = &v
 }
 

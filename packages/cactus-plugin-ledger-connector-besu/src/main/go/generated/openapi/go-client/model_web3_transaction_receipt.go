@@ -19,13 +19,13 @@ var _ MappedNullable = &Web3TransactionReceipt{}
 
 // Web3TransactionReceipt struct for Web3TransactionReceipt
 type Web3TransactionReceipt struct {
-	Status bool `json:"status"`
-	TransactionHash string `json:"transactionHash"`
-	TransactionIndex float32 `json:"transactionIndex"`
-	BlockHash string `json:"blockHash"`
-	BlockNumber float32 `json:"blockNumber"`
-	GasUsed float32 `json:"gasUsed"`
-	ContractAddress NullableString `json:"contractAddress,omitempty"`
+	Status Numbers `json:"status"`
+	TransactionHash Bytes `json:"transactionHash"`
+	TransactionIndex Numbers `json:"transactionIndex"`
+	BlockHash Bytes `json:"blockHash"`
+	BlockNumber Numbers `json:"blockNumber"`
+	GasUsed Numbers `json:"gasUsed"`
+	ContractAddress *Bytes `json:"contractAddress,omitempty"`
 	From string `json:"from"`
 	To string `json:"to"`
 	AdditionalProperties map[string]interface{}
@@ -37,7 +37,7 @@ type _Web3TransactionReceipt Web3TransactionReceipt
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewWeb3TransactionReceipt(status bool, transactionHash string, transactionIndex float32, blockHash string, blockNumber float32, gasUsed float32, from string, to string) *Web3TransactionReceipt {
+func NewWeb3TransactionReceipt(status Numbers, transactionHash Bytes, transactionIndex Numbers, blockHash Bytes, blockNumber Numbers, gasUsed Numbers, from string, to string) *Web3TransactionReceipt {
 	this := Web3TransactionReceipt{}
 	this.Status = status
 	this.TransactionHash = transactionHash
@@ -59,9 +59,9 @@ func NewWeb3TransactionReceiptWithDefaults() *Web3TransactionReceipt {
 }
 
 // GetStatus returns the Status field value
-func (o *Web3TransactionReceipt) GetStatus() bool {
+func (o *Web3TransactionReceipt) GetStatus() Numbers {
 	if o == nil {
-		var ret bool
+		var ret Numbers
 		return ret
 	}
 
@@ -70,7 +70,7 @@ func (o *Web3TransactionReceipt) GetStatus() bool {
 
 // GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
-func (o *Web3TransactionReceipt) GetStatusOk() (*bool, bool) {
+func (o *Web3TransactionReceipt) GetStatusOk() (*Numbers, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -78,14 +78,14 @@ func (o *Web3TransactionReceipt) GetStatusOk() (*bool, bool) {
 }
 
 // SetStatus sets field value
-func (o *Web3TransactionReceipt) SetStatus(v bool) {
+func (o *Web3TransactionReceipt) SetStatus(v Numbers) {
 	o.Status = v
 }
 
 // GetTransactionHash returns the TransactionHash field value
-func (o *Web3TransactionReceipt) GetTransactionHash() string {
+func (o *Web3TransactionReceipt) GetTransactionHash() Bytes {
 	if o == nil {
-		var ret string
+		var ret Bytes
 		return ret
 	}
 
@@ -94,7 +94,7 @@ func (o *Web3TransactionReceipt) GetTransactionHash() string {
 
 // GetTransactionHashOk returns a tuple with the TransactionHash field value
 // and a boolean to check if the value has been set.
-func (o *Web3TransactionReceipt) GetTransactionHashOk() (*string, bool) {
+func (o *Web3TransactionReceipt) GetTransactionHashOk() (*Bytes, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -102,14 +102,14 @@ func (o *Web3TransactionReceipt) GetTransactionHashOk() (*string, bool) {
 }
 
 // SetTransactionHash sets field value
-func (o *Web3TransactionReceipt) SetTransactionHash(v string) {
+func (o *Web3TransactionReceipt) SetTransactionHash(v Bytes) {
 	o.TransactionHash = v
 }
 
 // GetTransactionIndex returns the TransactionIndex field value
-func (o *Web3TransactionReceipt) GetTransactionIndex() float32 {
+func (o *Web3TransactionReceipt) GetTransactionIndex() Numbers {
 	if o == nil {
-		var ret float32
+		var ret Numbers
 		return ret
 	}
 
@@ -118,7 +118,7 @@ func (o *Web3TransactionReceipt) GetTransactionIndex() float32 {
 
 // GetTransactionIndexOk returns a tuple with the TransactionIndex field value
 // and a boolean to check if the value has been set.
-func (o *Web3TransactionReceipt) GetTransactionIndexOk() (*float32, bool) {
+func (o *Web3TransactionReceipt) GetTransactionIndexOk() (*Numbers, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -126,14 +126,14 @@ func (o *Web3TransactionReceipt) GetTransactionIndexOk() (*float32, bool) {
 }
 
 // SetTransactionIndex sets field value
-func (o *Web3TransactionReceipt) SetTransactionIndex(v float32) {
+func (o *Web3TransactionReceipt) SetTransactionIndex(v Numbers) {
 	o.TransactionIndex = v
 }
 
 // GetBlockHash returns the BlockHash field value
-func (o *Web3TransactionReceipt) GetBlockHash() string {
+func (o *Web3TransactionReceipt) GetBlockHash() Bytes {
 	if o == nil {
-		var ret string
+		var ret Bytes
 		return ret
 	}
 
@@ -142,7 +142,7 @@ func (o *Web3TransactionReceipt) GetBlockHash() string {
 
 // GetBlockHashOk returns a tuple with the BlockHash field value
 // and a boolean to check if the value has been set.
-func (o *Web3TransactionReceipt) GetBlockHashOk() (*string, bool) {
+func (o *Web3TransactionReceipt) GetBlockHashOk() (*Bytes, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -150,14 +150,14 @@ func (o *Web3TransactionReceipt) GetBlockHashOk() (*string, bool) {
 }
 
 // SetBlockHash sets field value
-func (o *Web3TransactionReceipt) SetBlockHash(v string) {
+func (o *Web3TransactionReceipt) SetBlockHash(v Bytes) {
 	o.BlockHash = v
 }
 
 // GetBlockNumber returns the BlockNumber field value
-func (o *Web3TransactionReceipt) GetBlockNumber() float32 {
+func (o *Web3TransactionReceipt) GetBlockNumber() Numbers {
 	if o == nil {
-		var ret float32
+		var ret Numbers
 		return ret
 	}
 
@@ -166,7 +166,7 @@ func (o *Web3TransactionReceipt) GetBlockNumber() float32 {
 
 // GetBlockNumberOk returns a tuple with the BlockNumber field value
 // and a boolean to check if the value has been set.
-func (o *Web3TransactionReceipt) GetBlockNumberOk() (*float32, bool) {
+func (o *Web3TransactionReceipt) GetBlockNumberOk() (*Numbers, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -174,14 +174,14 @@ func (o *Web3TransactionReceipt) GetBlockNumberOk() (*float32, bool) {
 }
 
 // SetBlockNumber sets field value
-func (o *Web3TransactionReceipt) SetBlockNumber(v float32) {
+func (o *Web3TransactionReceipt) SetBlockNumber(v Numbers) {
 	o.BlockNumber = v
 }
 
 // GetGasUsed returns the GasUsed field value
-func (o *Web3TransactionReceipt) GetGasUsed() float32 {
+func (o *Web3TransactionReceipt) GetGasUsed() Numbers {
 	if o == nil {
-		var ret float32
+		var ret Numbers
 		return ret
 	}
 
@@ -190,7 +190,7 @@ func (o *Web3TransactionReceipt) GetGasUsed() float32 {
 
 // GetGasUsedOk returns a tuple with the GasUsed field value
 // and a boolean to check if the value has been set.
-func (o *Web3TransactionReceipt) GetGasUsedOk() (*float32, bool) {
+func (o *Web3TransactionReceipt) GetGasUsedOk() (*Numbers, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -198,50 +198,40 @@ func (o *Web3TransactionReceipt) GetGasUsedOk() (*float32, bool) {
 }
 
 // SetGasUsed sets field value
-func (o *Web3TransactionReceipt) SetGasUsed(v float32) {
+func (o *Web3TransactionReceipt) SetGasUsed(v Numbers) {
 	o.GasUsed = v
 }
 
-// GetContractAddress returns the ContractAddress field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Web3TransactionReceipt) GetContractAddress() string {
-	if o == nil || IsNil(o.ContractAddress.Get()) {
-		var ret string
+// GetContractAddress returns the ContractAddress field value if set, zero value otherwise.
+func (o *Web3TransactionReceipt) GetContractAddress() Bytes {
+	if o == nil || IsNil(o.ContractAddress) {
+		var ret Bytes
 		return ret
 	}
-	return *o.ContractAddress.Get()
+	return *o.ContractAddress
 }
 
 // GetContractAddressOk returns a tuple with the ContractAddress field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Web3TransactionReceipt) GetContractAddressOk() (*string, bool) {
-	if o == nil {
+func (o *Web3TransactionReceipt) GetContractAddressOk() (*Bytes, bool) {
+	if o == nil || IsNil(o.ContractAddress) {
 		return nil, false
 	}
-	return o.ContractAddress.Get(), o.ContractAddress.IsSet()
+	return o.ContractAddress, true
 }
 
 // HasContractAddress returns a boolean if a field has been set.
 func (o *Web3TransactionReceipt) HasContractAddress() bool {
-	if o != nil && o.ContractAddress.IsSet() {
+	if o != nil && !IsNil(o.ContractAddress) {
 		return true
 	}
 
 	return false
 }
 
-// SetContractAddress gets a reference to the given NullableString and assigns it to the ContractAddress field.
-func (o *Web3TransactionReceipt) SetContractAddress(v string) {
-	o.ContractAddress.Set(&v)
-}
-// SetContractAddressNil sets the value for ContractAddress to be an explicit nil
-func (o *Web3TransactionReceipt) SetContractAddressNil() {
-	o.ContractAddress.Set(nil)
-}
-
-// UnsetContractAddress ensures that no value is present for ContractAddress, not even an explicit nil
-func (o *Web3TransactionReceipt) UnsetContractAddress() {
-	o.ContractAddress.Unset()
+// SetContractAddress gets a reference to the given Bytes and assigns it to the ContractAddress field.
+func (o *Web3TransactionReceipt) SetContractAddress(v Bytes) {
+	o.ContractAddress = &v
 }
 
 // GetFrom returns the From field value
@@ -308,8 +298,8 @@ func (o Web3TransactionReceipt) ToMap() (map[string]interface{}, error) {
 	toSerialize["blockHash"] = o.BlockHash
 	toSerialize["blockNumber"] = o.BlockNumber
 	toSerialize["gasUsed"] = o.GasUsed
-	if o.ContractAddress.IsSet() {
-		toSerialize["contractAddress"] = o.ContractAddress.Get()
+	if !IsNil(o.ContractAddress) {
+		toSerialize["contractAddress"] = o.ContractAddress
 	}
 	toSerialize["from"] = o.From
 	toSerialize["to"] = o.To

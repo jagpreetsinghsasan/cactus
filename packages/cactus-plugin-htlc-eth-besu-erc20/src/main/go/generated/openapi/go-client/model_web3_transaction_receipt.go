@@ -19,9 +19,9 @@ var _ MappedNullable = &Web3TransactionReceipt{}
 
 // Web3TransactionReceipt struct for Web3TransactionReceipt
 type Web3TransactionReceipt struct {
-	Status bool `json:"status"`
-	TransactionHash string `json:"transactionHash"`
-	TransactionIndex float32 `json:"transactionIndex"`
+	Status Numbers `json:"status"`
+	TransactionHash Bytes `json:"transactionHash"`
+	TransactionIndex Numbers `json:"transactionIndex"`
 	BlockHash string `json:"blockHash"`
 	BlockNumber float32 `json:"blockNumber"`
 	GasUsed float32 `json:"gasUsed"`
@@ -37,7 +37,7 @@ type _Web3TransactionReceipt Web3TransactionReceipt
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewWeb3TransactionReceipt(status bool, transactionHash string, transactionIndex float32, blockHash string, blockNumber float32, gasUsed float32, from string, to string) *Web3TransactionReceipt {
+func NewWeb3TransactionReceipt(status Numbers, transactionHash Bytes, transactionIndex Numbers, blockHash string, blockNumber float32, gasUsed float32, from string, to string) *Web3TransactionReceipt {
 	this := Web3TransactionReceipt{}
 	this.Status = status
 	this.TransactionHash = transactionHash
@@ -59,9 +59,9 @@ func NewWeb3TransactionReceiptWithDefaults() *Web3TransactionReceipt {
 }
 
 // GetStatus returns the Status field value
-func (o *Web3TransactionReceipt) GetStatus() bool {
+func (o *Web3TransactionReceipt) GetStatus() Numbers {
 	if o == nil {
-		var ret bool
+		var ret Numbers
 		return ret
 	}
 
@@ -70,7 +70,7 @@ func (o *Web3TransactionReceipt) GetStatus() bool {
 
 // GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
-func (o *Web3TransactionReceipt) GetStatusOk() (*bool, bool) {
+func (o *Web3TransactionReceipt) GetStatusOk() (*Numbers, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -78,14 +78,14 @@ func (o *Web3TransactionReceipt) GetStatusOk() (*bool, bool) {
 }
 
 // SetStatus sets field value
-func (o *Web3TransactionReceipt) SetStatus(v bool) {
+func (o *Web3TransactionReceipt) SetStatus(v Numbers) {
 	o.Status = v
 }
 
 // GetTransactionHash returns the TransactionHash field value
-func (o *Web3TransactionReceipt) GetTransactionHash() string {
+func (o *Web3TransactionReceipt) GetTransactionHash() Bytes {
 	if o == nil {
-		var ret string
+		var ret Bytes
 		return ret
 	}
 
@@ -94,7 +94,7 @@ func (o *Web3TransactionReceipt) GetTransactionHash() string {
 
 // GetTransactionHashOk returns a tuple with the TransactionHash field value
 // and a boolean to check if the value has been set.
-func (o *Web3TransactionReceipt) GetTransactionHashOk() (*string, bool) {
+func (o *Web3TransactionReceipt) GetTransactionHashOk() (*Bytes, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -102,14 +102,14 @@ func (o *Web3TransactionReceipt) GetTransactionHashOk() (*string, bool) {
 }
 
 // SetTransactionHash sets field value
-func (o *Web3TransactionReceipt) SetTransactionHash(v string) {
+func (o *Web3TransactionReceipt) SetTransactionHash(v Bytes) {
 	o.TransactionHash = v
 }
 
 // GetTransactionIndex returns the TransactionIndex field value
-func (o *Web3TransactionReceipt) GetTransactionIndex() float32 {
+func (o *Web3TransactionReceipt) GetTransactionIndex() Numbers {
 	if o == nil {
-		var ret float32
+		var ret Numbers
 		return ret
 	}
 
@@ -118,7 +118,7 @@ func (o *Web3TransactionReceipt) GetTransactionIndex() float32 {
 
 // GetTransactionIndexOk returns a tuple with the TransactionIndex field value
 // and a boolean to check if the value has been set.
-func (o *Web3TransactionReceipt) GetTransactionIndexOk() (*float32, bool) {
+func (o *Web3TransactionReceipt) GetTransactionIndexOk() (*Numbers, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -126,7 +126,7 @@ func (o *Web3TransactionReceipt) GetTransactionIndexOk() (*float32, bool) {
 }
 
 // SetTransactionIndex sets field value
-func (o *Web3TransactionReceipt) SetTransactionIndex(v float32) {
+func (o *Web3TransactionReceipt) SetTransactionIndex(v Numbers) {
 	o.TransactionIndex = v
 }
 

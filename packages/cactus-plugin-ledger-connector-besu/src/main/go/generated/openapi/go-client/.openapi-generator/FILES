@@ -9,7 +9,8 @@ go.sum
 model_backing_ledger_unavailable_error.go
 model_besu_private_transaction_config.go
 model_besu_transaction_config.go
-model_besu_transaction_config_to.go
+model_besu_transaction_config_data.go
+model_bytes.go
 model_consistency_strategy.go
 model_deploy_contract_solidity_bytecode_no_keychain_v1_request.go
 model_deploy_contract_solidity_bytecode_v1_request.go
@@ -30,6 +31,7 @@ model_get_transaction_v1_request.go
 model_get_transaction_v1_response.go
 model_invoke_contract_v1_request.go
 model_invoke_contract_v1_response.go
+model_numbers.go
 model_receipt_type.go
 model_run_transaction_request.go
 model_run_transaction_response.go

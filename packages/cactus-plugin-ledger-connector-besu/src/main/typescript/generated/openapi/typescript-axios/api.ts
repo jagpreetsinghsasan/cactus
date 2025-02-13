@@ -71,16 +71,16 @@ export interface BesuTransactionConfig {
     'rawTransaction'?: string;
     /**
      * 
-     * @type {Web3BlockHeaderTimestamp}
+     * @type {string}
      * @memberof BesuTransactionConfig
      */
-    'from'?: Web3BlockHeaderTimestamp;
+    'from'?: string;
     /**
      * 
-     * @type {BesuTransactionConfigTo}
+     * @type {string}
      * @memberof BesuTransactionConfig
      */
-    'to'?: BesuTransactionConfigTo;
+    'to'?: string;
     /**
      * 
      * @type {Web3BlockHeaderTimestamp}
@@ -107,16 +107,22 @@ export interface BesuTransactionConfig {
     'nonce'?: number;
     /**
      * 
-     * @type {BesuTransactionConfigTo}
+     * @type {BesuTransactionConfigData}
      * @memberof BesuTransactionConfig
      */
-    'data'?: BesuTransactionConfigTo;
+    'data'?: BesuTransactionConfigData;
 }
 /**
- * @type BesuTransactionConfigTo
+ * @type BesuTransactionConfigData
  * @export
  */
-export type BesuTransactionConfigTo = string;
+export type BesuTransactionConfigData = string;
+
+/**
+ * @type Bytes
+ * @export
+ */
+export type Bytes = Uint8Array | string;
 
 /**
  * 
@@ -840,6 +846,12 @@ export interface InvokeContractV1Response {
     'success': boolean;
 }
 /**
+ * @type Numbers
+ * @export
+ */
+export type Numbers = BigInt | number | string;
+
+/**
  * Enumerates the possible types of receipts that can be waited for by someone or something that has requested the execution of a transaction on a ledger.
  * @export
  * @enum {string}
@@ -1316,46 +1328,46 @@ export interface Web3TransactionReceipt {
 
     /**
      * 
-     * @type {boolean}
+     * @type {Numbers}
      * @memberof Web3TransactionReceipt
      */
-    'status': boolean;
+    'status': Numbers;
     /**
      * 
-     * @type {string}
+     * @type {Bytes}
      * @memberof Web3TransactionReceipt
      */
-    'transactionHash': string;
+    'transactionHash': Bytes;
     /**
      * 
-     * @type {number}
+     * @type {Numbers}
      * @memberof Web3TransactionReceipt
      */
-    'transactionIndex': number;
+    'transactionIndex': Numbers;
     /**
      * 
-     * @type {string}
+     * @type {Bytes}
      * @memberof Web3TransactionReceipt
      */
-    'blockHash': string;
+    'blockHash': Bytes;
     /**
      * 
-     * @type {number}
+     * @type {Numbers}
      * @memberof Web3TransactionReceipt
      */
-    'blockNumber': number;
+    'blockNumber': Numbers;
     /**
      * 
-     * @type {number}
+     * @type {Numbers}
      * @memberof Web3TransactionReceipt
      */
-    'gasUsed': number;
+    'gasUsed': Numbers;
     /**
      * 
-     * @type {string}
+     * @type {Bytes}
      * @memberof Web3TransactionReceipt
      */
-    'contractAddress'?: string | null;
+    'contractAddress'?: Bytes;
     /**
      * 
      * @type {string}

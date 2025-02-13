@@ -6,12 +6,14 @@ client.go
 configuration.go
 go.mod
 go.sum
+model_bytes.go
 model_get_single_status_request.go
 model_get_status_request.go
 model_initialize_request.go
 model_invoke_contract_v1_response.go
 model_new_contract_obj.go
 model_new_contract_obj_gas.go
+model_numbers.go
 model_refund_req.go
 model_run_transaction_response.go
 model_web3_signing_credential.go

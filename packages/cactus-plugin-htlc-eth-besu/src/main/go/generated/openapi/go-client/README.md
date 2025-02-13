@@ -87,12 +87,14 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [Bytes](docs/Bytes.md)
  - [GetSingleStatusRequest](docs/GetSingleStatusRequest.md)
  - [GetStatusRequest](docs/GetStatusRequest.md)
  - [InitializeRequest](docs/InitializeRequest.md)
  - [InvokeContractV1Response](docs/InvokeContractV1Response.md)
  - [NewContractObj](docs/NewContractObj.md)
  - [NewContractObjGas](docs/NewContractObjGas.md)
+ - [Numbers](docs/Numbers.md)
  - [RefundReq](docs/RefundReq.md)
  - [RunTransactionResponse](docs/RunTransactionResponse.md)
  - [Web3SigningCredential](docs/Web3SigningCredential.md)

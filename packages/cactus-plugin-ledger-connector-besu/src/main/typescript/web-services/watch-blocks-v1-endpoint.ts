@@ -44,40 +44,41 @@ export class WatchBlocksV1Endpoint {
   public async subscribe(): Promise<void> {
     const { socket, log, web3 } = this;
     log.debug(`${WatchBlocksV1.Subscribe} => ${socket.id}`);
-    const sub = web3.eth.subscribe("newBlockHeaders", (ex, blockHeader) => {
-      log.debug("newBlockHeaders: Error=%o BlockHeader=%o", ex, blockHeader);
-      if (blockHeader) {
-        const next: WatchBlocksV1Progress = {
-          // Cast needed because somewhere between Web3 v1.5.2 and v1.6.1 they
-          // made the receiptRoot property of the BlockHeader type optional.
-          // This could be accompanied by a breaking change in their code or
-          // it could've been just a mistake in their typings that they corrected.
-          // Either way, with the next major release, we need to make it optional
-          // in our API specs as well so that they match up.
-          blockHeader: blockHeader as unknown as Web3BlockHeader,
-        };
-        socket.emit(WatchBlocksV1.Next, next);
-      }
-      if (ex) {
-        socket.emit(WatchBlocksV1.Error, ex);
-        sub.unsubscribe();
-      }
-    });
+    const sub = await web3.eth.subscribe(
+      "newBlockHeaders",
+      (ex: any, blockHeader: any) => {
+        log.debug("newBlockHeaders: Error=%o BlockHeader=%o", ex, blockHeader);
+        if (blockHeader) {
+          const next: WatchBlocksV1Progress = {
+            // Cast needed because somewhere between Web3 v1.5.2 and v1.6.1 they
+            // made the receiptRoot property of the BlockHeader type optional.
+            // This could be accompanied by a breaking change in their code or
+            // it could've been just a mistake in their typings that they corrected.
+            // Either way, with the next major release, we need to make it optional
+            // in our API specs as well so that they match up.
+            blockHeader: blockHeader as unknown as Web3BlockHeader,
+          };
+          socket.emit(WatchBlocksV1.Next, next);
+        }
+        if (ex) {
+          socket.emit(WatchBlocksV1.Error, ex);
+          sub.unsubscribe();
+        }
+      },
+    );
 
     log.debug("Subscribing to Web3 new block headers event...");
 
     socket.on("disconnect", async (reason: string) => {
       log.debug("WebSocket:disconnect reason=%o", reason);
-      sub.unsubscribe((ex: Error, success: boolean) => {
-        log.debug("Web3 unsubscribe success=%o, ex=%", success, ex);
-      });
+      sub.unsubscribe();
+      log.debug("Web3 unsubscribed");
     });
 
     socket.on(WatchBlocksV1.Unsubscribe, () => {
       log.debug(`${WatchBlocksV1.Unsubscribe}: unsubscribing Web3...`);
-      sub.unsubscribe((ex: Error, success: boolean) => {
-        log.debug("Web3 unsubscribe error=%o, success=%", ex, success);
-      });
+      sub.unsubscribe()
+        log.debug("Web3 unsubscribe");
     });
   }
 }

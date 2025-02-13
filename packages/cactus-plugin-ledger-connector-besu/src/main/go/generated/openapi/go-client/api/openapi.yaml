@@ -847,8 +847,8 @@ components:
         rawTransaction: rawTransaction
         data: null
         gas: null
-        from: null
-        to: null
+        from: from
+        to: to
         value: null
         nonce: 0.8008281904610115
         gasPrice: null
@@ -857,9 +857,9 @@ components:
           nullable: false
           type: string
         from:
-          $ref: '#/components/schemas/Web3BlockHeader_timestamp'
+          type: string
         to:
-          $ref: '#/components/schemas/BesuTransactionConfig_to'
+          type: string
         value:
           $ref: '#/components/schemas/Web3BlockHeader_timestamp'
         gas:
@@ -869,7 +869,7 @@ components:
         nonce:
           type: number
         data:
-          $ref: '#/components/schemas/BesuTransactionConfig_to'
+          $ref: '#/components/schemas/BesuTransactionConfig_data'
       type: object
     BesuPrivateTransactionConfig:
       example:
@@ -890,44 +890,44 @@ components:
       - privateFor
       - privateFrom
       type: object
+    Bytes:
+      oneOf:
+      - type: string
+      - format: Uint8Array
+        type: string
+    Numbers:
+      oneOf:
+      - type: string
+      - type: number
+      - format: bigint
+        type: string
     Web3TransactionReceipt:
       additionalProperties: true
       example:
-        blockHash: blockHash
-        gasUsed: 1.4658129805029452
-        blockNumber: 6.027456183070403
-        contractAddress: contractAddress
-        transactionIndex: 0.8008281904610115
+        blockHash: null
+        gasUsed: null
+        blockNumber: null
+        contractAddress: null
+        transactionIndex: null
         from: from
         to: to
-        transactionHash: transactionHash
-        status: true
+        transactionHash: null
+        status: null
       properties:
         status:
-          nullable: false
-          type: boolean
+          $ref: '#/components/schemas/Numbers'
         transactionHash:
-          maxLength: 66
-          minLength: 66
-          pattern: "^0x([A-Fa-f0-9]{64})$"
-          type: string
+          $ref: '#/components/schemas/Bytes'
         transactionIndex:
-          nullable: false
-          type: number
+          $ref: '#/components/schemas/Numbers'
         blockHash:
-          maxLength: 66
-          minLength: 66
-          pattern: "^0x([A-Fa-f0-9]{64})$"
-          type: string
+          $ref: '#/components/schemas/Bytes'
         blockNumber:
-          nullable: false
-          type: number
+          $ref: '#/components/schemas/Numbers'
         gasUsed:
-          nullable: false
-          type: number
+          $ref: '#/components/schemas/Numbers'
         contractAddress:
-          nullable: true
-          type: string
+          $ref: '#/components/schemas/Bytes'
         from:
           nullable: false
           type: string
@@ -956,8 +956,8 @@ components:
           rawTransaction: rawTransaction
           data: null
           gas: null
-          from: null
-          to: null
+          from: from
+          to: to
           value: null
           nonce: 0.8008281904610115
           gasPrice: null
@@ -984,15 +984,15 @@ components:
     RunTransactionResponse:
       example:
         transactionReceipt:
-          blockHash: blockHash
-          gasUsed: 1.4658129805029452
-          blockNumber: 6.027456183070403
-          contractAddress: contractAddress
-          transactionIndex: 0.8008281904610115
+          blockHash: null
+          gasUsed: null
+          blockNumber: null
+          contractAddress: null
+          transactionIndex: null
           from: from
           to: to
-          transactionHash: transactionHash
-          status: true
+          transactionHash: null
+          status: null
       properties:
         transactionReceipt:
           $ref: '#/components/schemas/Web3TransactionReceipt'
@@ -1152,15 +1152,15 @@ components:
     DeployContractSolidityBytecodeV1Response:
       example:
         transactionReceipt:
-          blockHash: blockHash
-          gasUsed: 1.4658129805029452
-          blockNumber: 6.027456183070403
-          contractAddress: contractAddress
-          transactionIndex: 0.8008281904610115
+          blockHash: null
+          gasUsed: null
+          blockNumber: null
+          contractAddress: null
+          transactionIndex: null
           from: from
           to: to
-          transactionHash: transactionHash
-          status: true
+          transactionHash: null
+          status: null
       properties:
         transactionReceipt:
           $ref: '#/components/schemas/Web3TransactionReceipt'
@@ -1256,15 +1256,15 @@ components:
     InvokeContractV1Response:
       example:
         transactionReceipt:
-          blockHash: blockHash
-          gasUsed: 1.4658129805029452
-          blockNumber: 6.027456183070403
-          contractAddress: contractAddress
-          transactionIndex: 0.8008281904610115
+          blockHash: null
+          gasUsed: null
+          blockNumber: null
+          contractAddress: null
+          transactionIndex: null
           from: from
           to: to
-          transactionHash: transactionHash
-          status: true
+          transactionHash: null
+          status: null
         callOutput: ""
         success: true
       properties:
@@ -1407,6 +1407,6 @@ components:
         external:
           additionalProperties: true
           type: object
-    BesuTransactionConfig_to:
+    BesuTransactionConfig_data:
       oneOf:
       - type: string

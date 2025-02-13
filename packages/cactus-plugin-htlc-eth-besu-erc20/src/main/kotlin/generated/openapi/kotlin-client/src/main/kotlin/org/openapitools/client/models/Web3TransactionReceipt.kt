@@ -15,6 +15,8 @@
 
 package org.openapitools.client.models
 
+import org.openapitools.client.models.Bytes
+import org.openapitools.client.models.Numbers
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -37,13 +39,13 @@ import com.squareup.moshi.JsonClass
 data class Web3TransactionReceipt (
 
     @Json(name = "status")
-    val status: kotlin.Boolean,
+    val status: Numbers,
 
     @Json(name = "transactionHash")
-    val transactionHash: kotlin.String,
+    val transactionHash: Bytes,
 
     @Json(name = "transactionIndex")
-    val transactionIndex: java.math.BigDecimal,
+    val transactionIndex: Numbers,
 
     @Json(name = "blockHash")
     val blockHash: kotlin.String,

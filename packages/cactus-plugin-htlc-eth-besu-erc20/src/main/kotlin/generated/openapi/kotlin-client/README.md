@@ -55,12 +55,14 @@ Class | Method | HTTP request | Description
 <a id="documentation-for-models"></a>
 ## Documentation for Models
 
+ - [org.openapitools.client.models.Bytes](docs/Bytes.md)
  - [org.openapitools.client.models.GetSingleStatusRequest](docs/GetSingleStatusRequest.md)
  - [org.openapitools.client.models.GetStatusRequest](docs/GetStatusRequest.md)
  - [org.openapitools.client.models.InitializeRequest](docs/InitializeRequest.md)
  - [org.openapitools.client.models.InvokeContractV1Response](docs/InvokeContractV1Response.md)
  - [org.openapitools.client.models.NewContractRequest](docs/NewContractRequest.md)
  - [org.openapitools.client.models.NewContractRequestGas](docs/NewContractRequestGas.md)
+ - [org.openapitools.client.models.Numbers](docs/Numbers.md)
  - [org.openapitools.client.models.RefundRequest](docs/RefundRequest.md)
  - [org.openapitools.client.models.RunTransactionResponse](docs/RunTransactionResponse.md)
  - [org.openapitools.client.models.Web3SigningCredential](docs/Web3SigningCredential.md)

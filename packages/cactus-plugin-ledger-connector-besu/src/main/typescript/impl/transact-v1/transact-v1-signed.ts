@@ -10,7 +10,7 @@ import {
   RunTransactionResponse,
 } from "../../generated/openapi/typescript-axios";
 import Web3 from "web3";
-import type { TransactionReceipt } from "web3-eth";
+import { TransactionReceipt } from "web3";
 import { PrometheusExporter } from "../../prometheus-exporter/prometheus-exporter";
 import { setTimeout } from "timers/promises";
 
@@ -48,7 +48,7 @@ export async function getTxReceipt(
     readonly logLevel: LogLevelDesc;
   },
   request: RunTransactionRequest,
-  txPoolReceipt: TransactionReceipt,
+  txPoolReceipt: TransactionReceipt ,
 ): Promise<RunTransactionResponse> {
   const fnTag = `getTxReceipt()`;
 
@@ -98,7 +98,7 @@ export async function getTxReceipt(
 
 export async function pollForTxReceipt(
   ctx: { readonly web3: Web3; readonly logLevel: LogLevelDesc },
-  txHash: string,
+  txHash: string | Uint8Array,
   consistencyStrategy: ConsistencyStrategy,
 ): Promise<TransactionReceipt> {
   const fnTag = `pollForTxReceipt()`;
@@ -109,7 +109,7 @@ export async function pollForTxReceipt(
   let txReceipt;
   let timedOut = false;
   let tries = 0;
-  let confirmationCount = 0;
+  let confirmationCount = 0n;
   const timeoutMs = consistencyStrategy.timeoutMs || Number.MAX_SAFE_INTEGER;
   const startedAt = new Date();
 
@@ -132,7 +132,7 @@ export async function pollForTxReceipt(
     }
 
     const latestBlockNo = await ctx.web3.eth.getBlockNumber();
-    confirmationCount = latestBlockNo - txReceipt.blockNumber;
+    confirmationCount = latestBlockNo - BigInt(txReceipt.blockNumber);
   } while (confirmationCount >= consistencyStrategy.blockConfirmations);
 
   if (!txReceipt) {

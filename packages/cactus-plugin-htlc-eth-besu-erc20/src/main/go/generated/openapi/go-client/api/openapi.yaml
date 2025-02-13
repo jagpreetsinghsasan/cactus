@@ -473,30 +473,36 @@ components:
       required:
       - type
       type: object
+    Numbers:
+      oneOf:
+      - type: string
+      - type: number
+      - format: bigint
+        type: string
+    Bytes:
+      oneOf:
+      - type: string
+      - format: Uint8Array
+        type: string
     Web3TransactionReceipt:
       additionalProperties: true
       example:
         blockHash: blockHash
-        gasUsed: 1.4658129805029452
-        blockNumber: 6.027456183070403
+        gasUsed: 6.027456183070403
+        blockNumber: 0.8008281904610115
         contractAddress: contractAddress
-        transactionIndex: 0.8008281904610115
+        transactionIndex: null
         from: from
         to: to
-        transactionHash: transactionHash
-        status: true
+        transactionHash: null
+        status: null
       properties:
         status:
-          nullable: false
-          type: boolean
+          $ref: '#/components/schemas/Numbers'
         transactionHash:
-          maxLength: 66
-          minLength: 66
-          pattern: "^0x([A-Fa-f0-9]{64})$"
-          type: string
+          $ref: '#/components/schemas/Bytes'
         transactionIndex:
-          nullable: false
-          type: number
+          $ref: '#/components/schemas/Numbers'
         blockHash:
           maxLength: 66
           minLength: 66
@@ -531,14 +537,14 @@ components:
       example:
         transactionReceipt:
           blockHash: blockHash
-          gasUsed: 1.4658129805029452
-          blockNumber: 6.027456183070403
+          gasUsed: 6.027456183070403
+          blockNumber: 0.8008281904610115
           contractAddress: contractAddress
-          transactionIndex: 0.8008281904610115
+          transactionIndex: null
           from: from
           to: to
-          transactionHash: transactionHash
-          status: true
+          transactionHash: null
+          status: null
       properties:
         transactionReceipt:
           $ref: '#/components/schemas/Web3TransactionReceipt'
@@ -549,14 +555,14 @@ components:
       example:
         transactionReceipt:
           blockHash: blockHash
-          gasUsed: 1.4658129805029452
-          blockNumber: 6.027456183070403
+          gasUsed: 6.027456183070403
+          blockNumber: 0.8008281904610115
           contractAddress: contractAddress
-          transactionIndex: 0.8008281904610115
+          transactionIndex: null
           from: from
           to: to
-          transactionHash: transactionHash
-          status: true
+          transactionHash: null
+          status: null
         callOutput: ""
         success: true
       properties:

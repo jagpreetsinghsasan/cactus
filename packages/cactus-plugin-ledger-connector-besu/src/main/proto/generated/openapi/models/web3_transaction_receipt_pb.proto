@@ -14,22 +14,24 @@ package org.hyperledger.cacti.plugin.ledger.connector.besu;
 
 import "google/protobuf/any.proto";
 
+import "models/bytes_pb.proto";
+import "models/numbers_pb.proto";
 
 message Web3TransactionReceiptPB {
 
-  bool status = 355610639;
+  NumbersPB status = 355610639;
 
-  string transactionHash = 188901646;
+  BytesPB transactionHash = 188901646;
 
-  float transactionIndex = 488538260;
+  NumbersPB transactionIndex = 488538260;
 
-  string blockHash = 335211324;
+  BytesPB blockHash = 335211324;
 
-  float blockNumber = 205598263;
+  NumbersPB blockNumber = 205598263;
 
-  float gasUsed = 190522826;
+  NumbersPB gasUsed = 190522826;
 
-  optional string contractAddress = 214641282;
+  BytesPB contractAddress = 214641282;
 
   string from = 3151786;
 

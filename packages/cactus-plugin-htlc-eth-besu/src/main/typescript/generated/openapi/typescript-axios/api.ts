@@ -24,6 +24,12 @@ import type { RequestArgs } from './base';
 import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError } from './base';
 
 /**
+ * @type Bytes
+ * @export
+ */
+export type Bytes = string;
+
+/**
  * Defines the parameters for retrieving the single status of the HTLC swap.
  * @export
  * @interface GetSingleStatusRequest
@@ -233,6 +239,12 @@ export interface NewContractObj {
 export type NewContractObjGas = number | string;
 
 /**
+ * @type Numbers
+ * @export
+ */
+export type Numbers = number | string;
+
+/**
  * 
  * @export
  * @interface RefundReq
@@ -389,22 +401,22 @@ export interface Web3TransactionReceipt {
 
     /**
      * 
-     * @type {boolean}
+     * @type {Numbers}
      * @memberof Web3TransactionReceipt
      */
-    'status': boolean;
+    'status': Numbers;
     /**
      * 
-     * @type {string}
+     * @type {Bytes}
      * @memberof Web3TransactionReceipt
      */
-    'transactionHash': string;
+    'transactionHash': Bytes;
     /**
      * 
-     * @type {number}
+     * @type {Numbers}
      * @memberof Web3TransactionReceipt
      */
-    'transactionIndex': number;
+    'transactionIndex': Numbers;
     /**
      * 
      * @type {string}
